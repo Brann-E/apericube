@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quel Apéricube es-tu ?</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="sa"></div><div id="sb"></div>
+<div id="wrap">
+<canvas id="c" aria-label="Scène 3D interactive"></canvas>
+<div id="pres">
+<div id="qm" role="button" aria-label="Le petit cube"></div>
+<h1 class="ttl" style="margin:0;font-weight:400">Quel Apéricube<br>es-tu ?</h1>
+<p class="lede" style="margin-bottom:0">On mesure à peu près tout aujourd’hui, mais on est passé à côté de l’essentiel. Qui on est aujourd’hui dans ces moments qui n’appartiennent ni au travail ni à nos obligations. Et où on est simplement avec les autres.</p>
+<button id="go">Entrer</button>
+</div>
+<div id="desc"></div>
+<button class="ib" id="rst" aria-label="Recommencer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8.1 8.1 0 0 0-15.5-2M4 5v4h4"/><path d="M4 13a8.1 8.1 0 0 0 15.5 2M20 19v-4h-4"/></svg></button>
+<button class="ib" id="prev" aria-label="Revenir en arrière"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M5 12l6 6M5 12l6-6"/></svg></button>
+<div class="cap" id="l0"></div><div class="cap" id="l1"></div>
+<div id="calc" role="dialog" aria-label="Détail du calcul"><button class="ib" id="calcX" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><div id="calcBody"></div></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+<script src="contenu.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
