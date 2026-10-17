@@ -14,7 +14,7 @@
 const ONGLET = 'Réponses';
 const COLONNES = ['reçu le', 'version', 'session', 'sphère', 'saveur', 'figure', 'code', 'teinte', 'delta',
   'DON', 'PRÉSENCE', 'DETTE', 'PARI', 'CONF',
-  'DON brut', 'PRÉSENCE brut', 'DETTE brut', 'PARI brut', 'CONF brut', 'réponses'];
+  'DON brut', 'PRÉSENCE brut', 'DETTE brut', 'PARI brut', 'CONF brut', 'réponses', 'commentaire'];
 
 function doPost(e) {
   const verrou = LockService.getScriptLock();
@@ -28,10 +28,15 @@ function doPost(e) {
     const classeur = SpreadsheetApp.getActiveSpreadsheet();
     const onglet = classeur.getSheetByName(ONGLET) || classeur.insertSheet(ONGLET);
     if (onglet.getLastRow() === 0) onglet.appendRow(COLONNES);
+    // onglet créé avant l'ajout du commentaire : on complète la ligne de titres
+    else if (onglet.getRange(1, COLONNES.length).getValue() === '') onglet.getRange(1, COLONNES.length).setValue(COLONNES[COLONNES.length - 1]);
+    const commentaire = String(d.commentaire || '').slice(0, 2000);
     // l'apostrophe empêche la Sheet de lire un code comme « +-+- » comme une formule
     onglet.appendRow([new Date(), d.version, d.session, d.sphere, d.saveur, d.figure, "'" + d.code, d.teinte, d.delta,
       p.DON, p.PRESENCE, p.DETTE, p.PARI, p.CONF,
-      b.DON, b.PRESENCE, b.DETTE, b.PARI, b.CONF, JSON.stringify(d.reponses)]);
+      b.DON, b.PRESENCE, b.DETTE, b.PARI, b.CONF, JSON.stringify(d.reponses),
+      // l'apostrophe empêche un commentaire commençant par = + - @ d'être exécuté comme une formule
+      commentaire ? "'" + commentaire : '']);
     return repondre({ ok: true });
   } catch (err) {
     return repondre({ ok: false, erreur: String(err && err.message || err) });
