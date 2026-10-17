@@ -2,7 +2,7 @@
 //
 // Vérifie deux choses :
 //   1. les données du site (site/contenu.js) sont identiques aux fichiers de
-//      référence (data.json, profils.json) ;
+//      référence (data.json, profils.json, couleurs-apericube.html) ;
 //   2. le calcul du site (fonction compute de site/app.js, utilisée telle quelle)
 //      donne exactement le même résultat que engine.py sur des parcours au hasard.
 //
@@ -25,6 +25,8 @@ const ecart = m => erreurs.push(m);
 const C = JSON.parse(lire('site/contenu.js').replace(/^window\.CONTENT = /, '').replace(/;\s*$/, ''));
 const D = JSON.parse(lire('data.json'));
 const P = JSON.parse(lire('profils.json'));
+const POP = JSON.parse(lire('couleurs-apericube.html').match(/const data = (\{.*\});/)[1]);
+const POP_SPHERE = { chez_les_autres: POP['Chez les autres'], chez_nous: POP['Chez nous'] };
 const SPHERES = [['autres', 'chez_les_autres'], ['nous', 'chez_nous']];
 
 // --- 1. données du site = fichiers de référence ----------------------------
@@ -69,6 +71,8 @@ for (const [cle, sphere] of SPHERES) {
     if (!q) { ecart(`${sphere} ${code} : profil absent du site`); continue; }
     if (q.sav !== v.saveur || q.fig !== v.figure) ecart(`${sphere} ${code} : ${q.sav} / ${q.fig} au lieu de ${v.saveur} / ${v.figure}`);
     if (!Array.isArray(q.teintes) || q.teintes.length !== 4) ecart(`${sphere} ${code} : il faut 4 teintes`);
+    const pop = POP_SPHERE[sphere][v.saveur];
+    if (!pop || q.col.toUpperCase() !== pop.toUpperCase()) ecart(`${sphere} ${code} : couleur ${q.col} au lieu de ${pop} (palette pop)`);
   }
 }
 const nbEcartsDonnees = erreurs.length;

@@ -2594,7 +2594,7 @@ window.CONTENT = {
             "x": "ta paix, c'est une part de toi profonde. On ne t'en déloge pas, et tu n'as aucune envie qu'on essaie."
           }
         ],
-        "col": "#E8DCA0"
+        "col": "#FFEB89"
       },
       "---+": {
         "n": 2,
@@ -2622,7 +2622,7 @@ window.CONTENT = {
             "x": "cette rigueur tranquille, c'est une colonne vertébrale. Tu ne transigeras pas dessus."
           }
         ],
-        "col": "#B9C4A0"
+        "col": "#C7E77D"
       },
       "--+-": {
         "n": 3,
@@ -2650,7 +2650,7 @@ window.CONTENT = {
             "x": "cette faim d'inédit, c'est le moteur de ton rapport au monde, ancien et tenace."
           }
         ],
-        "col": "#7B6242"
+        "col": "#EC9F3D"
       },
       "--++": {
         "n": 4,
@@ -2678,7 +2678,7 @@ window.CONTENT = {
             "x": "le goût du beau et du juste, c'est une part de ton identité, non négociable."
           }
         ],
-        "col": "#D9A24A"
+        "col": "#FFAB24"
       },
       "-+--": {
         "n": 5,
@@ -2706,7 +2706,7 @@ window.CONTENT = {
             "x": "cette présence tranchante, c'est profondément toi, et tu n'en changerais pour rien."
           }
         ],
-        "col": "#9BA88C"
+        "col": "#9ECE66"
       },
       "-+-+": {
         "n": 6,
@@ -2734,7 +2734,7 @@ window.CONTENT = {
             "x": "tenir ta position seul contre tous, c'est une colonne vertébrale. On ne te fera pas plier."
           }
         ],
-        "col": "#6F7FA8"
+        "col": "#3A68DF"
       },
       "-++-": {
         "n": 7,
@@ -2762,7 +2762,7 @@ window.CONTENT = {
             "x": "observer avant de donner, c'est une manière d'être qui te définit en profondeur."
           }
         ],
-        "col": "#8C9A54"
+        "col": "#CDEC50"
       },
       "-+++": {
         "n": 8,
@@ -2790,7 +2790,7 @@ window.CONTENT = {
             "x": "ce goût de secouer avec style, c'est une part de toi dont tu ne te déferais pas."
           }
         ],
-        "col": "#A83E2C"
+        "col": "#FF593D"
       },
       "+---": {
         "n": 9,
@@ -2818,7 +2818,7 @@ window.CONTENT = {
             "x": "ce soin invisible, c'est le fond de qui tu es. Tu le ferais même épuisé."
           }
         ],
-        "col": "#EDE6D2"
+        "col": "#FFE599"
       },
       "+--+": {
         "n": 10,
@@ -2846,7 +2846,7 @@ window.CONTENT = {
             "x": "prendre soin en faisant tourner les choses, c'est ta façon d'aimer, chevillée au corps."
           }
         ],
-        "col": "#A8C08A"
+        "col": "#ADEF5B"
       },
       "+-+-": {
         "n": 11,
@@ -2874,7 +2874,7 @@ window.CONTENT = {
             "x": "relier, ouvrir, faire circuler, c'est profondément ta façon d'être au monde."
           }
         ],
-        "col": "#A98763"
+        "col": "#E88F30"
       },
       "+-++": {
         "n": 12,
@@ -2902,7 +2902,7 @@ window.CONTENT = {
             "x": "faire découvrir, entraîner sans abandonner personne, c'est une vocation profonde."
           }
         ],
-        "col": "#D9603A"
+        "col": "#FF501A"
       },
       "++--": {
         "n": 13,
@@ -2930,7 +2930,7 @@ window.CONTENT = {
             "x": "cette générosité expansive, c'est le cœur de qui tu es. Tu donnes en existant."
           }
         ],
-        "col": "#EFB4B0"
+        "col": "#FF9F99"
       },
       "++-+": {
         "n": 14,
@@ -2958,7 +2958,7 @@ window.CONTENT = {
             "x": "mener pour que tout le monde aille bien, c'est ta façon de donner, chevillée au corps."
           }
         ],
-        "col": "#B06A4F"
+        "col": "#FC5B1D"
       },
       "+++-": {
         "n": 15,
@@ -2986,7 +2986,7 @@ window.CONTENT = {
             "x": "ce besoin d'horizon et de nouveau, c'est le moteur de ta vie entière."
           }
         ],
-        "col": "#6E7F3A"
+        "col": "#C7FB2A"
       },
       "++++": {
         "n": 16,
@@ -3014,7 +3014,7 @@ window.CONTENT = {
             "x": "ce feu que tu donnes aux autres, c'est ta nature même, indéfectible et sans retour en arrière."
           }
         ],
-        "col": "#8E2F22"
+        "col": "#FF361A"
       }
     },
     "chez_nous": {
@@ -3044,7 +3044,7 @@ window.CONTENT = {
             "x": "même avec ta bande, tu restes un électron, présent mais jamais tout à fait rangé."
           }
         ],
-        "col": "#F0E7CE"
+        "col": "#FFE499"
       },
       "---+": {
         "n": 18,
@@ -3072,7 +3072,7 @@ window.CONTENT = {
             "x": "tu gardes tes critères à toi, même quand ils te mettent un peu à part."
           }
         ],
-        "col": "#D9A38A"
+        "col": "#FF9564"
       },
       "--+-": {
         "n": 19,
@@ -3100,7 +3100,7 @@ window.CONTENT = {
             "x": "tu vas chercher ailleurs ce que le groupe ne t'apporte pas, sans t'en cacher."
           }
         ],
-        "col": "#7A7A88"
+        "col": "#6363B5"
       },
       "--++": {
         "n": 20,
@@ -3128,7 +3128,7 @@ window.CONTENT = {
             "x": "tu gardes tes exigences, quitte à les vivre en dehors du cercle."
           }
         ],
-        "col": "#4A4038"
+        "col": "#A96936"
       },
       "-+--": {
         "n": 21,
@@ -3156,7 +3156,7 @@ window.CONTENT = {
             "x": "tu dis ce que tu penses où que tu sois, sans te couler dans aucun moule."
           }
         ],
-        "col": "#6FA045"
+        "col": "#97FF3D"
       },
       "-+-+": {
         "n": 22,
@@ -3184,7 +3184,7 @@ window.CONTENT = {
             "x": "tu ne plies devant aucun groupe, tes convictions passent avant l'appartenance."
           }
         ],
-        "col": "#96261F"
+        "col": "#FF2E20"
       },
       "-++-": {
         "n": 23,
@@ -3212,7 +3212,7 @@ window.CONTENT = {
             "x": "tu es partout et nulle part, aucun groupe ne te contient tout entier."
           }
         ],
-        "col": "#D4633C"
+        "col": "#FF541A"
       },
       "-+++": {
         "n": 24,
@@ -3240,7 +3240,7 @@ window.CONTENT = {
             "x": "tu ne te ranges sous aucune bannière, pas même celle de tes amis."
           }
         ],
-        "col": "#8E4A2E"
+        "col": "#FF6829"
       },
       "+---": {
         "n": 25,
@@ -3268,7 +3268,7 @@ window.CONTENT = {
             "x": "ton attention va à qui en a besoin, quel que soit le groupe."
           }
         ],
-        "col": "#C97A76"
+        "col": "#FF4940"
       },
       "+--+": {
         "n": 26,
@@ -3296,7 +3296,7 @@ window.CONTENT = {
             "x": "tu aides à faire tenir les choses sans t'attacher à un cercle en particulier."
           }
         ],
-        "col": "#D9BC6A"
+        "col": "#FFCE44"
       },
       "+-+-": {
         "n": 27,
@@ -3324,7 +3324,7 @@ window.CONTENT = {
             "x": "tu es un pont entre des cercles, sans vraiment appartenir à aucun."
           }
         ],
-        "col": "#C94436"
+        "col": "#FF2F1A"
       },
       "+-++": {
         "n": 28,
@@ -3352,7 +3352,7 @@ window.CONTENT = {
             "x": "ta générosité ne connaît pas les frontières des groupes."
           }
         ],
-        "col": "#E6D5B8"
+        "col": "#FFD999"
       },
       "++--": {
         "n": 29,
@@ -3380,7 +3380,7 @@ window.CONTENT = {
             "x": "tu réchauffes tous les groupes que tu croises, sans en élire un seul."
           }
         ],
-        "col": "#C9A24D"
+        "col": "#FFB71A"
       },
       "++-+": {
         "n": 30,
@@ -3408,7 +3408,7 @@ window.CONTENT = {
             "x": "tu mènes partout où tu passes, sans te lier à un seul équipage."
           }
         ],
-        "col": "#E3C98A"
+        "col": "#FFD56E"
       },
       "+++-": {
         "n": 31,
@@ -3436,7 +3436,7 @@ window.CONTENT = {
             "x": "tu explores avec qui veut te suivre, sans attendre que ce soit toujours les mêmes."
           }
         ],
-        "col": "#4F6B3A"
+        "col": "#78E823"
       },
       "++++": {
         "n": 32,
@@ -3464,7 +3464,7 @@ window.CONTENT = {
             "x": "tu brûles pour tous et pour personne en particulier, insaisissable et total."
           }
         ],
-        "col": "#6B1810"
+        "col": "#D71300"
       }
     }
   },
