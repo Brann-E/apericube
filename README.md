@@ -1,6 +1,6 @@
 # Quel Apéricube es-tu ?
 
-**Le site : https://brann-e.github.io/apericube/**
+**Le site : https://apericube.netlify.app**
 
 Un petit jeu à faire sur son téléphone. On traverse des scènes de vie sociale (une soirée où l'on ne connaît personne, un train en panne, un apéro avec la bande, un déménagement entre potes…), on fait des choix, et on reçoit à la fin une **saveur d'Apéricube**, un nom de figure et un portrait. C'est léger, c'est fait pour rire et se partager entre amis.
 
@@ -186,10 +186,7 @@ node outils/verifier.js
 
 Le test vérifie que les données du site sont identiques à `data.json`, `profils.json` et à la palette ; que le calcul du site donne exactement le même résultat qu'`engine.py` sur 1 000 parcours au hasard par sphère ; et que les réponses envoyées à la Google Sheet sont exactement celles du parcours. Il demande Node et Python.
 
-**Publier** : chaque push sur `main` relance ce test, puis publie `site/` **seulement si le test passe** :
-
-- sur **Netlify**, réglé par [`netlify.toml`](netlify.toml) ;
-- sur **GitHub Pages**, réglé par [`.github/workflows/publier.yml`](.github/workflows/publier.yml).
+**Publier** : chaque push sur `main` est publié par **Netlify**, qui relance d'abord ce test et ne publie `site/` **que s'il passe** (voir [`netlify.toml`](netlify.toml)). GitHub relance aussi le test à chaque push (voir [`.github/workflows/tester.yml`](.github/workflows/tester.yml)), pour que le résultat soit visible sur la page du dépôt.
 
 **Changer les questions ou les poids** : penser à changer `version` dans `site/envoi.js`, pour savoir avec quelle version du questionnaire chaque ligne a été produite.
 
