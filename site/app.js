@@ -50,9 +50,9 @@ const FAMILLES=[['#3A68DF','#6363B5'],['#FF4940','#FF593D','#D71300'],['#FF541A'
 const TIRAGE=(()=>{const f=[...FAMILLES].sort(()=>Math.random()-0.5);const un=c=>c[Math.floor(Math.random()*c.length)];return [un(f[0]),un(f[1])];})();
 const SPH=[
 {key:'chez_les_autres',name:'Chez les autres',col:TIRAGE[0],lines:['Chez les','autres'],sub:'avec ceux que tu ne<br>connais pas encore',x:-0.88,lean:0.42,
- seq:[{k:'accueil'},...sceneItems(C.autres,'Chez les autres'),{k:'res1'}]},
+ seq:[{k:'accueil'},...sceneItems(C.autres,'Chez les autres'),{k:'res1'},{k:'retour'},{k:'merci'}]},
 {key:'chez_nous',name:'Chez nous',col:TIRAGE[1],lines:['Chez','nous'],sub:'avec ceux qui te<br>connaissent par cœur',x:0.88,lean:-0.3,
- seq:[...ONB,{k:'accueil'},...sceneItems(C.nous,'Chez nous'),{k:'res1'}]}];
+ seq:[...ONB,{k:'accueil'},...sceneItems(C.nous,'Chez nous'),{k:'res1'},{k:'retour'},{k:'merci'}]}];
 SPH.forEach(s=>{s.c=popc(s.col);s.read=s.c.clone().lerp(new THREE.Color('#ffffff'),0.22);});
 /* ---------- moteur de calcul ---------- */
 function compute(si){const s=SPH[si],c=cubes[si],aw=C.meta.aw;const pos={DON:0,PRESENCE:0,DETTE:0,PARI:0,CONF:0};const eng=[];
@@ -82,7 +82,7 @@ const faces=AX.map(n=>{const cv=document.createElement('canvas');cv.width=cv.hei
 const dec=new THREE.Mesh(new THREE.PlaneGeometry(DEC,DEC),new THREE.MeshBasicMaterial({map:tex,transparent:true,depthWrite:false,toneMapped:false,fog:false,polygonOffset:true,polygonOffsetFactor:-2}));m.add(dec);
 return {cv,ctx,tex,dec,n,rects:[],op:0};});scene.add(m);return {m,mat,faces,ans:{},result:null,done:false};});
 function homeColor(i){const c=cubes[i];return c.result?popc(c.result.prof.col):SPH[i].c;}
-function readColor(i,spk){const c=cubes[i];if(spk==='res1'&&c.result)return popc(c.result.prof.col).lerp(new THREE.Color('#ffffff'),0.4);return SPH[i].read;}
+function readColor(i,spk){const c=cubes[i];if((spk==='res1'||spk==='retour'||spk==='merci')&&c.result)return popc(c.result.prof.col).lerp(new THREE.Color('#ffffff'),0.4);return SPH[i].read;}
 function setCaption(i){const c=cubes[i];labels[i].innerHTML=c.result?('<span class="cap-saveur">'+c.result.prof.sav+'</span><br>'+c.result.prof.fig):SPH[i].sub;}
 function resetMain(c,i,full){const s=SPH[i];Object.assign(c,{cx:s.x,cy:GROUND+S/2,cz:0,cs:1,spring:0,vel:0,ry:Math.PI+s.lean,rolling:false,p:0,toReveal:true,q:new THREE.Quaternion(),qT:new THREE.Quaternion(),tw:null,front:4,hist:[],landed:false,settled:false,wv:null});
 if(full){c.revealed=false;c.ans={};c.result=null;c.done=false;}
@@ -147,7 +147,7 @@ const DIRS=['right','down','right','up'];
 function rotFor(dir,sign){const r=new THREE.Quaternion();const a=(dir==='right'||dir==='down'?-1:1)*Math.PI/2*sign;r.setFromAxisAngle(dir==='right'?new THREE.Vector3(0,1,0):new THREE.Vector3(1,0,0),a);return r;}
 /* ---------- navigation ---------- */
 function specFor(i,e){const s=SPH[i],c=cubes[i],it=s.seq[e.idx],a=c.ans[e.idx]||{};
-if(it.k==='res1'){if(!c.result)c.result=compute(i);return {k:'res1',label:'Ton Apéricube · '+s.name,r:c.result};}
+if(it.k==='res1'||it.k==='retour'||it.k==='merci'){if(!c.result)c.result=compute(i);return {k:it.k,label:s.name+'   ·   '+{res1:'Ton résultat',retour:'Tes retours',merci:'Merci'}[it.k],r:c.result};}
 if(it.k==='accueil')return {k:'accueil',label:'',sel:-1};
 if(it.k==='text')return {k:'text',label:it.label,title:it.title,paras:it.paras,coda:it.coda,cta:it.cta,scene:it.scene,numero:it.numero,total:it.total,sel:-1};
 if(e.br!=null)return {k:'q',label:it.label,s:it.br[e.br].s,o:it.br[e.br].o,sel:a.b??-1};
@@ -165,6 +165,9 @@ const ACCUEIL={chez_les_autres:{titre:'Trois scènes t\u2019attendent',promesse:
  chez_nous:{titre:'Trois scènes avec les tiens',promesse:'Ta bande, tes proches, ceux qui te connaissent par cœur : trois moments, huit choix dans chacun. Fais ce que tu ferais vraiment.'}};
 const ACCUEIL_FIN='Au bout du chemin, ta saveur d\u2019Apéricube.';
 const ENTRER_SCENE={soiree:'Pousser la porte',train:'Lever les yeux',partie:'Approcher de la table',apero:'Rejoindre la bande',weekend:'Poser ton sac',demenagement:'Retrousser tes manches'};
+/* « Le poulet grillé : convivial… » → « Convivial… » : la saveur est déjà écrite juste au-dessus */
+function sansRepetition(t){return majuscule(t.replace(/^[^:]+ : /,''));}
+function majuscule(t){return t?t[0].toUpperCase()+t.slice(1):t;}
 function entete(i){const s=SPH[i],b=el('div','f-entete'),h=el('h1');s.lines.forEach((l,k)=>{if(k)h.append(document.createElement('br'));h.append(l);});b.append(h,el('p',null,s.sub.replace(/<br>/g,' ')));return b;}
 function pips(sp){const p=el('div','f-pips');p.setAttribute('aria-label','Scène '+sp.numero+' sur '+sp.total);for(let k=1;k<=sp.total;k++)p.append(el('span','f-pip'+(k<sp.numero?' fait':k===sp.numero?' encours':'')));return p;}
 function construireFace(i,sp){faceEl.dataset.encre=palette(i,sp.k)===LIGHT?'claire':'sombre';faceEl.dataset.type=sp.k;
@@ -175,16 +178,19 @@ if(sp.k==='accueil'){const a=ACCUEIL[SPH[i].key];if(!sp.premier)faceCorps.append
  faceCorps.append(liste,el('p','f-note',ACCUEIL_FIN));acts.push({label:'C\u2019est parti',act:'next'});}
 else if(sp.k==='text'){if(sp.scene)faceCorps.append(pips(sp));faceCorps.append(el('h2','f-titre',sp.title));sp.paras.forEach(p=>faceCorps.append(el('p','f-recit',p)));if(sp.coda)faceCorps.append(el('p','f-coda',sp.coda));acts.push({label:ENTRER_SCENE[sp.scene]||sp.cta,act:'next'});}
 else if(sp.k==='q'){faceCorps.append(el('p','f-question',sp.s));const opts=el('div','f-options');sp.o.forEach((o,k)=>opts.append(bouton(o.t,k,sp.sel===k)));faceCorps.append(opts);}
-else if(sp.k==='res1'){const cube=el('div','f-cube');cube.setAttribute('aria-hidden','true');cube.addEventListener('click',()=>{if(tqS.hop<=0){tqS.hop=1;tqS.vel+=2.2;vib(10);}});faceCorps.append(cube);
- faceCorps.append(el('h2','f-saveur',sp.r.prof.sav),el('p','f-figure',sp.r.prof.fig),el('p','f-sline',sp.r.prof.sline||''),el('p','f-nuance-titre','Ta nuance · '+sp.r.teinte.l),el('p','f-nuance',sp.r.teinte.x));
- const portrait=el('div','f-bloc');sp.r.prof.paras.forEach(p=>portrait.append(el('p','f-portrait',p)));faceCorps.append(portrait);
- if(ENVOI_ACTIF){const retour=el('div','f-bloc');const id='retour-'+i;const titre=el('label','f-retour-titre',TEXTE_RETOUR_TITRE);titre.htmlFor=id;
-  const zone=el('textarea','f-retour');zone.id=id;zone.maxLength=2000;zone.rows=6;zone.placeholder=TEXTE_RETOUR_AIDE;zone.value=commentaires[i];zone.disabled=envoye[i];zone.addEventListener('input',()=>{commentaires[i]=zone.value;});
-  retour.append(titre,zone,el('p','f-note',TEXTE_NOTE));faceCorps.append(retour);acts.push({label:envoye[i]?TEXTE_MERCI:TEXTE_ENVOYER,act:'envoyer'});}
- acts.push({label:'Revenir aux cubes',act:'exit'});if(RECHERCHE)acts.push({label:'Voir le calcul',act:'calc'});}
+else if(sp.k==='res1'){const p=sp.r.prof,cube=el('div','f-cube');cube.setAttribute('aria-hidden','true');cube.addEventListener('click',()=>{if(tqS.hop<=0){tqS.hop=1;tqS.vel+=2.2;vib(10);}});
+ faceCorps.append(cube,el('p','f-surtitre','Tu es l\u2019apéricube'),el('h2','f-saveur',p.sav),el('p','f-figure',p.fig),el('p','f-sline',sansRepetition(p.sline||'')));
+ const nuance=el('div','f-bloc');nuance.append(el('h3','f-section','Ta nuance'),el('p','f-nuance-nom',sp.r.teinte.l),el('p','f-nuance',majuscule(sp.r.teinte.x)));
+ const portrait=el('div','f-bloc');portrait.append(el('h3','f-section','Ton portrait'));p.paras.forEach(x=>portrait.append(el('p','f-portrait',x)));faceCorps.append(nuance,portrait);
+ if(ENVOI_ACTIF)acts.push(envoye[i]?{label:TEXTE_DEJA,act:'aucun',disabled:true}:{label:TEXTE_VERS_RETOURS,act:'next'});
+ acts.push({label:TEXTE_PARTAGER,act:'partager'},{label:'Revenir aux cubes',act:'exit'});if(RECHERCHE)acts.push({label:'Voir le calcul',act:'calc'});}
+else if(sp.k==='retour'){const id='retour-'+i,titre=el('label','f-titre f-retour-titre',TEXTE_RETOUR_TITRE);titre.htmlFor=id;
+ const zone=el('textarea','f-retour');zone.id=id;zone.maxLength=2000;zone.placeholder=TEXTE_RETOUR_AIDE;zone.value=commentaires[i];zone.disabled=envoye[i];zone.addEventListener('input',()=>{commentaires[i]=zone.value;});
+ faceCorps.append(titre,zone);acts.push({label:envoye[i]?TEXTE_MERCI:TEXTE_ENVOYER,act:'envoyer',disabled:envoye[i]});}
+else if(sp.k==='merci'){faceCorps.append(el('h2','f-titre','Merci\u00a0!'),el('p','f-recit',TEXTE_MERCI_ECRAN));acts.push({label:TEXTE_PARTAGER,act:'partager'},{label:'Revenir aux cubes',act:'exit'});}
 /* sur le résultat, les boutons suivent le texte : tout défile d'un seul tenant */
 const cibleActions=sp.k==='res1'?el('div','f-actions-fin'):faceActions;if(sp.k==='res1')faceCorps.append(cibleActions);
-acts.forEach(a=>{const b=bouton(a.label,a.act,false);if(a.act==='envoyer'&&envoye[i])b.disabled=true;cibleActions.append(b);});}
+acts.forEach(a=>{const b=bouton(a.label,a.act,false);if(a.disabled)b.disabled=true;cibleActions.append(b);});}
 function afficherFace(){const {i,sp}=faceAttente;faceAttente=null;construireFace(i,sp);faceEl.classList.add('on');
 /* le petit cube de l'accueil revient sur le résultat, dans la couleur de la saveur */
 if(sp.k==='res1'){tqCible=faceCorps.querySelector('.f-cube');tq.material.color.copy(popc(sp.r.prof.col));Object.assign(tqS,{fade:1,leaving:false,hop:0});tq.visible=true;}
@@ -205,8 +211,10 @@ function finirMorph(){const m=morphEl;morphEl=null;if(m)setTimeout(()=>m.remove(
 function annulerMorph(){if(morphEl){morphEl.remove();morphEl=null;}}
 /* ---------- envoi anonyme des réponses vers la Google Sheet de recherche ---------- */
 const ENVOI_ACTIF=!!(window.ENVOI&&window.ENVOI.adresse);
-const TEXTE_ENVOYER='Envoyer mes réponses, anonymement',TEXTE_MERCI='Merci, c’est envoyé',TEXTE_ECHEC='L’envoi n’a pas marché, réessayer';
-const TEXTE_NOTE='En envoyant, tu aides à améliorer le questionnaire : les scènes, les questions, et la façon dont les saveurs sont attribuées. Rien de ce qui est envoyé ne permet de savoir qui tu es, alors évite d\u2019écrire ton nom dans le commentaire.';
+const TEXTE_VERS_RETOURS='Envoyer mes résultats pour améliorer le modèle',TEXTE_DEJA='Tes résultats sont envoyés, merci';
+const TEXTE_PARTAGER='Partager mon résultat',TEXTE_COPIE='Copié, il n\u2019y a plus qu\u2019à coller';
+const TEXTE_MERCI_ECRAN='Tes résultats sont bien arrivés. Ils vont servir à affiner les scènes, les questions et la façon dont les saveurs sont attribuées.';
+const TEXTE_ENVOYER='Envoyer',TEXTE_MERCI='Merci, c’est envoyé',TEXTE_ECHEC='L’envoi n’a pas marché, réessayer';
 const TEXTE_RETOUR_TITRE='Si tu as des retours, n\u2019hésite pas une seule seconde.';
 const TEXTE_RETOUR_AIDE='Une scène qui sonne faux, une question pas claire, un résultat qui t\u2019a fait rire ou tiquer\u2026 Tout est utile.';
 const SESSION=crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2);
@@ -216,10 +224,17 @@ function donneesEnvoi(i){const r=cubes[i].result,arrondi=o=>Object.fromEntries(O
 return {version:window.ENVOI.version,session:SESSION,sphere:SPH[i].key,saveur:r.prof.sav,figure:r.prof.fig,code:r.code,teinte:r.teinte.l,delta:+r.delta.toFixed(4),positions:arrondi(r.pos),brut:arrondi(r.raw),reponses:reponsesParScene(i),commentaire:commentaires[i].trim().slice(0,2000)};}
 async function envoyer(i,b){if(envoye[i]||b.disabled)return;b.disabled=true;b.textContent='Envoi…';
 try{const rep=await fetch(window.ENVOI.adresse,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(donneesEnvoi(i))});
- const j=await rep.json();if(!j.ok)throw new Error(j.erreur||'refusé');envoye[i]=true;b.textContent=TEXTE_MERCI;const z=document.getElementById('retour-'+i);if(z)z.disabled=true;vib(12);}
+ const j=await rep.json();if(!j.ok)throw new Error(j.erreur||'refusé');envoye[i]=true;b.textContent=TEXTE_MERCI;const z=document.getElementById('retour-'+i);if(z)z.disabled=true;vib(12);
+ const c=cubes[i];if(entered&&active===i&&!c.tw){const cur=c.hist[c.hist.length-1].e;forward(i,{idx:cur.idx+1,br:null});}}
 catch(e){b.disabled=false;b.textContent=TEXTE_ECHEC;}}
+/* partage : « Je suis l'apéricube Poulet grillé, le Chaleureux… » + l'adresse du jeu */
+async function partager(i,b){const p=cubes[i].result.prof,url=location.origin+location.pathname;
+const texte='Je suis l\u2019apéricube '+p.sav+', '+p.fig.charAt(0).toLowerCase()+p.fig.slice(1)+'. Et toi, quel Apéricube es-tu\u00a0?';
+try{if(navigator.share){await navigator.share({title:'Quel Apéricube es-tu\u00a0?',text:texte,url});return;}
+ await navigator.clipboard.writeText(texte+' '+url);b.textContent=TEXTE_COPIE;setTimeout(()=>{b.textContent=TEXTE_PARTAGER;},2500);}
+catch(e){if(e&&e.name==='AbortError')return;b.textContent='Partage impossible sur cet appareil';setTimeout(()=>{b.textContent=TEXTE_PARTAGER;},2500);}}
 function choisir(act,b){const i=active;if(i<0)return;const c=cubes[i];if(c.tw||busy||!faceEl.classList.contains('on'))return;const cur=c.hist[c.hist.length-1].e;
-if(act==='exit'){exitEnter();return;}if(act==='calc'){showCalc(i);return;}if(act==='envoyer'){envoyer(i,b);return;}
+if(act==='exit'){exitEnter();return;}if(act==='calc'){showCalc(i);return;}if(act==='envoyer'){envoyer(i,b);return;}if(act==='partager'){partager(i,b);return;}
 if(act==='next'){forward(i,{idx:cur.idx+1,br:null});return;}
 busy=true;faceEl.querySelectorAll('.f-choix').forEach(x=>x.classList.toggle('sel',x===b));c.vel+=0.6;vib(8);const n=nextEntry(i,cur,act);setTimeout(()=>{busy=false;forward(i,n);},380);}
 function turnTo(i,e,dir,sign){const c=cubes[i];const to=rotFor(dir,sign).multiply(c.qT.clone());const inv=to.clone().invert();const lf=new THREE.Vector3(0,0,1).applyQuaternion(inv);const lu=new THREE.Vector3(0,1,0).applyQuaternion(inv);
