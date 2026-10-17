@@ -160,10 +160,25 @@ else if(sp.k==='q'){faceCorps.append(el('p','f-question',sp.s));const opts=el('d
 else if(sp.k==='res1'){faceCorps.append(el('h2','f-saveur',sp.r.prof.sav),el('p','f-figure',sp.r.prof.fig),el('p','f-sline',sp.r.prof.sline||''),el('p','f-nuance-titre','Ta nuance · '+sp.r.teinte.l),el('p','f-nuance',sp.r.teinte.x));
  acts.push({label:'Lire ton portrait',act:'next'},{label:'Revenir aux cubes',act:'exit'});}
 else if(sp.k==='res2'){faceCorps.append(el('h2','f-titre',sp.r.prof.fig));sp.r.prof.paras.forEach(p=>faceCorps.append(el('p','f-portrait',p)));
+ if(ENVOI_ACTIF){faceCorps.append(el('p','f-note',TEXTE_NOTE));acts.push({label:envoye[i]?TEXTE_MERCI:TEXTE_ENVOYER,act:'envoyer'});}
  acts.push({label:'Revenir aux cubes',act:'exit'});if(RECHERCHE)acts.push({label:'Voir le calcul',act:'calc'});}
-acts.forEach(a=>faceActions.append(bouton(a.label,a.act,false)));faceEl.classList.add('on');}
+acts.forEach(a=>{const b=bouton(a.label,a.act,false);if(a.act==='envoyer'&&envoye[i])b.disabled=true;faceActions.append(b);});faceEl.classList.add('on');}
+/* ---------- envoi anonyme des réponses vers la Google Sheet de recherche ---------- */
+const ENVOI_ACTIF=!!(window.ENVOI&&window.ENVOI.adresse);
+const TEXTE_ENVOYER='Envoyer mes réponses, anonymement',TEXTE_MERCI='Merci, c’est envoyé',TEXTE_ECHEC='L’envoi n’a pas marché, réessayer';
+const TEXTE_NOTE='Tes réponses aident à améliorer le questionnaire. Rien de ce qui est envoyé ne permet de savoir qui tu es.';
+const SESSION=crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2);
+const envoye=[false,false];
+function reponsesParScene(i){const liste=i?C.nous:C.autres,c=cubes[i],out={};let idx=i?ONB.length:0;
+liste.forEach(scn=>{idx++;out[scn.key]=scn.items.map(()=>{const a=c.ans[idx++]||{};return a.e1!=null?[a.e1,a.b]:a.o;});});return out;}
+function donneesEnvoi(i){const r=cubes[i].result,arrondi=o=>Object.fromEntries(Object.entries(o).map(([k,v])=>[k,+v.toFixed(4)]));
+return {version:window.ENVOI.version,session:SESSION,sphere:SPH[i].key,saveur:r.prof.sav,figure:r.prof.fig,code:r.code,teinte:r.teinte.l,delta:+r.delta.toFixed(4),positions:arrondi(r.pos),brut:arrondi(r.raw),reponses:reponsesParScene(i)};}
+async function envoyer(i,b){if(envoye[i]||b.disabled)return;b.disabled=true;b.textContent='Envoi…';
+try{const rep=await fetch(window.ENVOI.adresse,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(donneesEnvoi(i))});
+ const j=await rep.json();if(!j.ok)throw new Error(j.erreur||'refusé');envoye[i]=true;b.textContent=TEXTE_MERCI;vib(12);}
+catch(e){b.disabled=false;b.textContent=TEXTE_ECHEC;}}
 function choisir(act,b){const i=active;if(i<0)return;const c=cubes[i];if(c.tw||busy||!faceEl.classList.contains('on'))return;const cur=c.hist[c.hist.length-1].e;
-if(act==='exit'){exitEnter();return;}if(act==='calc'){showCalc(i);return;}
+if(act==='exit'){exitEnter();return;}if(act==='calc'){showCalc(i);return;}if(act==='envoyer'){envoyer(i,b);return;}
 if(act==='next'){forward(i,{idx:cur.idx+1,br:null});return;}
 busy=true;faceEl.querySelectorAll('.f-choix').forEach(x=>x.classList.toggle('sel',x===b));c.vel+=0.6;vib(8);const n=nextEntry(i,cur,act);setTimeout(()=>{busy=false;forward(i,n);},380);}
 function turnTo(i,e,dir,sign){const c=cubes[i];const to=rotFor(dir,sign).multiply(c.qT.clone());const inv=to.clone().invert();const lf=new THREE.Vector3(0,0,1).applyQuaternion(inv);const lu=new THREE.Vector3(0,1,0).applyQuaternion(inv);
@@ -182,7 +197,7 @@ later(()=>{if(entered&&active===i){orient(c,4,new THREE.Vector3(0,1,0));c.hist=[
 function exitEnter(){timers.forEach(clearTimeout);timers=[];if(active>=0){const c=cubes[active],a=active;c.tw=null;c.faces.forEach(f=>{f.op=0;});
 later(()=>{c.faces.forEach(f=>{drawClear(f);f.op=0;});orient(c,4,new THREE.Vector3(0,1,0));drawName(c.faces[4],SPH[a].lines);c.faces[4].op=1;},300);}
 entered=false;active=-1;cacherFace();calc.classList.remove('on');}
-function fullReset(){timers.forEach(clearTimeout);timers=[];entered=false;active=-1;started=false;waveT=-1;dice=[];clearInst();cubes.forEach((c,i)=>resetMain(c,i,true));
+function fullReset(){timers.forEach(clearTimeout);timers=[];entered=false;active=-1;started=false;waveT=-1;dice=[];clearInst();cubes.forEach((c,i)=>resetMain(c,i,true));envoye.fill(false);
 Object.assign(tqS,{spring:0,vel:0,hop:0,fade:1,leaving:false});tq.visible=true;pres.style.opacity=1;qmEl.style.pointerEvents='auto';desc.style.opacity=0;cacherFace();calc.classList.remove('on');}
 function showCalc(i){const r=cubes[i].result;if(!r)return;const f=v=>(v>=0?'+':'')+v.toFixed(2);
 const names={DON:'Don (retenir · donner)',PRESENCE:'Présence (s\u2019effacer · occuper)',DETTE:'Dette (rejouer · ouvrir)',PARI:'Pari (laisser venir · conditionner)',CONF:'Conformité (se conformer · circuler)'};

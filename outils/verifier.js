@@ -4,7 +4,9 @@
 //   1. les données du site (site/contenu.js) sont identiques aux fichiers de
 //      référence (data.json, profils.json, couleurs-apericube.html) ;
 //   2. le calcul du site (fonction compute de site/app.js, utilisée telle quelle)
-//      donne exactement le même résultat que engine.py sur des parcours au hasard.
+//      donne exactement le même résultat que engine.py sur des parcours au hasard ;
+//   3. les réponses envoyées à la Google Sheet (reponsesParScene) sont exactement
+//      celles du parcours, donc recalculables par engine.py.
 //
 // Usage :  node outils/verifier.js [nombre de parcours par sphère] [graine]
 // Sortie : code 0 si tout est conforme, 1 sinon.
@@ -89,11 +91,13 @@ const code = [
   extraire('function sceneItems(', 'return out;}'),
   extraire('const ONB=[', "cta:'On y va'}];"),
   extraire('function compute(si){', 'teinte:prof.teintes[ti],tsrc};}'),
+  extraire('function reponsesParScene(i){', 'return out;}'),
 ].join('\n');
-const usine = new Function('C', 'SPH', 'cubes', code + '\nreturn {sceneItems, ONB, compute};');
+const usine = new Function('C', 'SPH', 'cubes', code + '\nreturn {sceneItems, ONB, compute, reponsesParScene};');
 
 const SPH = [], cubes = [];
-const { sceneItems, ONB, compute } = usine(C, SPH, cubes);
+const { sceneItems, ONB, compute, reponsesParScene } = usine(C, SPH, cubes);
+let nbEcartsEnvoi = 0;
 SPH.push({ key: 'chez_les_autres', seq: sceneItems(C.autres, '') });
 SPH.push({ key: 'chez_nous', seq: [...ONB, ...sceneItems(C.nous, '')] });
 
@@ -122,6 +126,7 @@ SPHERES.forEach(([cle, sphere], si) => {
     });
     cubes[si] = { ans };
     const r = compute(si);
+    if (JSON.stringify(reponsesParScene(si)) !== JSON.stringify(reponses)) { nbEcartsEnvoi++; if (nbEcartsEnvoi <= 5) ecart(`${sphere} parcours ${n + 1} : réponses envoyées différentes du parcours`); }
     parcours.push({ sphere, reponses, site: { pos: r.pos, code: r.code, delta: r.delta, saveur: r.prof.sav, figure: r.prof.fig, teinte: r.prof.teintes.indexOf(r.teinte) } });
   }
 });
@@ -153,6 +158,7 @@ parcours.forEach((p, i) => {
 // --- bilan -----------------------------------------------------------------
 console.log(`Données du site / data.json + profils.json : ${nbEcartsDonnees ? nbEcartsDonnees + ' écart(s)' : 'identiques'}`);
 console.log(`Calcul du site / engine.py, ${N} parcours par sphère (graine ${GRAINE}) : ${nbEcartsCalcul ? nbEcartsCalcul + ' parcours en écart' : 'identique sur tous les parcours'}`);
+console.log(`Réponses envoyées à la Google Sheet / parcours : ${nbEcartsEnvoi ? nbEcartsEnvoi + ' parcours en écart' : 'identiques sur tous les parcours'}`);
 for (const [, sphere] of SPHERES) {
   const ps = parcours.filter(p => p.sphere === sphere);
   const codes = new Set(ps.map(p => p.site.code)), teintes = new Set(ps.map(p => p.site.teinte));

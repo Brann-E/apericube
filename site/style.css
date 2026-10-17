@@ -69,6 +69,8 @@ body{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;co
 .f-nuance-titre{margin:var(--esp-5) 0 0;font-size:var(--t-label);color:var(--f-encre2)}
 .f-nuance{margin:var(--esp-1) 0 0;font-size:var(--t-nuance);line-height:1.5}
 .f-portrait{margin:0 0 var(--esp-3);font-size:var(--t-portrait);line-height:1.55}
+.f-note{margin:var(--esp-4) 0 0;font-size:var(--t-label);font-style:italic;line-height:1.45;color:var(--f-encre2)}
+.f-choix:disabled{cursor:default;color:var(--f-encre2)}
 .f-choix{display:block;width:100%;min-height:var(--choix-h);margin:0;padding:var(--choix-pad) var(--esp-2);text-align:left;font:inherit;font-size:var(--t-choix);line-height:1.35;color:var(--f-encre);background:none;border:0;border-top:1px solid var(--f-filet);cursor:pointer;transition:background-color .2s}
 .f-choix:last-child{border-bottom:1px solid var(--f-filet)}
 .f-choix.sel{background:var(--f-sel)}
