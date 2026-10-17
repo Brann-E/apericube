@@ -1,0 +1,134 @@
+{
+ "chez_les_autres": {
+  "----": {
+   "saveur": "Emmental",
+   "figure": "L'Aise"
+  },
+  "---+": {
+   "saveur": "Échalote ciboulette",
+   "figure": "La Réserve"
+  },
+  "--+-": {
+   "saveur": "Cèpes",
+   "figure": "Le Connaisseur"
+  },
+  "--++": {
+   "saveur": "Gouda cumin",
+   "figure": "L'Esthète"
+  },
+  "-+--": {
+   "saveur": "Poivre vert",
+   "figure": "L'Étincelle"
+  },
+  "-+-+": {
+   "saveur": "Bleu",
+   "figure": "Le Clivant"
+  },
+  "-++-": {
+   "saveur": "Olive verte",
+   "figure": "Le Rapporteur"
+  },
+  "-+++": {
+   "saveur": "Chorizo",
+   "figure": "Le Trublion"
+  },
+  "+---": {
+   "saveur": "Chèvre",
+   "figure": "Le Calme"
+  },
+  "+--+": {
+   "saveur": "Ail & fines herbes",
+   "figure": "Le Liant"
+  },
+  "+-+-": {
+   "saveur": "Noix",
+   "figure": "L'Hôte discret"
+  },
+  "+-++": {
+   "saveur": "Cheddar Tex Mex",
+   "figure": "Le Guide"
+  },
+  "++--": {
+   "saveur": "Jambon",
+   "figure": "Le Bon Vivant"
+  },
+  "++-+": {
+   "saveur": "Bacon grillé",
+   "figure": "Le Meneur"
+  },
+  "+++-": {
+   "saveur": "Poivron piment jalapeño",
+   "figure": "L'Aventurier"
+  },
+  "++++": {
+   "saveur": "Chorizo piment de Cayenne",
+   "figure": "L'Incendie"
+  }
+ },
+ "chez_nous": {
+  "----": {
+   "saveur": "Camembert",
+   "figure": "Le Pilier"
+  },
+  "---+": {
+   "saveur": "Saumon aneth",
+   "figure": "Le Fidèle discret"
+  },
+  "--+-": {
+   "saveur": "Bleu & noix",
+   "figure": "Le Curieux fidèle"
+  },
+  "--++": {
+   "saveur": "Truffe",
+   "figure": "L'Exigeant"
+  },
+  "-+--": {
+   "saveur": "Basilic",
+   "figure": "Le Grain de sel"
+  },
+  "-+-+": {
+   "saveur": "Tomate piment basque",
+   "figure": "Le Caractère"
+  },
+  "-++-": {
+   "saveur": "Pizza",
+   "figure": "L'Électron"
+  },
+  "-+++": {
+   "saveur": "Sauce barbecue",
+   "figure": "Le Frondeur"
+  },
+  "+---": {
+   "saveur": "Jambon cru",
+   "figure": "Le Cœur"
+  },
+  "+--+": {
+   "saveur": "3 fromages",
+   "figure": "Le Ciment"
+  },
+  "+-+-": {
+   "saveur": "Tomate",
+   "figure": "Le Passeur"
+  },
+  "+-++": {
+   "saveur": "Saint-Jacques",
+   "figure": "Le Grand Cœur"
+  },
+  "++--": {
+   "saveur": "Poulet grillé",
+   "figure": "Le Chaleureux"
+  },
+  "++-+": {
+   "saveur": "Oignon fondant",
+   "figure": "Le Capitaine"
+  },
+  "+++-": {
+   "saveur": "Ail des ours",
+   "figure": "L'Explorateur commun"
+  },
+  "++++": {
+   "saveur": "Hot Challenge",
+   "figure": "Le Volcan"
+  }
+ }
+}

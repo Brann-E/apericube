@@ -1,0 +1,38 @@
+{
+ "chez_les_autres": {
+  "Emmental": "#E8DCA0",
+  "Échalote ciboulette": "#B9C4A0",
+  "Cèpes": "#7B6242",
+  "Gouda cumin": "#D9A24A",
+  "Poivre vert": "#9BA88C",
+  "Bleu": "#6F7FA8",
+  "Olive verte": "#8C9A54",
+  "Chorizo": "#A83E2C",
+  "Chèvre": "#EDE6D2",
+  "Ail & fines herbes": "#A8C08A",
+  "Noix": "#A98763",
+  "Cheddar Tex Mex": "#D9603A",
+  "Jambon": "#EFB4B0",
+  "Bacon grillé": "#B06A4F",
+  "Poivron piment jalapeño": "#6E7F3A",
+  "Chorizo piment de Cayenne": "#8E2F22"
+ },
+ "chez_nous": {
+  "Camembert": "#F0E7CE",
+  "Saumon aneth": "#D9A38A",
+  "Bleu & noix": "#7A7A88",
+  "Truffe": "#4A4038",
+  "Basilic": "#6FA045",
+  "Tomate piment basque": "#96261F",
+  "Pizza": "#D4633C",
+  "Sauce barbecue": "#8E4A2E",
+  "Jambon cru": "#C97A76",
+  "3 fromages": "#D9BC6A",
+  "Tomate": "#C94436",
+  "Saint-Jacques": "#E6D5B8",
+  "Poulet grillé": "#C9A24D",
+  "Oignon fondant": "#E3C98A",
+  "Ail des ours": "#4F6B3A",
+  "Hot Challenge": "#6B1810"
+ }
+}

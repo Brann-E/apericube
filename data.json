@@ -1,0 +1,2424 @@
+{
+ "meta": {
+  "projet": "Apéricube — quel apéricube es-tu",
+  "version": "hand-off v1",
+  "sphères": [
+   "chez_les_autres",
+   "chez_nous"
+  ],
+  "continuums": {
+   "DON": {
+    "pole_neg": "retenir",
+    "pole_pos": "donner"
+   },
+   "PRESENCE": {
+    "pole_neg": "s'effacer",
+    "pole_pos": "occuper"
+   },
+   "DETTE": {
+    "pole_neg": "rejouer",
+    "pole_pos": "ouvrir"
+   },
+   "PARI": {
+    "pole_neg": "laisser venir",
+    "pole_pos": "conditionner"
+   },
+   "CONF": {
+    "pole_neg": "se conformer",
+    "pole_pos": "circuler",
+    "note": "actif uniquement chez_nous"
+   }
+  },
+  "axes_de_profil": [
+   "DON",
+   "PRESENCE",
+   "DETTE",
+   "PARI"
+  ],
+  "teintes": {
+   "chez_les_autres": {
+    "source": "engagement",
+    "niveaux": [
+     "hasard",
+     "habitude",
+     "choix",
+     "ancrage"
+    ],
+    "seuils_engagement_moyen": [
+     2.333,
+     2.556,
+     2.778
+    ]
+   },
+   "chez_nous": {
+    "source": "CONF",
+    "niveaux": [
+     "très conforme",
+     "plutôt conforme",
+     "plutôt libre",
+     "très libre"
+    ],
+    "seuils": [
+     -0.466,
+     0.034,
+     0.484
+    ]
+   }
+  },
+  "pondération_arbre": 0.5,
+  "recentrage": {
+   "chez_les_autres": {
+    "DON": 0.0211,
+    "PRESENCE": -0.2464,
+    "DETTE": -0.0456,
+    "PARI": -0.1205
+   },
+   "chez_nous": {
+    "DON": -0.1957,
+    "PRESENCE": -0.4977,
+    "DETTE": -0.0381,
+    "PARI": -0.9935,
+    "CONF": 0.284
+   }
+  },
+  "pression_don_note": "le DON de chaque question de don est recentré sur la pression de sa situation (champ 'pression'), au lieu d'un offset global",
+  "note_calibrage_v2": "Recentrage recalculé avec le moteur exact (pressions du don incluses). Chez nous : DON passe de -1.76 à -0.20 (double correction supprimée), résidu de don gratuit conservé à +0.25 comme chez les autres. Teinte d'engagement : seuils aux quartiles de la moyenne des crans, au lieu d'un arrondi."
+ },
+ "chez_les_autres": {
+  "scenes": {
+   "soiree": [
+    {
+     "id": "①",
+     "continuum": "DON",
+     "role": "tronc",
+     "pression": null,
+     "options": [
+      {
+       "texte": "je repère un coin et je m'y pose, tranquille",
+       "poids": {
+        "DON": -0.6
+       }
+      },
+      {
+       "texte": "je file en cuisine aider",
+       "poids": {
+        "DON": 0.5
+       }
+      },
+      {
+       "texte": "je me greffe au groupe le plus proche",
+       "poids": {
+        "DON": 0.1,
+        "PRESENCE": 0.3
+       }
+      },
+      {
+       "texte": "je m'installe et j'observe qui est là",
+       "poids": {
+        "DON": -0.4
+       }
+      }
+     ]
+    },
+    {
+     "id": "②",
+     "continuum": "PRESENCE",
+     "role": "tronc",
+     "pression": null,
+     "options": [
+      {
+       "texte": "court + renvoie",
+       "poids": {
+        "PRESENCE": -0.5,
+        "DON": 0.2
+       }
+      },
+      {
+       "texte": "je raconte",
+       "poids": {
+        "PRESENCE": 0.6
+       }
+      },
+      {
+       "texte": "décalé",
+       "poids": {
+        "PRESENCE": 0.3,
+        "PARI": -0.2
+       }
+      },
+      {
+       "texte": "version précise longue",
+       "poids": {
+        "PRESENCE": 0.4,
+        "PARI": 0.4
+       }
+      }
+     ]
+    },
+    {
+     "id": "③",
+     "continuum": "DETTE",
+     "role": "tronc",
+     "pression": null,
+     "options": [
+      {
+       "texte": "goûte direct",
+       "poids": {
+        "DETTE": 0.6
+       }
+      },
+      {
+       "texte": "demande avant",
+       "poids": {
+        "DETTE": -0.2,
+        "PARI": 0.4
+       }
+      },
+      {
+       "texte": "ce que je connais",
+       "poids": {
+        "DETTE": -0.6
+       }
+      },
+      {
+       "texte": "si quelqu'un d'abord",
+       "poids": {
+        "DETTE": -0.2,
+        "PRESENCE": -0.3
+       }
+      }
+     ]
+    },
+    {
+     "id": "④",
+     "continuum": "PARI",
+     "role": "tronc",
+     "pression": null,
+     "options": [
+      {
+       "texte": "les silences ne me dérangent pas",
+       "poids": {
+        "PARI": -0.4
+       }
+      },
+      {
+       "texte": "je lance un sujet pour relancer",
+       "poids": {
+        "PARI": 0.2,
+        "PRESENCE": 0.3
+       }
+      },
+      {
+       "texte": "je propose qu'on fasse quelque chose",
+       "poids": {
+        "PARI": 0.3,
+        "DON": 0.2
+       }
+      },
+      {
+       "texte": "j'attends de voir qui reprend la main",
+       "poids": {
+        "PARI": 0.3,
+        "PRESENCE": -0.3
+       }
+      }
+     ]
+    },
+    {
+     "id": "⑤",
+     "continuum": "DON",
+     "role": "sonde",
+     "pression": 0.0,
+     "options": [
+      {
+       "texte": "je le laisse, il est peut-être bien seul",
+       "poids": {
+        "DON": -0.5
+       },
+       "engagement": 1
+      },
+      {
+       "texte": "je lui dis un mot en passant",
+       "poids": {
+        "DON": 0.3
+       },
+       "engagement": 2
+      },
+      {
+       "texte": "je vais m'asseoir avec lui un moment",
+       "poids": {
+        "DON": 0.6
+       },
+       "engagement": 3
+      }
+     ]
+    },
+    {
+     "id": "⑥",
+     "continuum": "DON",
+     "role": "sonde",
+     "pression": -0.2,
+     "options": [
+      {
+       "texte": "je retourne vers mes amis, j'ai fait ma part",
+       "poids": {
+        "DON": -0.4
+       },
+       "engagement": 1
+      },
+      {
+       "texte": "je m'éclipse en douceur, sans le blesser",
+       "poids": {
+        "DON": -0.2
+       },
+       "engagement": 2
+      },
+      {
+       "texte": "je reste encore un peu puis je file",
+       "poids": {
+        "DON": 0.3
+       },
+       "engagement": 3
+      },
+      {
+       "texte": "je reste tant qu'il en a besoin",
+       "poids": {
+        "DON": 0.6
+       },
+       "engagement": 4
+      }
+     ]
+    },
+    {
+     "id": "⑦",
+     "continuum": "PRESENCE",
+     "role": "sonde",
+     "pression": null,
+     "options": [
+      {
+       "texte": "je pars, fait mon temps",
+       "poids": {
+        "PRESENCE": -0.4
+       },
+       "engagement": 1
+      },
+      {
+       "texte": "encore un peu",
+       "poids": {
+        "PRESENCE": 0.2
+       },
+       "engagement": 2
+      },
+      {
+       "texte": "je reste, bien là",
+       "poids": {
+        "PRESENCE": 0.5
+       },
+       "engagement": 4
+      }
+     ]
+    },
+    {
+     "id": "⑧",
+     "continuum": null,
+     "role": "cloture",
+     "pression": null,
+     "options": [
+      {
+       "texte": "rien de spécial, c'était bien",
+       "poids": {
+        "DON": -0.2,
+        "PRESENCE": -0.2
+       }
+      },
+      {
+       "texte": "les gens que j'ai rencontrés",
+       "poids": {
+        "DON": 0.3
+       }
+      },
+      {
+       "texte": "un moment qui m'a fait rire",
+       "poids": {
+        "PARI": -0.2
+       }
+      },
+      {
+       "texte": "un truc que j'ai découvert",
+       "poids": {
+        "DETTE": 0.4
+       }
+      }
+     ]
+    }
+   ],
+   "train": [
+    {
+     "id": "①",
+     "continuum": "PARI",
+     "role": "tronc",
+     "pression": null,
+     "options": [
+      {
+       "texte": "ma bulle, écouteurs, ça ne me regarde pas",
+       "poids": {
+        "PARI": 0.4,
+        "DON": -0.3
+       }
+      },
+      {
+       "texte": "un regard, un demi-sourire au voisin",
+       "poids": {
+        "PARI": -0.2,
+        "DON": 0.2
+       }
+      },
+      {
+       "texte": "je lance à la cantonade « on est bien là… »",
+       "poids": {
+        "PARI": -0.3,
+        "PRESENCE": 0.3
+       }
+      },
+      {
+       "texte": "j'attends que quelqu'un d'autre brise la glace",
+       "poids": {
+        "PARI": 0.4,
+        "PRESENCE": -0.2
+       }
+      }
+     ]
+    },
+    {
+     "id": "②",
+     "continuum": "DETTE",
+     "role": "tronc",
+     "pression": null,
+     "options": [
+      {
+       "texte": "on fait avec",
+       "poids": {
+        "DETTE": -0.2,
+        "PARI": -0.3
+       }
+      },
+      {
+       "texte": "mon rituel d'attente",
+       "poids": {
+        "DETTE": -0.6
+       }
+      },
+      {
+       "texte": "peut-on descendre",
+       "poids": {
+        "DETTE": 0.4,
+        "PARI": 0.2
+       }
+      },
+      {
+       "texte": "plan B avec voisins",
+       "poids": {
+        "DETTE": 0.5,
+        "DON": 0.2
+       }
+      }
+     ]
+    },
+    {
+     "id": "③",
+     "continuum": "DON",
+     "role": "tronc",
+     "pression": 0.5,
+     "options": [
+      {
+       "texte": "je me lève et je vais m'en occuper",
+       "poids": {
+        "DON": 0.6
+       }
+      },
+      {
+       "texte": "j'aide depuis ma place, sans bouger",
+       "poids": {
+        "DON": 0.2
+       }
+      },
+      {
+       "texte": "je regarde si quelqu'un de mieux placé réagit",
+       "poids": {
+        "DON": -0.2,
+        "PRESENCE": -0.2
+       }
+      },
+      {
+       "texte": "je le laisse gérer, ce n'est pas à moi",
+       "poids": {
+        "DON": -0.6
+       }
+      }
+     ]
+    },
+    {
+     "id": "④",
+     "continuum": "PRESENCE",
+     "role": "tronc",
+     "pression": null,
+     "options": [
+      {
+       "texte": "si on me sollicite",
+       "poids": {
+        "PRESENCE": -0.3
+       }
+      },
+      {
+       "texte": "point de ralliement",
+       "poids": {
+        "PRESENCE": 0.6
+       }
+      },
+      {
+       "texte": "une vanne détend",
+       "poids": {
+        "PRESENCE": 0.4,
+        "PARI": -0.2
+       }
+      },
+      {
+       "texte": "en retrait j'observe",
+       "poids": {
+        "PRESENCE": -0.5
+       }
+      }
+     ]
+    },
+    {
+     "id": "⑤",
+     "continuum": "DON",
+     "role": "sonde",
+     "pression": 0.2,
+     "options": [
+      {
+       "texte": "je me retire doucement, j'ai fait ma part",
+       "poids": {
+        "DON": -0.5
+       },
+       "engagement": 1
+      },
+      {
+       "texte": "je reste, mais je pose une limite claire",
+       "poids": {
+        "DON": 0.3
+       },
+       "engagement": 3
+      },
+      {
+       "texte": "je continue tant qu'elle en a besoin",
+       "poids": {
+        "DON": 0.7
+       },
+       "engagement": 4
+      }
+     ]
+    },
+    {
+     "id": "⑥",
+     "continuum": "PARI",
+     "role": "sonde",
+     "pression": null,
+     "options": [
+      {
+       "texte": "j'attends, c'est plus raisonnable",
+       "poids": {
+        "PARI": 0.4
+       },
+       "engagement": 3
+      },
+      {
+       "texte": "je suis le groupe qui me rassure",
+       "poids": {
+        "PARI": 0.2,
+        "DON": 0.1
+       },
+       "engagement": 2
+      },
+      {
+       "texte": "je pars avec ceux qui bougent",
+       "poids": {
+        "PARI": -0.4
+       },
+       "engagement": 4
+      },
+      {
+       "texte": "je pèse le pour et le contre, je demande",
+       "poids": {
+        "PARI": 0.5
+       },
+       "engagement": 3
+      }
+     ]
+    },
+    {
+     "id": "⑦",
+     "continuum": "DETTE",
+     "role": "sonde",
+     "pression": null,
+     "options": [
+      {
+       "texte": "savoure le calme",
+       "poids": {
+        "DETTE": -0.2,
+        "PARI": -0.4
+       },
+       "engagement": 2
+      },
+      {
+       "texte": "reprends mon rituel",
+       "poids": {
+        "DETTE": -0.5
+       },
+       "engagement": 2
+      },
+      {
+       "texte": "relance conversation",
+       "poids": {
+        "DETTE": 0.3,
+        "PRESENCE": 0.3
+       },
+       "engagement": 3
+      },
+      {
+       "texte": "pense déjà à après",
+       "poids": {
+        "PARI": 0.3
+       },
+       "engagement": 2
+      }
+     ]
+    },
+    {
+     "id": "⑧",
+     "continuum": null,
+     "role": "cloture",
+     "pression": null,
+     "options": [
+      {
+       "texte": "un contretemps, c'est déjà oublié",
+       "poids": {
+        "DON": -0.2
+       }
+      },
+      {
+       "texte": "les têtes croisées",
+       "poids": {
+        "DON": 0.2
+       }
+      },
+      {
+       "texte": "un moment absurde",
+       "poids": {
+        "PARI": -0.2
+       }
+      },
+      {
+       "texte": "une conversation marquante",
+       "poids": {
+        "DON": 0.2,
+        "DETTE": 0.2
+       }
+      }
+     ]
+    }
+   ],
+   "partie": [
+    {
+     "id": "①",
+     "continuum": "PARI",
+     "role": "tronc",
+     "pression": null,
+     "options": [
+      {
+       "texte": "des règles nettes d'abord",
+       "poids": {
+        "PARI": 0.5
+       }
+      },
+      {
+       "texte": "on lance, on ajustera en jouant",
+       "poids": {
+        "PARI": -0.4
+       }
+      },
+      {
+       "texte": "comme vous voulez",
+       "poids": {
+        "PARI": -0.1,
+        "PRESENCE": -0.3
+       }
+      },
+      {
+       "texte": "ma version, je connais ce jeu",
+       "poids": {
+        "PARI": 0.3,
+        "PRESENCE": 0.3
+       }
+      }
+     ]
+    },
+    {
+     "id": "②",
+     "continuum": "DETTE",
+     "role": "tronc",
+     "pression": null,
+     "options": [
+      {
+       "texte": "prudent coups sûrs",
+       "poids": {
+        "DETTE": -0.5
+       }
+      },
+      {
+       "texte": "audacieux tout de suite",
+       "poids": {
+        "DETTE": 0.6
+       }
+      },
+      {
+       "texte": "refais ce qui a marché",
+       "poids": {
+        "DETTE": -0.4
+       }
+      },
+      {
+       "texte": "à l'instinct",
+       "poids": {
+        "DETTE": 0.2,
+        "PARI": -0.3
+       }
+      }
+     ]
+    },
+    {
+     "id": "③",
+     "continuum": "DON",
+     "role": "tronc",
+     "pression": 0.0,
+     "options": [
+      {
+       "texte": "je joue mon meilleur coup, le jeu c'est le jeu",
+       "poids": {
+        "DON": -0.5,
+        "PARI": 0.4
+       }
+      },
+      {
+       "texte": "je propose d'assouplir une règle pour lui",
+       "poids": {
+        "DON": 0.6,
+        "PARI": -0.2
+       }
+      },
+      {
+       "texte": "je le laisse s'en tirer, sans le dire",
+       "poids": {
+        "DON": 0.3,
+        "PARI": -0.5
+       }
+      },
+      {
+       "texte": "je le laisse jouer sa partie, chacun la sienne",
+       "poids": {
+        "DON": -0.4
+       }
+      }
+     ]
+    },
+    {
+     "id": "④",
+     "continuum": "PRESENCE",
+     "role": "tronc",
+     "pression": null,
+     "options": [
+      {
+       "texte": "je joue, parle peu",
+       "poids": {
+        "PRESENCE": -0.4
+       }
+      },
+      {
+       "texte": "je mène l'ambiance",
+       "poids": {
+        "PRESENCE": 0.6
+       }
+      },
+      {
+       "texte": "private joke",
+       "poids": {
+        "PRESENCE": 0.4,
+        "PARI": -0.2
+       }
+      },
+      {
+       "texte": "je regarde surtout",
+       "poids": {
+        "PRESENCE": -0.5
+       }
+      }
+     ]
+    },
+    {
+     "id": "⑤",
+     "continuum": "PARI",
+     "role": "sonde",
+     "pression": null,
+     "options": [
+      {
+       "texte": "la version qui m'arrange, c'est défendable",
+       "poids": {
+        "PARI": 0.5,
+        "DON": -0.2
+       },
+       "engagement": 2
+      },
+      {
+       "texte": "le sens le moins avantageux pour moi",
+       "poids": {
+        "PARI": -0.1,
+        "DON": 0.5
+       },
+       "engagement": 4
+      },
+      {
+       "texte": "le groupe décide, je m'y tiens",
+       "poids": {
+        "PARI": 0.1,
+        "PRESENCE": -0.2
+       },
+       "engagement": 3
+      },
+      {
+       "texte": "on rejoue le coup, on verra après",
+       "poids": {
+        "PARI": -0.2
+       },
+       "engagement": 3
+      }
+     ]
+    },
+    {
+     "id": "⑥",
+     "continuum": "DON",
+     "role": "sonde",
+     "pression": 0.0,
+     "options": [
+      {
+       "texte": "je gagne, c'est le but du jeu",
+       "poids": {
+        "DON": -0.5,
+        "PARI": 0.3
+       },
+       "engagement": 1
+      },
+      {
+       "texte": "je gagne mais je propose une revanche",
+       "poids": {
+        "DON": 0.2
+       },
+       "engagement": 3
+      },
+      {
+       "texte": "je joue un coup moins fort",
+       "poids": {
+        "DON": 0.5
+       },
+       "engagement": 4
+      },
+      {
+       "texte": "je fais durer sans le montrer",
+       "poids": {
+        "DON": 0.4,
+        "PARI": -0.4
+       },
+       "engagement": 4
+      }
+     ]
+    },
+    {
+     "id": "⑦",
+     "continuum": "DETTE",
+     "role": "sonde",
+     "pression": null,
+     "options": [
+      {
+       "texte": "on en reste là",
+       "poids": {
+        "DETTE": -0.2,
+        "PARI": -0.2
+       },
+       "engagement": 2
+      },
+      {
+       "texte": "une revanche",
+       "poids": {
+        "DETTE": -0.3
+       },
+       "engagement": 2
+      },
+      {
+       "texte": "on change de jeu",
+       "poids": {
+        "DETTE": 0.5
+       },
+       "engagement": 3
+      },
+      {
+       "texte": "les autres décident",
+       "poids": {
+        "PRESENCE": -0.3
+       },
+       "engagement": 2
+      }
+     ]
+    },
+    {
+     "id": "⑧",
+     "continuum": null,
+     "role": "cloture",
+     "pression": null,
+     "options": [
+      {
+       "texte": "un bon moment pour passer le temps",
+       "poids": {
+        "DON": -0.2
+       }
+      },
+      {
+       "texte": "les gens, l'un était marrant",
+       "poids": {
+        "DON": 0.2
+       }
+      },
+      {
+       "texte": "un fou rire",
+       "poids": {
+        "PARI": -0.2
+       }
+      },
+      {
+       "texte": "l'envie d'y rejouer",
+       "poids": {
+        "DETTE": 0.4
+       }
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "chez_nous": {
+  "scenes": {
+   "apero": [
+    {
+     "id": "①",
+     "type": "arbre",
+     "etage1": [
+      {
+       "texte": "rejoins glandeurs",
+       "poids": {
+        "DON": -0.3,
+        "PARI": -0.3
+       }
+      },
+      {
+       "texte": "cuisine",
+       "poids": {
+        "DON": 0.4,
+        "PRESENCE": 0.2
+       }
+      },
+      {
+       "texte": "tour bonjour",
+       "poids": {
+        "PRESENCE": 0.3,
+        "DON": 0.2
+       }
+      },
+      {
+       "texte": "sers+observe",
+       "poids": {
+        "PRESENCE": -0.3,
+        "PARI": 0.2
+       }
+      }
+     ],
+     "branches": {
+      "0": [
+       {
+        "texte": "tranche",
+        "poids": {
+         "PRESENCE": 0.4
+        }
+       },
+       {
+        "texte": "botte en touche",
+        "poids": {
+         "PRESENCE": -0.2,
+         "DON": 0.2
+        }
+       },
+       {
+        "texte": "parti du plus seul",
+        "poids": {
+         "DON": 0.4
+        }
+       },
+       {
+        "texte": "plus absurde",
+        "poids": {
+         "DETTE": 0.4,
+         "PRESENCE": 0.3
+        }
+       }
+      ],
+      "1": [
+       {
+        "texte": "prends la main",
+        "poids": {
+         "PRESENCE": 0.5,
+         "PARI": 0.4
+        }
+       },
+       {
+        "texte": "truc precis",
+        "poids": {
+         "DON": 0.4,
+         "PRESENCE": -0.2
+        }
+       },
+       {
+        "texte": "musique leger",
+        "poids": {
+         "PRESENCE": 0.3,
+         "DON": 0.2
+        }
+       },
+       {
+        "texte": "laisse bazar",
+        "poids": {
+         "PARI": -0.4,
+         "DON": -0.2
+        }
+       }
+      ],
+      "2": [
+       {
+        "texte": "attarde",
+        "poids": {
+         "DON": 0.5
+        }
+       },
+       {
+        "texte": "ca va toi",
+        "poids": {
+         "DON": 0.2
+        }
+       },
+       {
+        "texte": "parlera si besoin",
+        "poids": {
+         "DON": -0.4
+        }
+       },
+       {
+        "texte": "previens un proche",
+        "poids": {
+         "DON": 0.3,
+         "PARI": 0.3
+        }
+       }
+      ],
+      "3": [
+       {
+        "texte": "rassure conf",
+        "poids": {
+         "DETTE": -0.4,
+         "CONF": -0.6
+        }
+       },
+       {
+        "texte": "secouer",
+        "poids": {
+         "DETTE": 0.5,
+         "CONF": 0.6
+        }
+       },
+       {
+        "texte": "egal",
+        "poids": {
+         "PARI": -0.3
+        }
+       },
+       {
+        "texte": "tourne en rond",
+        "poids": {
+         "CONF": 0.4,
+         "DETTE": 0.2
+        }
+       }
+      ]
+     },
+     "pression": null
+    },
+    {
+     "id": "②",
+     "type": "simple",
+     "options": [
+      {
+       "texte": "je ris notre truc",
+       "poids": {
+        "DETTE": -0.5,
+        "CONF": -0.6
+       }
+      },
+      {
+       "texte": "rajoute",
+       "poids": {
+        "DETTE": -0.3,
+        "PRESENCE": 0.3
+       }
+      },
+      {
+       "texte": "encore mais souris",
+       "poids": {
+        "DETTE": 0.2
+       }
+      },
+      {
+       "texte": "lance autre chose",
+       "poids": {
+        "DETTE": 0.6,
+        "CONF": 0.4
+       }
+      }
+     ],
+     "pression": null
+    },
+    {
+     "id": "③",
+     "type": "simple",
+     "options": [
+      {
+       "texte": "sers apres",
+       "poids": {
+        "DON": 0.4
+       }
+      },
+      {
+       "texte": "sers normal",
+       "poids": {
+        "DON": 0.0
+       }
+      },
+      {
+       "texte": "garde part",
+       "poids": {
+        "DON": 0.5
+       }
+      },
+      {
+       "texte": "prends avant",
+       "poids": {
+        "DON": -0.6
+       }
+      }
+     ],
+     "pression": 0.0
+    },
+    {
+     "id": "④",
+     "type": "arbre",
+     "etage1": [
+      {
+       "texte": "range derriere leader",
+       "poids": {
+        "CONF": -0.5,
+        "PARI": -0.2
+       }
+      },
+      {
+       "texte": "defends mienne",
+       "poids": {
+        "PRESENCE": 0.4,
+        "CONF": 0.2
+       }
+      },
+      {
+       "texte": "idee qui m'arrange",
+       "poids": {
+        "PARI": 0.2,
+        "CONF": 0.3
+       }
+      },
+      {
+       "texte": "attends decante",
+       "poids": {
+        "PARI": 0.3,
+        "PRESENCE": -0.3
+       }
+      }
+     ],
+     "branches": {
+      "0": [
+       {
+        "texte": "propose relance",
+        "poids": {
+         "PARI": 0.4,
+         "PRESENCE": 0.3
+        }
+       },
+       {
+        "texte": "attends encore",
+        "poids": {
+         "PARI": 0.2,
+         "PRESENCE": -0.2
+        }
+       },
+       {
+        "texte": "reprends modif",
+        "poids": {
+         "DETTE": 0.3,
+         "PARI": 0.3
+        }
+       },
+       {
+        "texte": "rester la",
+        "poids": {
+         "DETTE": -0.3,
+         "PARI": -0.3
+        }
+       }
+      ],
+      "1": [
+       {
+        "texte": "suis bon coeur",
+        "poids": {
+         "DON": 0.3,
+         "CONF": -0.2
+        }
+       },
+       {
+        "texte": "suis reculons",
+        "poids": {
+         "CONF": -0.1
+        }
+       },
+       {
+        "texte": "derniere fois convaincre",
+        "poids": {
+         "PRESENCE": 0.4,
+         "CONF": 0.3
+        }
+       },
+       {
+        "texte": "mon truc coin",
+        "poids": {
+         "CONF": 0.4,
+         "PRESENCE": -0.2
+        }
+       }
+      ],
+      "2": [
+       {
+        "texte": "en ris",
+        "poids": {
+         "PRESENCE": 0.3
+        }
+       },
+       {
+        "texte": "defends gene",
+        "poids": {
+         "CONF": -0.3
+        }
+       },
+       {
+        "texte": "rebondis accord",
+        "poids": {
+         "DON": 0.4,
+         "PARI": 0.3
+        }
+       },
+       {
+        "texte": "hausse epaules",
+        "poids": {
+         "PARI": 0.2
+        }
+       }
+      ],
+      "3": [
+       {
+        "texte": "tranche pour tous",
+        "poids": {
+         "PARI": 0.5,
+         "PRESENCE": 0.4
+        }
+       },
+       {
+        "texte": "detend blague",
+        "poids": {
+         "PRESENCE": 0.3,
+         "DON": 0.2
+        }
+       },
+       {
+        "texte": "retrait",
+        "poids": {
+         "PARI": -0.2,
+         "PRESENCE": -0.3
+        }
+       },
+       {
+        "texte": "calme le plus agace",
+        "poids": {
+         "DON": 0.4
+        }
+       }
+      ]
+     },
+     "pression": null
+    },
+    {
+     "id": "⑤",
+     "type": "simple",
+     "options": [
+      {
+       "texte": "pars premiers",
+       "poids": {
+        "PRESENCE": -0.6
+       }
+      },
+      {
+       "texte": "reste un peu",
+       "poids": {
+        "PRESENCE": 0.2
+       }
+      },
+      {
+       "texte": "jusqu'au bout",
+       "poids": {
+        "PRESENCE": 0.5
+       }
+      },
+      {
+       "texte": "raccompagne loin",
+       "poids": {
+        "DON": 0.4
+       }
+      }
+     ],
+     "pression": 0.0
+    },
+    {
+     "id": "⑥",
+     "type": "simple",
+     "options": [
+      {
+       "texte": "parfait continue",
+       "poids": {
+        "DETTE": -0.5,
+        "CONF": -0.3
+       }
+      },
+      {
+       "texte": "relance autre",
+       "poids": {
+        "DETTE": -0.1,
+        "PRESENCE": 0.3
+       }
+      },
+      {
+       "texte": "clore bonne note",
+       "poids": {
+        "DETTE": 0.2,
+        "PARI": 0.2
+       }
+      },
+      {
+       "texte": "jamais fait",
+       "poids": {
+        "DETTE": 0.6,
+        "CONF": 0.2
+       }
+      }
+     ],
+     "pression": null
+    },
+    {
+     "id": "⑦",
+     "type": "simple",
+     "options": [
+      {
+       "texte": "accepte",
+       "poids": {
+        "DON": 0.2,
+        "DETTE": -0.2
+       }
+      },
+      {
+       "texte": "decline",
+       "poids": {
+        "DON": -0.4
+       }
+      },
+      {
+       "texte": "pour lui plaire",
+       "poids": {
+        "DON": 0.4
+       }
+      },
+      {
+       "texte": "aide ranger",
+       "poids": {
+        "DON": 0.5,
+        "PRESENCE": 0.2
+       }
+      }
+     ],
+     "pression": null
+    },
+    {
+     "id": "⑧",
+     "type": "simple",
+     "options": [
+      {
+       "texte": "cool basta",
+       "poids": {
+        "DON": -0.4,
+        "PRESENCE": -0.2
+       }
+      },
+      {
+       "texte": "moment precis",
+       "poids": {
+        "DON": 0.2
+       }
+      },
+      {
+       "texte": "relance coup",
+       "poids": {
+        "PARI": 0.2
+       }
+      },
+      {
+       "texte": "nouvelles",
+       "poids": {
+        "DON": 0.4
+       }
+      }
+     ],
+     "pression": null
+    }
+   ],
+   "weekend": [
+    {
+     "id": "①",
+     "type": "arbre",
+     "etage1": [
+      {
+       "texte": "noyau habituel",
+       "poids": {
+        "CONF": -0.6
+       }
+      },
+      {
+       "texte": "vers moins connus",
+       "poids": {
+        "CONF": 0.6,
+        "DON": 0.2
+       }
+      },
+      {
+       "texte": "intendance",
+       "poids": {
+        "DON": 0.4,
+        "PRESENCE": 0.2
+       }
+      },
+      {
+       "texte": "moment seul",
+       "poids": {
+        "PRESENCE": -0.4,
+        "PARI": 0.2
+       }
+      }
+     ],
+     "branches": {
+      "0": [
+       {
+        "texte": "place direct",
+        "poids": {
+         "DON": 0.5,
+         "CONF": 0.2
+        }
+       },
+       {
+        "texte": "laisse s'installer",
+        "poids": {
+         "DON": 0.2
+        }
+       },
+       {
+        "texte": "entre nous",
+        "poids": {
+         "DON": -0.3,
+         "CONF": -0.3
+        }
+       },
+       {
+        "texte": "fais le lien",
+        "poids": {
+         "DON": 0.4,
+         "PRESENCE": 0.3
+        }
+       }
+      ],
+      "1": [
+       {
+        "texte": "reviens",
+        "poids": {
+         "CONF": -0.6
+        }
+       },
+       {
+        "texte": "venez melange",
+        "poids": {
+         "DON": 0.4,
+         "PRESENCE": 0.3
+        }
+       },
+       {
+        "texte": "continue",
+        "poids": {
+         "CONF": 0.6
+        }
+       },
+       {
+        "texte": "navigue",
+        "poids": {
+         "CONF": 0.4,
+         "PRESENCE": 0.2
+        }
+       }
+      ],
+      "2": [
+       {
+        "texte": "continue carre",
+        "poids": {
+         "DON": 0.5,
+         "PARI": 0.3
+        }
+       },
+       {
+        "texte": "delegue",
+        "poids": {
+         "PARI": 0.5,
+         "PRESENCE": 0.3
+        }
+       },
+       {
+        "texte": "lache",
+        "poids": {
+         "DON": -0.3,
+         "PARI": -0.3
+        }
+       },
+       {
+        "texte": "signale",
+        "poids": {
+         "DON": 0.3,
+         "PARI": 0.3
+        }
+       }
+      ],
+      "3": [
+       {
+        "texte": "suis pause",
+        "poids": {
+         "CONF": -0.2,
+         "DON": 0.2
+        }
+       },
+       {
+        "texte": "arrive rythme",
+        "poids": {
+         "PARI": 0.2,
+         "CONF": 0.2
+        }
+       },
+       {
+        "texte": "reste encore",
+        "poids": {
+         "CONF": 0.4,
+         "PRESENCE": -0.3
+        }
+       },
+       {
+        "texte": "embarque a deux",
+        "poids": {
+         "DON": 0.4
+        }
+       }
+      ]
+     },
+     "pression": null
+    },
+    {
+     "id": "②",
+     "type": "simple",
+     "options": [
+      {
+       "texte": "attends orga",
+       "poids": {
+        "PRESENCE": -0.6
+       }
+      },
+      {
+       "texte": "cuisine",
+       "poids": {
+        "DON": 0.4
+       }
+      },
+      {
+       "texte": "prends main",
+       "poids": {
+        "PRESENCE": 0.6,
+        "PARI": 0.3
+       }
+      },
+      {
+       "texte": "courses",
+       "poids": {
+        "DON": 0.4,
+        "PARI": 0.2
+       }
+      }
+     ],
+     "pression": null
+    },
+    {
+     "id": "③",
+     "type": "simple",
+     "options": [
+      {
+       "texte": "laisse couler",
+       "poids": {
+        "DON": -0.6
+       }
+      },
+      {
+       "texte": "fais sans rien",
+       "poids": {
+        "DON": 0.5
+       }
+      },
+      {
+       "texte": "roulement",
+       "poids": {
+        "DON": 0.4,
+        "PARI": 0.4
+       }
+      },
+      {
+       "texte": "attends sinon jy vais",
+       "poids": {
+        "DON": 0.1
+       }
+      }
+     ],
+     "pression": 0.2
+    },
+    {
+     "id": "④",
+     "type": "simple",
+     "options": [
+      {
+       "texte": "adapte",
+       "poids": {
+        "PARI": -0.6
+       }
+      },
+      {
+       "texte": "pousse mon idee",
+       "poids": {
+        "PARI": 0.3,
+        "PRESENCE": 0.3
+       }
+      },
+      {
+       "texte": "planning concilie",
+       "poids": {
+        "PARI": 0.5,
+        "DON": 0.2
+       }
+      },
+      {
+       "texte": "groupe tranche",
+       "poids": {
+        "PARI": 0.1,
+        "PRESENCE": -0.3
+       }
+      }
+     ],
+     "pression": null
+    },
+    {
+     "id": "⑤",
+     "type": "arbre",
+     "etage1": [
+      {
+       "texte": "ceux qui font",
+       "poids": {
+        "DON": 0.5
+       }
+      },
+      {
+       "texte": "laissent faire",
+       "poids": {
+        "DON": -0.4
+       }
+      },
+      {
+       "texte": "au milieu",
+       "poids": {
+        "DON": 0.1
+       }
+      },
+      {
+       "texte": "pas compter",
+       "poids": {
+        "DON": -0.1,
+        "PARI": -0.3
+       }
+      }
+     ],
+     "branches": {
+      "0": [
+       {
+        "texte": "continue sans dire",
+        "poids": {
+         "DON": 0.5
+        }
+       },
+       {
+        "texte": "remarque gentil",
+        "poids": {
+         "DON": 0.3,
+         "PARI": 0.3
+        }
+       },
+       {
+        "texte": "a plat tourne",
+        "poids": {
+         "DON": 0.2,
+         "PARI": 0.5
+        }
+       },
+       {
+        "texte": "lache profite",
+        "poids": {
+         "DON": -0.5
+        }
+       }
+      ],
+      "1": [
+       {
+        "texte": "vise jy mets",
+        "poids": {
+         "DON": 0.4,
+         "CONF": -0.2
+        }
+       },
+       {
+        "texte": "rien chacun",
+        "poids": {
+         "DON": -0.3
+        }
+       },
+       {
+        "texte": "organise clair",
+        "poids": {
+         "PARI": 0.5,
+         "DON": 0.2
+        }
+       },
+       {
+        "texte": "rigolade",
+        "poids": {
+         "PRESENCE": 0.3,
+         "DON": 0.1
+        }
+       }
+      ],
+      "2": [
+       {
+        "texte": "soutiens roulement",
+        "poids": {
+         "PARI": 0.4,
+         "DON": 0.3
+        }
+       },
+       {
+        "texte": "naturel pas besoin",
+        "poids": {
+         "PARI": -0.3
+        }
+       },
+       {
+        "texte": "version souple",
+        "poids": {
+         "PARI": 0.3,
+         "DON": 0.2
+        }
+       },
+       {
+        "texte": "autres decident",
+        "poids": {
+         "PARI": 0.1,
+         "CONF": -0.2
+        }
+       }
+      ],
+      "3": [
+       {
+        "texte": "pas dans ca",
+        "poids": {
+         "PARI": -0.4,
+         "CONF": 0.3
+        }
+       },
+       {
+        "texte": "apaise un peu",
+        "poids": {
+         "DON": 0.4
+        }
+       },
+       {
+        "texte": "pas gacher",
+        "poids": {
+         "PRESENCE": 0.4,
+         "DON": 0.3
+        }
+       },
+       {
+        "texte": "regle ce qui coince",
+        "poids": {
+         "DON": 0.4,
+         "PARI": 0.3
+        }
+       }
+      ]
+     },
+     "pression": 0.2
+    },
+    {
+     "id": "⑥",
+     "type": "simple",
+     "options": [
+      {
+       "texte": "parfait ressemble",
+       "poids": {
+        "DETTE": -0.5,
+        "CONF": -0.6
+       }
+      },
+      {
+       "texte": "relance energie",
+       "poids": {
+        "DETTE": -0.1,
+        "PRESENCE": 0.4
+       }
+      },
+      {
+       "texte": "different",
+       "poids": {
+        "DETTE": 0.6,
+        "CONF": 0.4
+       }
+      },
+      {
+       "texte": "decroche lire",
+       "poids": {
+        "DETTE": -0.1,
+        "PRESENCE": -0.6
+       }
+      }
+     ],
+     "pression": null
+    },
+    {
+     "id": "⑦",
+     "type": "simple",
+     "options": [
+      {
+       "texte": "laisse passer",
+       "poids": {
+        "DON": -0.5
+       }
+      },
+      {
+       "texte": "detend",
+       "poids": {
+        "DON": 0.5
+       }
+      },
+      {
+       "texte": "crever abces",
+       "poids": {
+        "DON": 0.3,
+        "PARI": 0.4
+       }
+      },
+      {
+       "texte": "eloigne",
+       "poids": {
+        "DON": -0.7,
+        "PRESENCE": -0.2
+       }
+      }
+     ],
+     "pression": 0.0
+    },
+    {
+     "id": "⑧",
+     "type": "simple",
+     "options": [
+      {
+       "texte": "reposant",
+       "poids": {
+        "DON": -0.4
+       }
+      },
+      {
+       "texte": "moments gens",
+       "poids": {
+        "DON": 0.3
+       }
+      },
+      {
+       "texte": "fou rire",
+       "poids": {
+        "PARI": -0.2
+       }
+      },
+      {
+       "texte": "recommencer souffler",
+       "poids": {
+        "DETTE": 0.2
+       }
+      }
+     ],
+     "pression": null
+    }
+   ],
+   "demenagement": [
+    {
+     "id": "①",
+     "type": "arbre",
+     "etage1": [
+      {
+       "texte": "hoche tete",
+       "poids": {
+        "CONF": -0.6,
+        "PARI": 0.2
+       }
+      },
+      {
+       "texte": "on sy met ca ira",
+       "poids": {
+        "DON": 0.4,
+        "PARI": -0.2
+       }
+      },
+      {
+       "texte": "carton sans relever",
+       "poids": {
+        "DON": 0.5
+       }
+      },
+      {
+       "texte": "voir le pote",
+       "poids": {
+        "DON": 0.3,
+        "PARI": 0.3
+       }
+      }
+     ],
+     "branches": {
+      "0": [
+       {
+        "texte": "laisse filer",
+        "poids": {
+         "DON": 0.3,
+         "CONF": -0.2
+        }
+       },
+       {
+        "texte": "coupe court",
+        "poids": {
+         "DON": 0.4,
+         "PARI": 0.3
+        }
+       },
+       {
+        "texte": "embraye rale",
+        "poids": {
+         "CONF": -0.6,
+         "DETTE": -0.3
+        }
+       },
+       {
+        "texte": "vais ailleurs",
+        "poids": {
+         "PRESENCE": -0.2,
+         "DON": 0.2
+        }
+       }
+      ],
+      "1": [
+       {
+        "texte": "reste comme je suis",
+        "poids": {
+         "CONF": 0.4,
+         "PRESENCE": 0.3
+        }
+       },
+       {
+        "texte": "nuance",
+        "poids": {
+         "CONF": -0.3,
+         "DON": 0.2
+        }
+       },
+       {
+        "texte": "embarque action",
+        "poids": {
+         "DON": 0.4,
+         "PRESENCE": 0.3
+        }
+       },
+       {
+        "texte": "raler porte pas",
+        "poids": {
+         "PRESENCE": 0.4,
+         "PARI": 0.2
+        }
+       }
+      ],
+      "2": [
+       {
+        "texte": "continue exemple",
+        "poids": {
+         "DON": 0.4,
+         "PRESENCE": -0.2
+        }
+       },
+       {
+        "texte": "allez on y va",
+        "poids": {
+         "PRESENCE": 0.4,
+         "DON": 0.3
+        }
+       },
+       {
+        "texte": "consignes pote",
+        "poids": {
+         "DON": 0.3,
+         "PARI": 0.2
+        }
+       },
+       {
+        "texte": "attends sorganise",
+        "poids": {
+         "PARI": -0.3,
+         "PRESENCE": -0.2
+        }
+       }
+      ],
+      "3": [
+       {
+        "texte": "prends commandes",
+        "poids": {
+         "PRESENCE": 0.5,
+         "PARI": 0.4
+        }
+       },
+       {
+        "texte": "rassure suis rythme",
+        "poids": {
+         "DON": 0.5
+        }
+       },
+       {
+        "texte": "plan lance autres",
+        "poids": {
+         "PARI": 0.4,
+         "PRESENCE": 0.3
+        }
+       },
+       {
+        "texte": "zone pendant",
+        "poids": {
+         "DON": 0.4
+        }
+       }
+      ]
+     },
+     "pression": null
+    },
+    {
+     "id": "②",
+     "type": "simple",
+     "options": [
+      {
+       "texte": "attends autres",
+       "poids": {
+        "DON": -0.7
+       }
+      },
+      {
+       "texte": "my colle",
+       "poids": {
+        "DON": 0.5
+       }
+      },
+      {
+       "texte": "my colle organise",
+       "poids": {
+        "DON": 0.4,
+        "PRESENCE": 0.3
+       }
+      },
+      {
+       "texte": "a plusieurs",
+       "poids": {
+        "DON": 0.3,
+        "PARI": 0.3
+       }
+      }
+     ],
+     "pression": 0.5
+    },
+    {
+     "id": "③",
+     "type": "simple",
+     "options": [
+      {
+       "texte": "souffle coin",
+       "poids": {
+        "PRESENCE": -0.6,
+        "DON": -0.4
+       }
+      },
+      {
+       "texte": "tous a manger",
+       "poids": {
+        "DON": 0.3
+       }
+      },
+      {
+       "texte": "relance ambiance",
+       "poids": {
+        "PRESENCE": 0.5
+       }
+      },
+      {
+       "texte": "organise aprem",
+       "poids": {
+        "PARI": 0.4,
+        "PRESENCE": 0.2
+       }
+      }
+     ],
+     "pression": null
+    },
+    {
+     "id": "④",
+     "type": "simple",
+     "options": [
+      {
+       "texte": "attends propose",
+       "poids": {
+        "PARI": -0.5,
+        "PRESENCE": -0.2
+       }
+      },
+      {
+       "texte": "premiere idee",
+       "poids": {
+        "PARI": -0.6
+       }
+      },
+      {
+       "texte": "reflechis",
+       "poids": {
+        "PARI": 0.5
+       }
+      },
+      {
+       "texte": "prends main decide",
+       "poids": {
+        "PARI": 0.4,
+        "PRESENCE": 0.4
+       }
+      }
+     ],
+     "pression": null
+    },
+    {
+     "id": "⑤",
+     "type": "arbre",
+     "etage1": [
+      {
+       "texte": "pars avec eux",
+       "poids": {
+        "DON": -0.3,
+        "CONF": -0.4
+       }
+      },
+      {
+       "texte": "reste meme si",
+       "poids": {
+        "DON": 0.6,
+        "CONF": 0.6
+       }
+      },
+      {
+       "texte": "regarde autres",
+       "poids": {
+        "CONF": -0.6
+       }
+      },
+      {
+       "texte": "finir ensemble",
+       "poids": {
+        "DON": 0.4,
+        "PARI": 0.4
+       }
+      }
+     ],
+     "branches": {
+      "0": [
+       {
+        "texte": "pars prevenu",
+        "poids": {
+         "DON": -0.2
+        }
+       },
+       {
+        "texte": "demi-tour",
+        "poids": {
+         "DON": 0.6
+        }
+       },
+       {
+        "texte": "repasser plus tard",
+        "poids": {
+         "DON": 0.2,
+         "PARI": 0.2
+        }
+       },
+       {
+        "texte": "dix min de plus",
+        "poids": {
+         "DON": 0.3
+        }
+       }
+      ],
+      "1": [
+       {
+        "texte": "assume potes",
+        "poids": {
+         "DON": 0.6,
+         "CONF": 0.2
+        }
+       },
+       {
+        "texte": "pincement",
+        "poids": {
+         "DON": 0.4
+        }
+       },
+       {
+        "texte": "decale sans drame",
+        "poids": {
+         "DON": 0.4,
+         "PARI": 0.2
+        }
+       },
+       {
+        "texte": "en veux aux partis",
+        "poids": {
+         "DON": 0.3,
+         "CONF": -0.3
+        }
+       }
+      ],
+      "2": [
+       {
+        "texte": "reste car restent",
+        "poids": {
+         "CONF": -0.6,
+         "DON": 0.3
+        }
+       },
+       {
+        "texte": "pars car partent",
+        "poids": {
+         "CONF": -0.6,
+         "DON": -0.2
+        }
+       },
+       {
+        "texte": "selon travail",
+        "poids": {
+         "PARI": 0.5,
+         "DON": 0.3
+        }
+       },
+       {
+        "texte": "demande au pote",
+        "poids": {
+         "DON": 0.5
+        }
+       }
+      ],
+      "3": [
+       {
+        "texte": "mene fin",
+        "poids": {
+         "PRESENCE": 0.5,
+         "DON": 0.4
+        }
+       },
+       {
+        "texte": "bouchees doubles",
+        "poids": {
+         "DON": 0.5
+        }
+       },
+       {
+        "texte": "ambiance legere",
+        "poids": {
+         "PRESENCE": 0.3,
+         "DON": 0.3
+        }
+       },
+       {
+        "texte": "en veux aux partis",
+        "poids": {
+         "CONF": -0.2,
+         "DON": 0.2
+        }
+       }
+      ]
+     },
+     "pression": 0.5
+    },
+    {
+     "id": "⑥",
+     "type": "simple",
+     "options": [
+      {
+       "texte": "laisse couler",
+       "poids": {
+        "PARI": -0.6,
+        "DON": -0.1
+       }
+      },
+      {
+       "texte": "sans dire mais note",
+       "poids": {
+        "PARI": 0.1,
+        "DON": 0.3
+       }
+      },
+      {
+       "texte": "coup pression",
+       "poids": {
+        "PARI": 0.4
+       }
+      },
+      {
+       "texte": "recadre",
+       "poids": {
+        "PARI": 0.6
+       }
+      }
+     ],
+     "pression": null
+    },
+    {
+     "id": "⑦",
+     "type": "simple",
+     "options": [
+      {
+       "texte": "rentre lessive",
+       "poids": {
+        "PRESENCE": -0.6,
+        "DON": -0.4
+       }
+      },
+      {
+       "texte": "politesse",
+       "poids": {
+        "PRESENCE": 0.1
+       }
+      },
+      {
+       "texte": "moment sympa",
+       "poids": {
+        "PRESENCE": 0.4
+       }
+      },
+      {
+       "texte": "aide ranger",
+       "poids": {
+        "DON": 0.5,
+        "PRESENCE": 0.2
+       }
+      }
+     ],
+     "pression": null
+    },
+    {
+     "id": "⑧",
+     "type": "simple",
+     "options": [
+      {
+       "texte": "fini",
+       "poids": {
+        "DON": -0.4
+       }
+      },
+      {
+       "texte": "rendu service",
+       "poids": {
+        "DON": 0.4
+       }
+      },
+      {
+       "texte": "fier",
+       "poids": {
+        "PRESENCE": 0.2
+       }
+      },
+      {
+       "texte": "recommencer amitie",
+       "poids": {
+        "DON": 0.4
+       }
+      }
+     ],
+     "pression": null
+    }
+   ]
+  }
+ }
+}

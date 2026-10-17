@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Couleurs Apéricube</title>
+<style>
+  :root{ box-sizing:border-box; --bg:#faf8f3; --fg:#2a2622; --muted:#8a8278; --line:#e5e0d6; }
+  *,*::before,*::after{ box-sizing:inherit; }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){ --bg:#1a1815; --fg:#ece7de; --muted:#9a9388; --line:#333029; } }
+  :root[data-theme="dark"]{ --bg:#1a1815; --fg:#ece7de; --muted:#9a9388; --line:#333029; }
+  body{ margin:0; background:var(--bg); color:var(--fg);
+        font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+        padding:24px 16px calc(24px + env(safe-area-inset-bottom,0px)); }
+  h1{ font-size:1.5rem; font-weight:650; margin:0 0 4px; letter-spacing:-0.01em; }
+  .sub{ color:var(--muted); font-size:0.85rem; margin:0 0 28px; }
+  h2{ font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em;
+      color:var(--muted); margin:32px 0 14px; padding-bottom:8px; border-bottom:1px solid var(--line); }
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:16px; }
+  .card{ border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--bg); }
+  .swatch{ height:88px; width:100%; }
+  .label{ padding:10px 12px; }
+  .name{ font-size:0.9rem; font-weight:550; line-height:1.25; }
+  .hex{ font-size:0.72rem; color:var(--muted); font-family:ui-monospace,Menlo,Consolas,monospace;
+        margin-top:3px; text-transform:uppercase; }
+</style>
+</head>
+<body>
+  <h1>Couleurs Apéricube</h1>
+  <p class="sub">32 saveurs, 2 sphères. Version pop. Pastille, nom, code hexadécimal.</p>
+  <div id="root"></div>
+
+<script>
+const data = {"Chez les autres": {"Emmental": "#FFEB89", "Échalote ciboulette": "#C7E77D", "Cèpes": "#EC9F3D", "Gouda cumin": "#FFAB24", "Poivre vert": "#9ECE66", "Bleu": "#3A68DF", "Olive verte": "#CDEC50", "Chorizo": "#FF593D", "Chèvre": "#FFE599", "Ail & fines herbes": "#ADEF5B", "Noix": "#E88F30", "Cheddar Tex Mex": "#FF501A", "Jambon": "#FF9F99", "Bacon grillé": "#FC5B1D", "Poivron piment jalapeño": "#C7FB2A", "Chorizo piment de Cayenne": "#FF361A"}, "Chez nous": {"Camembert": "#FFE499", "Saumon aneth": "#FF9564", "Bleu & noix": "#6363B5", "Truffe": "#A96936", "Basilic": "#97FF3D", "Tomate piment basque": "#FF2E20", "Pizza": "#FF541A", "Sauce barbecue": "#FF6829", "Jambon cru": "#FF4940", "3 fromages": "#FFCE44", "Tomate": "#FF2F1A", "Saint-Jacques": "#FFD999", "Poulet grillé": "#FFB71A", "Oignon fondant": "#FFD56E", "Ail des ours": "#78E823", "Hot Challenge": "#D71300"}};
+const root = document.getElementById("root");
+for (const [sphere, flavors] of Object.entries(data)) {
+  const h = document.createElement("h2"); h.textContent = sphere; root.appendChild(h);
+  const grid = document.createElement("div"); grid.className = "grid";
+  for (const [name, hex] of Object.entries(flavors)) {
+    const card = document.createElement("div"); card.className = "card";
+    const sw = document.createElement("div"); sw.className = "swatch"; sw.style.background = hex;
+    const lab = document.createElement("div"); lab.className = "label";
+    lab.innerHTML = `<div class="name">${name}</div><div class="hex">${hex}</div>`;
+    card.appendChild(sw); card.appendChild(lab); grid.appendChild(card);
+  }
+  root.appendChild(grid);
+}
+</script>
+</body>
+</html>
