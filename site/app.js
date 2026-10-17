@@ -36,19 +36,23 @@ function lum(c){const s=c.clone().convertLinearToSRGB();return 0.2126*s.r+0.7152
 const BUCKETS=[['#3A68DF'],['#6363B5'],['#78E823','#97FF3D','#9ECE66','#ADEF5B'],['#C7FB2A','#CDEC50','#C7E77D'],['#FFCE44','#FFD56E'],['#FFAB24','#FFB71A','#E88F30','#EC9F3D','#A96936'],['#FF593D','#FF501A','#FF6829','#FC5B1D','#FF541A'],['#FF361A','#FF2E20','#FF2F1A','#FF4940','#D71300']].map(b=>b.map(popc));
 function balanced(i){const b=BUCKETS[(i*5+Math.floor(i/BUCKETS.length))%BUCKETS.length];return b[Math.floor(Math.random()*b.length)];}
 /* ---------- séquences ---------- */
-function sceneItems(list,label){const out=[];list.forEach(scn=>{out.push({k:'text',label,title:scn.title,paras:[scn.intro],cta:'Entrer dans la scène'});
-scn.items.forEach(it=>out.push(Object.assign({},it,{label:it.n+' / 8   ·   '+it.t})));});return out;}
+function sceneItems(list,label){const out=[];list.forEach((scn,j)=>{out.push({k:'text',label,title:scn.title,paras:[scn.intro],cta:'Entrer dans la scène',scene:scn.key,numero:j+1,total:list.length});
+scn.items.forEach(it=>out.push(Object.assign({},it,{label:it.n+' / 8   ·   '+it.t,scene:scn.key})));});return out;}
 const ONB=[
 {k:'text',label:'Chez nous',title:'Bienvenue',paras:['On va regarder ta façon d\u2019être avec les autres. Pas pour te mettre dans une case, pas pour te juger : juste pour voir comment tu circules quand il y a du monde autour de toi.','Il n\u2019y a pas de bonne réponse. Il n\u2019y a que la tienne. Réponds vite, au premier mouvement.','Ce qui suit va peut-être te bousculer un peu. Te sortir de ta zone de confort.'],coda:'Et c\u2019est ok.',cta:'Commencer'},
 {k:'q',trap:true,label:'1 / 3',s:'Avec les gens, tu es plutôt…',o:['Fidèle à toi-même, toujours','Caméléon, tu t\u2019adaptes','Toi en mieux, les autres te tirent vers le haut','Toi tout court, à prendre ou à laisser'].map(t=>({t,w:{}}))},
 {k:'q',trap:true,label:'2 / 3',s:'Dans un groupe, on peut compter sur toi pour…',o:['Dire les choses franchement','Mettre de l\u2019ambiance','Être là quand il faut','Rester toi-même quoi qu\u2019il arrive'].map(t=>({t,w:{}}))},
 {k:'q',trap:true,label:'3 / 3',s:'Ce que tes proches diraient de toi, en un mot…',o:['Entier','Fidèle','Présent','Vrai'].map(t=>({t,w:{}}))},
 {k:'text',label:'',title:'C\u2019était ton horoscope.',paras:['Ces trois questions étaient écrites pour que tu te trouves génial, à tous les coups.'],coda:'Maintenant, on regarde ce que tu fais vraiment.',cta:'On y va'}];
+/* couleur des deux cubes : tirée au hasard à chaque visite, parmi des teintes assez soutenues
+   pour que le nom blanc reste lisible, et jamais deux fois la même famille */
+const FAMILLES=[['#3A68DF','#6363B5'],['#FF4940','#FF593D','#D71300'],['#FF541A','#E88F30'],['#A96936']];
+const TIRAGE=(()=>{const f=[...FAMILLES].sort(()=>Math.random()-0.5);const un=c=>c[Math.floor(Math.random()*c.length)];return [un(f[0]),un(f[1])];})();
 const SPH=[
-{key:'chez_les_autres',name:'Chez les autres',col:'#3A68DF',lines:['Chez les','autres'],sub:'avec ceux que tu ne<br>connais pas encore',x:-0.88,lean:0.42,
- seq:[...sceneItems(C.autres,'Chez les autres'),{k:'res1'}]},
-{key:'chez_nous',name:'Chez nous',col:'#FF4940',lines:['Chez','nous'],sub:'avec ceux qui te<br>connaissent par cœur',x:0.88,lean:-0.3,
- seq:[...ONB,...sceneItems(C.nous,'Chez nous'),{k:'res1'}]}];
+{key:'chez_les_autres',name:'Chez les autres',col:TIRAGE[0],lines:['Chez les','autres'],sub:'avec ceux que tu ne<br>connais pas encore',x:-0.88,lean:0.42,
+ seq:[{k:'accueil'},...sceneItems(C.autres,'Chez les autres'),{k:'res1'}]},
+{key:'chez_nous',name:'Chez nous',col:TIRAGE[1],lines:['Chez','nous'],sub:'avec ceux qui te<br>connaissent par cœur',x:0.88,lean:-0.3,
+ seq:[...ONB,{k:'accueil'},...sceneItems(C.nous,'Chez nous'),{k:'res1'}]}];
 SPH.forEach(s=>{s.c=popc(s.col);s.read=s.c.clone().lerp(new THREE.Color('#ffffff'),0.22);});
 /* ---------- moteur de calcul ---------- */
 function compute(si){const s=SPH[si],c=cubes[si],aw=C.meta.aw;const pos={DON:0,PRESENCE:0,DETTE:0,PARI:0,CONF:0};const eng=[];
@@ -67,7 +71,7 @@ const AX=[new THREE.Vector3(1,0,0),new THREE.Vector3(-1,0,0),new THREE.Vector3(0
 const TS=1280;let dist=8;
 function view(){const vh=2*dist*TAN;return {vh,vw:vh*cam.aspect};}
 function bigScale(){const {vh,vw}=view();return Math.max(vw,vh)*1.12/S;}
-function drawName(f,lines){const x=f.ctx;x.clearRect(0,0,TS,TS);x.textAlign='center';x.textBaseline='middle';x.font='450 230px '+FONT;const ys=lines.length>1?[505,795]:[640];
+function drawName(f,lines){const x=f.ctx;x.clearRect(0,0,TS,TS);x.textAlign='center';x.textBaseline='middle';x.font='600 230px '+FONT;const ys=lines.length>1?[505,795]:[640];
 lines.forEach((l,j)=>{x.fillStyle='rgba(20,8,4,0.3)';x.fillText(l,640,ys[j]+4);x.fillStyle='rgba(255,255,255,0.97)';x.fillText(l,640,ys[j]);});f.rects=[];f.tex.needsUpdate=true;}
 function drawClear(f){f.ctx.clearRect(0,0,TS,TS);f.rects=[];f.tex.needsUpdate=true;}
 const labels=[document.getElementById('l0'),document.getElementById('l1')];
@@ -78,7 +82,7 @@ const faces=AX.map(n=>{const cv=document.createElement('canvas');cv.width=cv.hei
 const dec=new THREE.Mesh(new THREE.PlaneGeometry(DEC,DEC),new THREE.MeshBasicMaterial({map:tex,transparent:true,depthWrite:false,toneMapped:false,fog:false,polygonOffset:true,polygonOffsetFactor:-2}));m.add(dec);
 return {cv,ctx,tex,dec,n,rects:[],op:0};});scene.add(m);return {m,mat,faces,ans:{},result:null,done:false};});
 function homeColor(i){const c=cubes[i];return c.result?popc(c.result.prof.col):SPH[i].c;}
-function readColor(i,spk){const c=cubes[i];if(spk==='res1'&&c.result)return popc(c.result.prof.col).lerp(new THREE.Color('#ffffff'),0.12);return SPH[i].read;}
+function readColor(i,spk){const c=cubes[i];if(spk==='res1'&&c.result)return popc(c.result.prof.col).lerp(new THREE.Color('#ffffff'),0.4);return SPH[i].read;}
 function setCaption(i){const c=cubes[i];labels[i].innerHTML=c.result?('<span class="cap-saveur">'+c.result.prof.sav+'</span><br>'+c.result.prof.fig):SPH[i].sub;}
 function resetMain(c,i,full){const s=SPH[i];Object.assign(c,{cx:s.x,cy:GROUND+S/2,cz:0,cs:1,spring:0,vel:0,ry:Math.PI+s.lean,rolling:false,p:0,toReveal:true,q:new THREE.Quaternion(),qT:new THREE.Quaternion(),tw:null,front:4,hist:[],landed:false,settled:false,wv:null});
 if(full){c.revealed=false;c.ans={};c.result=null;c.done=false;}
@@ -86,7 +90,7 @@ c.m.visible=false;c.mat.color.copy(homeColor(i));c.mat.metalness=1;c.mat.roughne
 labels[i].style.opacity=0;labels[i].style.transform='translate(-50%,8px)';setCaption(i);}
 cubes.forEach((c,i)=>resetMain(c,i,true));
 /* le nom sur la face est dessiné dans une image : on le redessine une fois la police chargée */
-if(document.fonts)document.fonts.load('450 230px "Source Serif 4"').then(()=>{if(!entered)cubes.forEach((c,i)=>drawName(c.faces[4],SPH[i].lines));});
+if(document.fonts)document.fonts.load('600 230px "Source Serif 4"').then(()=>{if(!entered)cubes.forEach((c,i)=>drawName(c.faces[4],SPH[i].lines));});
 const MAXI=260;const inst=new THREE.InstancedMesh(rbox(2),new THREE.MeshPhysicalMaterial({color:0xffffff,metalness:1,roughness:0.26,envMapIntensity:1.15}),MAXI);inst.castShadow=true;inst.frustumCulled=false;scene.add(inst);
 for(let i=0;i<MAXI;i++)inst.setColorAt(i,balanced(i));inst.instanceColor.needsUpdate=true;
 const dummy=new THREE.Object3D();const ZERO=new THREE.Matrix4().makeScale(0,0,0);function clearInst(){for(let i=0;i<MAXI;i++)inst.setMatrixAt(i,ZERO);inst.instanceMatrix.needsUpdate=true;}clearInst();
@@ -94,7 +98,7 @@ const tq=new THREE.Mesh(rbox(3),metal(balanced(Math.floor(Math.random()*8)).clon
 const ALIGN=new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(1,1,1).normalize(),new THREE.Vector3(0,1,0));
 const tqS={spring:0,vel:0,hop:0,spin:0,fade:1,leaving:false};
 const pres=document.getElementById('pres'),desc=document.getElementById('desc'),prev=document.getElementById('prev'),qmEl=document.getElementById('qm'),calc=document.getElementById('calc'),calcBody=document.getElementById('calcBody');
-let decalVue=0;/* écrans allongés : la scène d'accueil descend pour équilibrer la composition */
+let decalVue=0,tqCible=null;/* écrans allongés : la scène d'accueil descend pour équilibrer la composition */
 let entered=false,active=-1,camY=CAMY,timers=[],started=false,t=0,waveT=-1,dice=[];
 function later(fn,ms){timers.push(setTimeout(fn,ms));}
 function size(){const w=wrap.clientWidth,h=wrap.clientHeight;R.setSize(w,h,false);cam.aspect=w/h;const need=3.7;dist=Math.max(5.5,(need/2)/(TAN*cam.aspect));cam.updateProjectionMatrix();}
@@ -144,22 +148,35 @@ function rotFor(dir,sign){const r=new THREE.Quaternion();const a=(dir==='right'|
 /* ---------- navigation ---------- */
 function specFor(i,e){const s=SPH[i],c=cubes[i],it=s.seq[e.idx],a=c.ans[e.idx]||{};
 if(it.k==='res1'){if(!c.result)c.result=compute(i);return {k:'res1',label:'Ton Apéricube · '+s.name,r:c.result};}
-if(it.k==='text')return {k:'text',label:it.label,title:it.title,paras:it.paras,coda:it.coda,cta:it.cta,sel:-1};
+if(it.k==='accueil')return {k:'accueil',label:'',sel:-1};
+if(it.k==='text')return {k:'text',label:it.label,title:it.title,paras:it.paras,coda:it.coda,cta:it.cta,scene:it.scene,numero:it.numero,total:it.total,sel:-1};
 if(e.br!=null)return {k:'q',label:it.label,s:it.br[e.br].s,o:it.br[e.br].o,sel:a.b??-1};
 return {k:'q',label:it.label,s:it.s,o:it.o,sel:(it.k==='tree'?a.e1:a.o)??-1};}
 function palette(i,spk){return lum(readColor(i,spk))<0.42?LIGHT:DARK;}
-function paint(c,fi,i,e){const sp=specFor(i,e);const f=c.faces[fi];f.op=1;f.dec.material.opacity=1;f.spec=sp;f.entry=e;drawClear(f);c.spk=sp.k;cacherFace();faceAttente={i,sp};}
+function paint(c,fi,i,e){const sp=specFor(i,e);sp.premier=e.idx===0;const f=c.faces[fi];f.op=1;f.dec.material.opacity=1;f.spec=sp;f.entry=e;drawClear(f);c.spk=sp.k;cacherFace();faceAttente={i,sp};}
 /* ---------- écrans de lecture : éléments de page posés sur le cube ---------- */
 const faceEl=document.getElementById('face'),faceLabel=faceEl.querySelector('.f-label'),faceCorps=faceEl.querySelector('.f-corps'),faceActions=faceEl.querySelector('.f-actions');
 let faceAttente=null;
 function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
 function bouton(label,act,sel){const b=el('button','f-choix'+(sel?' sel':''),label);b.type='button';b.addEventListener('click',()=>choisir(act,b));return b;}
-function cacherFace(){faceEl.classList.remove('on');faceAttente=null;}
-function afficherFace(){const {i,sp}=faceAttente;faceAttente=null;faceEl.dataset.encre=palette(i,sp.k)===LIGHT?'claire':'sombre';faceEl.dataset.type=sp.k;
-faceLabel.textContent=sp.label||'';faceCorps.replaceChildren();faceActions.replaceChildren();faceCorps.scrollTop=0;const acts=[];
-if(sp.k==='text'){faceCorps.append(el('h2','f-titre',sp.title));sp.paras.forEach(p=>faceCorps.append(el('p','f-recit',p)));if(sp.coda)faceCorps.append(el('p','f-coda',sp.coda));acts.push({label:sp.cta,act:'next'});}
+function cacherFace(){faceEl.classList.remove('on');faceAttente=null;if(tqCible){tqCible=null;tq.visible=false;}}
+/* textes de l'écran d'accueil des scènes et des boutons d'entrée dans chaque scène */
+const ACCUEIL={chez_les_autres:{titre:'Trois scènes t\u2019attendent',promesse:'Une soirée, un train, une partie : trois moments avec des gens que tu ne connais pas, huit choix dans chacun. Il n\u2019y a pas de bonne réponse, seulement la tienne.'},
+ chez_nous:{titre:'Trois scènes avec les tiens',promesse:'Ta bande, tes proches, ceux qui te connaissent par cœur : trois moments, huit choix dans chacun. Fais ce que tu ferais vraiment.'}};
+const ACCUEIL_FIN='Au bout du chemin, ta saveur d\u2019Apéricube.';
+const ENTRER_SCENE={soiree:'Pousser la porte',train:'Lever les yeux',partie:'Approcher de la table',apero:'Rejoindre la bande',weekend:'Poser ton sac',demenagement:'Retrousser tes manches'};
+function entete(i){const s=SPH[i],b=el('div','f-entete'),h=el('h1');s.lines.forEach((l,k)=>{if(k)h.append(document.createElement('br'));h.append(l);});b.append(h,el('p',null,s.sub.replace(/<br>/g,' ')));return b;}
+function pips(sp){const p=el('div','f-pips');p.setAttribute('aria-label','Scène '+sp.numero+' sur '+sp.total);for(let k=1;k<=sp.total;k++)p.append(el('span','f-pip'+(k<sp.numero?' fait':k===sp.numero?' encours':'')));return p;}
+function construireFace(i,sp){faceEl.dataset.encre=palette(i,sp.k)===LIGHT?'claire':'sombre';faceEl.dataset.type=sp.k;
+faceLabel.textContent=sp.premier?'':(sp.scene?SPH[i].name+'   ·   Scène '+sp.numero+' sur '+sp.total:sp.label||'');faceCorps.replaceChildren();faceActions.replaceChildren();faceCorps.scrollTop=0;const acts=[];
+if(sp.premier)faceCorps.append(entete(i));
+if(sp.k==='accueil'){const a=ACCUEIL[SPH[i].key];if(!sp.premier)faceCorps.append(el('h2','f-titre',a.titre));faceCorps.append(el('p','f-recit',a.promesse));
+ const liste=el('ol','f-scenes');(i?C.nous:C.autres).forEach((scn,k)=>{const li=el('li');li.append(el('span','f-num',String(k+1)),el('span',null,scn.title));liste.append(li);});
+ faceCorps.append(liste,el('p','f-note',ACCUEIL_FIN));acts.push({label:'C\u2019est parti',act:'next'});}
+else if(sp.k==='text'){if(sp.scene)faceCorps.append(pips(sp));faceCorps.append(el('h2','f-titre',sp.title));sp.paras.forEach(p=>faceCorps.append(el('p','f-recit',p)));if(sp.coda)faceCorps.append(el('p','f-coda',sp.coda));acts.push({label:ENTRER_SCENE[sp.scene]||sp.cta,act:'next'});}
 else if(sp.k==='q'){faceCorps.append(el('p','f-question',sp.s));const opts=el('div','f-options');sp.o.forEach((o,k)=>opts.append(bouton(o.t,k,sp.sel===k)));faceCorps.append(opts);}
-else if(sp.k==='res1'){faceCorps.append(el('h2','f-saveur',sp.r.prof.sav),el('p','f-figure',sp.r.prof.fig),el('p','f-sline',sp.r.prof.sline||''),el('p','f-nuance-titre','Ta nuance · '+sp.r.teinte.l),el('p','f-nuance',sp.r.teinte.x));
+else if(sp.k==='res1'){const cube=el('div','f-cube');cube.setAttribute('aria-hidden','true');cube.addEventListener('click',()=>{if(tqS.hop<=0){tqS.hop=1;tqS.vel+=2.2;vib(10);}});faceCorps.append(cube);
+ faceCorps.append(el('h2','f-saveur',sp.r.prof.sav),el('p','f-figure',sp.r.prof.fig),el('p','f-sline',sp.r.prof.sline||''),el('p','f-nuance-titre','Ta nuance · '+sp.r.teinte.l),el('p','f-nuance',sp.r.teinte.x));
  const portrait=el('div','f-bloc');sp.r.prof.paras.forEach(p=>portrait.append(el('p','f-portrait',p)));faceCorps.append(portrait);
  if(ENVOI_ACTIF){const retour=el('div','f-bloc');const id='retour-'+i;const titre=el('label','f-retour-titre',TEXTE_RETOUR_TITRE);titre.htmlFor=id;
   const zone=el('textarea','f-retour');zone.id=id;zone.maxLength=2000;zone.rows=6;zone.placeholder=TEXTE_RETOUR_AIDE;zone.value=commentaires[i];zone.disabled=envoye[i];zone.addEventListener('input',()=>{commentaires[i]=zone.value;});
@@ -167,7 +184,25 @@ else if(sp.k==='res1'){faceCorps.append(el('h2','f-saveur',sp.r.prof.sav),el('p'
  acts.push({label:'Revenir aux cubes',act:'exit'});if(RECHERCHE)acts.push({label:'Voir le calcul',act:'calc'});}
 /* sur le résultat, les boutons suivent le texte : tout défile d'un seul tenant */
 const cibleActions=sp.k==='res1'?el('div','f-actions-fin'):faceActions;if(sp.k==='res1')faceCorps.append(cibleActions);
-acts.forEach(a=>{const b=bouton(a.label,a.act,false);if(a.act==='envoyer'&&envoye[i])b.disabled=true;cibleActions.append(b);});faceEl.classList.add('on');}
+acts.forEach(a=>{const b=bouton(a.label,a.act,false);if(a.act==='envoyer'&&envoye[i])b.disabled=true;cibleActions.append(b);});}
+function afficherFace(){const {i,sp}=faceAttente;faceAttente=null;construireFace(i,sp);faceEl.classList.add('on');
+/* le petit cube de l'accueil revient sur le résultat, dans la couleur de la saveur */
+if(sp.k==='res1'){tqCible=faceCorps.querySelector('.f-cube');tq.material.color.copy(popc(sp.r.prof.col));Object.assign(tqS,{fade:1,leaving:false,hop:0});tq.visible=true;}
+if(sp.premier)finirMorph();}
+/* ---------- transition : le nom écrit sur le cube glisse jusqu'en haut de page ---------- */
+let morphEl=null;
+function lancerMorph(i,start){const c=cubes[i],s=SPH[i];const sp=specFor(i,start);sp.premier=true;construireFace(i,sp);
+const h=faceCorps.querySelector('.f-entete h1');if(!h)return;const fin=h.getBoundingClientRect(),wr=wrap.getBoundingClientRect(),cs=getComputedStyle(h);
+const z=c.cz+(S/2)*c.cs,haut=new THREE.Vector3(c.cx,c.cy+0.49*c.cs,z).project(cam),bas=new THREE.Vector3(c.cx,c.cy-0.49*c.cs,z).project(cam),ctr=new THREE.Vector3(c.cx,c.cy,z).project(cam);
+const facePx=Math.abs(haut.y-bas.y)/2*wr.height,taille0=230/TS*facePx,taille1=parseFloat(cs.fontSize);
+const x0=(ctr.x*0.5+0.5)*wr.width,y0=(-ctr.y*0.5+0.5)*wr.height+10/TS*facePx,x1=fin.left-wr.left+fin.width/2,y1=fin.top-wr.top+fin.height/2;
+const m=el('div','morph');s.lines.forEach((l,k)=>{if(k)m.append(document.createElement('br'));m.append(l);});
+Object.assign(m.style,{left:(fin.left-wr.left)+'px',top:(fin.top-wr.top)+'px',width:fin.width+'px',fontSize:cs.fontSize,lineHeight:cs.lineHeight,
+ transform:'translate('+(x0-x1)+'px,'+(y0-y1)+'px) scale('+(taille0/taille1)+')',lineHeight:(290/230)+'em'});
+wrap.append(m);morphEl=m;m.getBoundingClientRect();
+requestAnimationFrame(()=>{m.classList.add('vers-titre');Object.assign(m.style,{transform:'none',color:cs.color,lineHeight:cs.lineHeight});});}
+function finirMorph(){const m=morphEl;morphEl=null;if(m)setTimeout(()=>m.remove(),450);}
+function annulerMorph(){if(morphEl){morphEl.remove();morphEl=null;}}
 /* ---------- envoi anonyme des réponses vers la Google Sheet de recherche ---------- */
 const ENVOI_ACTIF=!!(window.ENVOI&&window.ENVOI.adresse);
 const TEXTE_ENVOYER='Envoyer mes réponses, anonymement',TEXTE_MERCI='Merci, c’est envoyé',TEXTE_ECHEC='L’envoi n’a pas marché, réessayer';
@@ -176,8 +211,7 @@ const TEXTE_RETOUR_TITRE='Si tu as des retours, n\u2019hésite pas une seule sec
 const TEXTE_RETOUR_AIDE='Une scène qui sonne faux, une question pas claire, un résultat qui t\u2019a fait rire ou tiquer\u2026 Tout est utile.';
 const SESSION=crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2);
 const envoye=[false,false],commentaires=['',''];
-function reponsesParScene(i){const liste=i?C.nous:C.autres,c=cubes[i],out={};let idx=i?ONB.length:0;
-liste.forEach(scn=>{idx++;out[scn.key]=scn.items.map(()=>{const a=c.ans[idx++]||{};return a.e1!=null?[a.e1,a.b]:a.o;});});return out;}
+function reponsesParScene(i){const c=cubes[i],out={};SPH[i].seq.forEach((it,idx)=>{if(!it.scene||(it.k!=='q'&&it.k!=='tree'))return;const a=c.ans[idx]||{};(out[it.scene]=out[it.scene]||[]).push(a.e1!=null?[a.e1,a.b]:a.o);});return out;}
 function donneesEnvoi(i){const r=cubes[i].result,arrondi=o=>Object.fromEntries(Object.entries(o).map(([k,v])=>[k,+v.toFixed(4)]));
 return {version:window.ENVOI.version,session:SESSION,sphere:SPH[i].key,saveur:r.prof.sav,figure:r.prof.fig,code:r.code,teinte:r.teinte.l,delta:+r.delta.toFixed(4),positions:arrondi(r.pos),brut:arrondi(r.raw),reponses:reponsesParScene(i),commentaire:commentaires[i].trim().slice(0,2000)};}
 async function envoyer(i,b){if(envoye[i]||b.disabled)return;b.disabled=true;b.textContent='Envoi…';
@@ -199,11 +233,12 @@ const n={idx:cur.idx+1,br:null};if(s.seq[n.idx]&&s.seq[n.idx].k==='res1'){c.resu
 function goBack(){const i=active,c=cubes[i];if(c.tw||busy)return;if(c.hist.length<=1){exitEnter();return;}const last=c.hist.pop();const e=c.hist[c.hist.length-1].e;turnTo(i,e,last.dir,-1);}
 function enter(i){entered=true;active=i;const c=cubes[i];c.qT.identity();c.front=4;c.hist=[];vib(20);
 const start=c.done?{idx:SPH[i].seq.findIndex(x=>x.k==='res1'),br:null}:{idx:0,br:null};
+if(!c.done){drawClear(c.faces[4]);c.faces[4].op=0;c.faces[4].dec.material.opacity=0;lancerMorph(i,start);}
 later(()=>{c.faces[4].op=0;},420);
 later(()=>{if(entered&&active===i){orient(c,4,new THREE.Vector3(0,1,0));c.hist=[{e:start,dir:null}];paint(c,4,i,start);c.faces[4].dec.material.opacity=0;}},820);}
 function exitEnter(){timers.forEach(clearTimeout);timers=[];if(active>=0){const c=cubes[active],a=active;c.tw=null;c.faces.forEach(f=>{f.op=0;});
 later(()=>{c.faces.forEach(f=>{drawClear(f);f.op=0;});orient(c,4,new THREE.Vector3(0,1,0));drawName(c.faces[4],SPH[a].lines);c.faces[4].op=1;},300);}
-entered=false;active=-1;cacherFace();calc.classList.remove('on');}
+entered=false;active=-1;cacherFace();annulerMorph();calc.classList.remove('on');}
 function showCalc(i){const r=cubes[i].result;if(!r)return;const f=v=>(v>=0?'+':'')+v.toFixed(2);
 const names={DON:'Don (retenir · donner)',PRESENCE:'Présence (s\u2019effacer · occuper)',DETTE:'Dette (rejouer · ouvrir)',PARI:'Pari (laisser venir · conditionner)',CONF:'Conformité (se conformer · circuler)'};
 let h='<p class="cl">◐ Recherche · prototype</p><table>';
@@ -223,15 +258,16 @@ const ease=x=>1-Math.pow(1-x,3),eio=x=>x<0.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
 const eul=new THREE.Euler(),vv=new THREE.Vector3(),sq1=new THREE.Quaternion(),sq2=new THREE.Quaternion(),PA=new THREE.Vector3();
 const D0='Deux cubes sont restés pour toi. Chacun ouvre une série de petites scènes : l\u2019un avec des inconnus, l\u2019autre avec les tiens. Fais-les rouler pour découvrir lequel est lequel.';
 const D1='Le premier s\u2019est dévoilé. Fais rouler l\u2019autre, ou touche celui-ci pour commencer.';
-const D2='Quelques minutes par cube, et une saveur d\u2019Apéricube au bout. Touche celui par lequel tu veux commencer : l\u2019autre t\u2019attendra.';
+const D2='Quelques minutes par cube, et une saveur d\u2019Apéricube au bout. Touche celui par lequel tu veux commencer, l\u2019autre t\u2019attendra.';
 const D3='Ton premier Apéricube est trouvé. L\u2019autre cube t\u2019attend, touche-le quand tu veux.';
 const D4='Tes deux Apéricubes : un avec ceux que tu ne connais pas, un avec les tiens. Touche un cube pour relire ton résultat.';
 const clock=new THREE.Clock();
 function loop(){const dt=Math.min(clock.getDelta(),0.033);t+=dt;
 camY+=((entered?0:CAMY)-camY)*0.07;const k01=camY/CAMY;cam.position.set(0,camY,dist);cam.lookAt(0,entered?0:LOOKY*k01,0);
-{const W=wrap.clientWidth,H=wrap.clientHeight;const cible=entered?0:Math.max(0,H/W-1.78)*W*0.5;decalVue+=(cible-decalVue)*0.07;cam.setViewOffset(W,H,0,-decalVue,W,H);}
+{const W=wrap.clientWidth,H=wrap.clientHeight;/* texte au-dessus des cubes : on descend la scène, davantage sur les écrans peu allongés */
+const cible=entered?0:Math.max(0,H/W-1.78)*W*0.5+H*(0.06+0.09*Math.min(1,Math.max(0,(2-H/W)/0.22)));decalVue+=(cible-decalVue)*0.07;cam.setViewOffset(W,H,0,-decalVue,W,H);}
 const big=bigScale();
-if(tq.visible){const r=qmEl.getBoundingClientRect(),wr=wrap.getBoundingClientRect();const zq=3;
+if(tq.visible){const r=(tqCible||qmEl).getBoundingClientRect(),wr=wrap.getBoundingClientRect();const zq=3;
 const nx=((r.left+r.width/2-wr.left)/wr.width)*2-1,ny=-(((r.top+r.height/2-wr.top)/wr.height)*2-1);
 vv.set(nx,ny,0.5).unproject(cam).sub(cam.position).normalize();const kk=(zq-cam.position.z)/vv.z;const px=cam.position.x+vv.x*kk,py=cam.position.y+vv.y*kk;
 const wpp=2*(cam.position.z-zq)*TAN/wr.height;const sc0=(r.height*0.92*wpp)/(S*1.732);
@@ -240,7 +276,8 @@ let hopY=0;if(tqS.hop>0){tqS.hop=Math.max(0,tqS.hop-dt*1.6);hopY=Math.sin((1-tqS
 tqS.spin+=dt*(0.75+(tqS.hop>0?4:0)+(tqS.leaving?6:0));
 if(tqS.leaving){tqS.fade=Math.max(0,tqS.fade-dt*1.8);if(tqS.fade<=0)tq.visible=false;}
 PA.set(Math.cos(t*1.3),0,Math.sin(t*1.3));sq1.setFromAxisAngle(UP,tqS.spin);sq2.setFromAxisAngle(PA,0.07+Math.sin(t*0.9)*0.02);tq.quaternion.copy(sq2).multiply(sq1).multiply(ALIGN);
-const squ=tqS.spring*0.1;const sz=sc0*tqS.fade;tq.scale.set(sz*(1-squ*0.5),sz*(1+squ),sz*(1-squ*0.5));tq.position.set(px,py+hopY+(tqS.leaving?(1-tqS.fade)*0.6:0),zq);}
+const squ=tqS.spring*0.1;/* sur le résultat, le petit cube rétrécit quand on le fait défiler hors de la zone de texte */
+const sz=sc0*tqS.fade*(tqCible?Math.max(0,Math.min(1,(r.bottom-faceCorps.getBoundingClientRect().top)/r.height)):1);tq.scale.set(sz*(1-squ*0.5),sz*(1+squ),sz*(1-squ*0.5));tq.position.set(px,py+hopY+(tqS.leaving?(1-tqS.fade)*0.6:0),zq);}
 if(waveT>=0){const ts=t-waveT;
 dice.forEach(o=>{const d=o.d;if(!(d.mode==='run'&&d.done))stepDie(d,ts,dt);if(!d.vis||(d.mode==='run'&&d.done)||entered){inst.setMatrixAt(o.i,ZERO);return;}dummy.position.copy(d.pos);dummy.quaternion.copy(d.q);dummy.scale.setScalar(1);dummy.updateMatrix();inst.setMatrixAt(o.i,dummy.matrix);});
 inst.instanceMatrix.needsUpdate=true;}
@@ -262,7 +299,7 @@ const acc=-110*c.spring-6.5*c.vel;c.vel+=acc*dt;c.spring+=c.vel*dt;
 const sq=c.spring*(reading?0.02:0.04);const syv=c.cs*(1+sq);c.m.scale.set(c.cs*(1-sq*0.5),syv,c.cs*(1-sq*0.5));
 const yHome=GROUND+(S*syv)/2+hop;const yt=(ty!==null)?ty:yHome;c.cy=entered?c.cy+(yt-c.cy)*0.075:((Math.abs(c.cy-yt)>0.01&&!c.rolling)?c.cy+(yt-c.cy)*0.15:yt);
 c.m.position.set(c.cx,c.cy,c.cz);c.m.quaternion.copy(c.q);
-const v=new THREE.Vector3(c.cx,GROUND,c.cz).project(cam);labels[i].style.left=((v.x*0.5+0.5)*wrap.clientWidth)+'px';labels[i].style.top=((-v.y*0.5+0.5)*wrap.clientHeight+16)+'px';
+const v=new THREE.Vector3(c.cx,GROUND,c.cz).project(cam);labels[i].style.left=((v.x*0.5+0.5)*wrap.clientWidth)+'px';labels[i].style.top=((-v.y*0.5+0.5)*wrap.clientHeight+24)+'px';
 const show=c.revealed&&!entered&&started;labels[i].style.opacity=show?1:0;labels[i].style.transform=show?'translate(-50%,0)':'translate(-50%,8px)';});
 const allSet=cubes.every(c=>c.settled),nrev=cubes.filter(c=>c.revealed).length,ndone=cubes.filter(c=>c.done).length;
 const want=ndone===2?D4:ndone===1?D3:nrev===0?D0:(nrev===1?D1:D2);if(desc.dataset.txt!==want){desc.dataset.txt=want;desc.textContent=want;}
