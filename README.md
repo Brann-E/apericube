@@ -162,6 +162,7 @@ Chaque envoi ajoute une ligne dans une Google Sheet : version du questionnaire, 
 | Chemin | Rôle |
 |---|---|
 | `site/` | le site publié, et rien d'autre |
+| `netlify.toml` | les réglages de publication sur Netlify |
 | `site/contenu.js` | les scènes, les questions, les poids, les profils, les couleurs |
 | `site/app.js` | la 3D, la navigation, le calcul, l'envoi |
 | `site/envoi.js` | l'adresse de la Google Sheet et la **version du questionnaire** |
@@ -185,7 +186,10 @@ node outils/verifier.js
 
 Le test vérifie que les données du site sont identiques à `data.json`, `profils.json` et à la palette ; que le calcul du site donne exactement le même résultat qu'`engine.py` sur 1 000 parcours au hasard par sphère ; et que les réponses envoyées à la Google Sheet sont exactement celles du parcours. Il demande Node et Python.
 
-**Publier** : chaque push sur `main` relance ce test sur GitHub, puis publie `site/` sur GitHub Pages **seulement si le test passe** (voir [`.github/workflows/publier.yml`](.github/workflows/publier.yml)).
+**Publier** : chaque push sur `main` relance ce test, puis publie `site/` **seulement si le test passe** :
+
+- sur **Netlify**, réglé par [`netlify.toml`](netlify.toml) ;
+- sur **GitHub Pages**, réglé par [`.github/workflows/publier.yml`](.github/workflows/publier.yml).
 
 **Changer les questions ou les poids** : penser à changer `version` dans `site/envoi.js`, pour savoir avec quelle version du questionnaire chaque ligne a été produite.
 

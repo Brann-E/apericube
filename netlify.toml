@@ -1,0 +1,6 @@
+# Réglages Netlify : le site publié est le dossier site/, et rien d'autre.
+# Avant chaque publication, Netlify lance le test de conformité du calcul :
+# s'il échoue, la publication est annulée et l'ancienne version reste en ligne.
+[build]
+  publish = "site"
+  command = "node outils/verifier.js"
