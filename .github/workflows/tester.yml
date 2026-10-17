@@ -1,0 +1,25 @@
+# Lance le test de conformité du calcul à chaque push sur main.
+# La publication, elle, est faite par Netlify (voir netlify.toml).
+name: Tester
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - name: Test de conformité du calcul
+        run: node outils/verifier.js
