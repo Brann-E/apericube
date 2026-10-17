@@ -4,6 +4,8 @@
   --ombre-cadre:0 0 0 1px rgba(47,40,35,.07),0 24px 70px rgba(47,40,35,.14);
   /* format téléphone : largeur maximale de l'appli, centrée au-delà */
   --app-max:480px;
+  /* police : chargée par le site pour disposer de toutes les graisses (le système n'a que 400 et 700) */
+  --police:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;--graisse:450;
   /* marges et espacements */
   --sa-haut:env(safe-area-inset-top,0px);--sa-bas:env(safe-area-inset-bottom,0px);
   --marge:clamp(20px,6.4vw,30px);--marge-haut:56px;--marge-bas:68px;
@@ -28,17 +30,17 @@
 :root[data-theme="dark"]{--bg:#f3ede4;--ink:#2f2823;--ink2:#4f453d;--ink3:#6f6359;--mut:#8c7f73}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:var(--bg-hors);overflow:hidden;-webkit-tap-highlight-color:transparent;overscroll-behavior:none;-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;color:var(--ink)}
+body{font-family:var(--police);font-weight:var(--graisse);font-optical-sizing:auto;color:var(--ink)}
 /* l'appli : plein écran sur téléphone, colonne au format téléphone au-delà */
 #wrap{position:fixed;inset:0;margin:0 auto;max-width:var(--app-max);overflow:hidden;overflow:clip;background:var(--bg)}
 @media (min-width:520px){#wrap{box-shadow:var(--ombre-cadre)}}
 #c{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
 #pres{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;justify-content:center;padding:calc(70px + var(--sa-haut)) var(--marge) var(--sa-bas);transition:opacity .7s;pointer-events:none}
 #qm{width:64px;height:80px;margin:0 0 14px -6px;pointer-events:auto;cursor:pointer;flex:none}
-.ttl{margin:0;font-size:var(--t-ttl);font-weight:400;line-height:1.12;color:var(--ink)}
-.lede{margin:var(--esp-5) 0 0;font-size:var(--t-lede);line-height:1.65;color:var(--ink2);font-style:italic}
-#go{margin-top:40px;align-self:flex-start;font-size:var(--t-go);color:var(--ink);border:0;background:none;border-bottom:1px solid var(--filet-pres);padding:10px 0 5px;cursor:pointer;pointer-events:auto;font-family:inherit}
-#desc{position:absolute;bottom:calc(58px + var(--sa-bas));left:50%;transform:translateX(-50%);width:min(320px,84%);text-align:center;font-style:italic;color:var(--ink-desc);font-size:var(--t-desc);line-height:1.6;pointer-events:none;opacity:0;transition:opacity .7s}
+.ttl{margin:0;font-size:var(--t-ttl);font-weight:var(--graisse);line-height:1.12;color:var(--ink)}
+.lede{margin:var(--esp-5) 0 0;font-size:var(--t-lede);line-height:1.65;color:var(--ink2)}
+#go{margin-top:40px;align-self:flex-start;font-size:var(--t-go);color:var(--ink);border:0;background:none;border-bottom:1px solid var(--filet-pres);padding:10px 0 5px;cursor:pointer;pointer-events:auto;font-family:inherit;font-weight:inherit}
+#desc{position:absolute;bottom:calc(58px + var(--sa-bas));left:50%;transform:translateX(-50%);width:min(320px,84%);text-align:center;color:var(--ink-desc);font-size:var(--t-desc);line-height:1.6;pointer-events:none;opacity:0;transition:opacity .7s}
 .ib{position:absolute;display:flex;align-items:center;justify-content:center;width:48px;height:48px;border:0;background:none;cursor:pointer;padding:0;transition:opacity .6s,color .4s;color:var(--ico)}
 .ib svg{width:22px;height:22px}
 #rst{top:calc(4px + var(--sa-haut));right:4px;z-index:6;opacity:0}
@@ -58,18 +60,18 @@ body{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;co
 .f-corps{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;padding-top:var(--esp-5)}
 .f-actions{flex:none;padding-top:var(--esp-4)}
 .f-actions:empty{display:none}
-.f-titre{margin:0 0 var(--esp-3);font-size:var(--t-titre);font-weight:400;line-height:1.22}
-.f-recit{margin:0 0 var(--esp-3);font-size:var(--t-recit);font-style:italic;line-height:1.5}
+.f-titre{margin:0 0 var(--esp-3);font-size:var(--t-titre);font-weight:var(--graisse);line-height:1.22}
+.f-recit{margin:0 0 var(--esp-3);font-size:var(--t-recit);line-height:1.5}
 .f-coda{margin:var(--esp-4) 0 0;font-size:var(--t-coda);line-height:1.4}
-.f-question{margin:0;font-size:var(--t-question);font-style:italic;line-height:1.45}
+.f-question{margin:0;font-size:var(--t-question);line-height:1.45}
 .f-options{margin-top:var(--esp-5)}
-.f-saveur{margin:0;font-size:var(--t-saveur);font-weight:400;line-height:1.12}
-.f-figure{margin:var(--esp-2) 0 0;font-size:var(--t-figure);font-style:italic;line-height:1.3}
-.f-sline{margin:var(--esp-5) 0 0;font-size:var(--t-sline);font-style:italic;line-height:1.5}
+.f-saveur{margin:0;font-size:var(--t-saveur);font-weight:var(--graisse);line-height:1.12}
+.f-figure{margin:var(--esp-2) 0 0;font-size:var(--t-figure);line-height:1.3}
+.f-sline{margin:var(--esp-5) 0 0;font-size:var(--t-sline);line-height:1.5}
 .f-nuance-titre{margin:var(--esp-5) 0 0;font-size:var(--t-label);color:var(--f-encre2)}
 .f-nuance{margin:var(--esp-1) 0 0;font-size:var(--t-nuance);line-height:1.5}
 .f-portrait{margin:0 0 var(--esp-3);font-size:var(--t-portrait);line-height:1.55}
-.f-note{margin:var(--esp-4) 0 0;font-size:var(--t-label);font-style:italic;line-height:1.45;color:var(--f-encre2)}
+.f-note{margin:var(--esp-4) 0 0;font-size:var(--t-label);line-height:1.45;color:var(--f-encre2)}
 .f-choix:disabled{cursor:default;color:var(--f-encre2)}
 .f-choix{display:block;width:100%;min-height:var(--choix-h);margin:0;padding:var(--choix-pad) var(--esp-2);text-align:left;font:inherit;font-size:var(--t-choix);line-height:1.35;color:var(--f-encre);background:none;border:0;border-top:1px solid var(--f-filet);cursor:pointer;transition:background-color .2s}
 .f-choix:last-child{border-bottom:1px solid var(--f-filet)}
@@ -77,7 +79,7 @@ body{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;co
 .f-choix:focus-visible{outline:2px solid var(--f-encre2);outline-offset:-2px}
 
 /* ---------- téléphone tenu à l'horizontale ---------- */
-#paysage{position:absolute;inset:0;z-index:20;display:none;align-items:center;justify-content:center;background:var(--bg);text-align:center;font-style:italic;font-size:var(--t-recit);line-height:1.5;color:var(--ink2)}
+#paysage{position:absolute;inset:0;z-index:20;display:none;align-items:center;justify-content:center;background:var(--bg);text-align:center;font-size:var(--t-recit);line-height:1.5;color:var(--ink2)}
 #paysage p{margin:0}
 @media (orientation:landscape) and (max-height:500px) and (pointer:coarse){#paysage{display:flex}}
 

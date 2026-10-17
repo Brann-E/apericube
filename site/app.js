@@ -19,7 +19,7 @@ const pm=new THREE.PMREMGenerator(R);scene.environment=pm.fromScene(envScene,0.0
 const key=new THREE.DirectionalLight(0xfff1e2,1.4);key.position.set(-5,11,7);key.target.position.set(0,0,-10);scene.add(key,key.target);
 key.castShadow=true;key.shadow.mapSize.set(2048,2048);const kc=key.shadow.camera;kc.left=-20;kc.right=20;kc.top=26;kc.bottom=-26;kc.near=1;kc.far=80;key.shadow.bias=-0.0004;key.shadow.normalBias=0.025;
 scene.add(new THREE.HemisphereLight(0xfff6ee,0xd8c6b4,0.3));
-const S=1.15,RD=0.045,GROUND=-0.6,DEC=0.98,Q=Math.PI/2,FONT='"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif';
+const S=1.15,RD=0.045,GROUND=-0.6,DEC=0.98,Q=Math.PI/2,FONT='"Source Serif 4", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif';
 const CAMY=1.25,LOOKY=-0.5;
 const ground=new THREE.Mesh(new THREE.PlaneGeometry(300,300),new THREE.ShadowMaterial({opacity:0.24}));ground.rotation.x=-Math.PI/2;ground.position.y=GROUND;ground.receiveShadow=true;scene.add(ground);
 const DARK={INK:'rgba(18,12,10,0.92)',INK2:'rgba(18,12,10,0.56)',RULE:'rgba(18,12,10,0.2)',SEL:'rgba(18,12,10,0.09)'};
@@ -67,7 +67,7 @@ const AX=[new THREE.Vector3(1,0,0),new THREE.Vector3(-1,0,0),new THREE.Vector3(0
 const TS=1280;let dist=8;
 function view(){const vh=2*dist*TAN;return {vh,vw:vh*cam.aspect};}
 function bigScale(){const {vh,vw}=view();return Math.max(vw,vh)*1.12/S;}
-function drawName(f,lines){const x=f.ctx;x.clearRect(0,0,TS,TS);x.textAlign='center';x.textBaseline='middle';x.font='400 230px '+FONT;const ys=lines.length>1?[505,795]:[640];
+function drawName(f,lines){const x=f.ctx;x.clearRect(0,0,TS,TS);x.textAlign='center';x.textBaseline='middle';x.font='450 230px '+FONT;const ys=lines.length>1?[505,795]:[640];
 lines.forEach((l,j)=>{x.fillStyle='rgba(20,8,4,0.3)';x.fillText(l,640,ys[j]+4);x.fillStyle='rgba(255,255,255,0.97)';x.fillText(l,640,ys[j]);});f.rects=[];f.tex.needsUpdate=true;}
 function drawClear(f){f.ctx.clearRect(0,0,TS,TS);f.rects=[];f.tex.needsUpdate=true;}
 const labels=[document.getElementById('l0'),document.getElementById('l1')];
@@ -79,12 +79,14 @@ const dec=new THREE.Mesh(new THREE.PlaneGeometry(DEC,DEC),new THREE.MeshBasicMat
 return {cv,ctx,tex,dec,n,rects:[],op:0};});scene.add(m);return {m,mat,faces,ans:{},result:null,done:false};});
 function homeColor(i){const c=cubes[i];return c.result?popc(c.result.prof.col):SPH[i].c;}
 function readColor(i,spk){const c=cubes[i];if((spk==='res1'||spk==='res2')&&c.result)return popc(c.result.prof.col).lerp(new THREE.Color('#ffffff'),0.12);return SPH[i].read;}
-function setCaption(i){const c=cubes[i];labels[i].innerHTML=c.result?('<span class="cap-saveur">'+c.result.prof.sav+'</span><br><i>'+c.result.prof.fig+'</i>'):SPH[i].sub;}
+function setCaption(i){const c=cubes[i];labels[i].innerHTML=c.result?('<span class="cap-saveur">'+c.result.prof.sav+'</span><br>'+c.result.prof.fig):SPH[i].sub;}
 function resetMain(c,i,full){const s=SPH[i];Object.assign(c,{cx:s.x,cy:GROUND+S/2,cz:0,cs:1,spring:0,vel:0,ry:Math.PI+s.lean,rolling:false,p:0,toReveal:true,q:new THREE.Quaternion(),qT:new THREE.Quaternion(),tw:null,front:4,hist:[],landed:false,settled:false,wv:null});
 if(full){c.revealed=false;c.ans={};c.result=null;c.done=false;}
 c.m.visible=false;c.mat.color.copy(homeColor(i));c.mat.metalness=1;c.mat.roughness=0.24;c.faces.forEach(f=>{drawClear(f);f.op=0;f.dec.material.opacity=0;});orient(c,4,new THREE.Vector3(0,1,0));drawName(c.faces[4],s.lines);
 labels[i].style.opacity=0;labels[i].style.transform='translate(-50%,8px)';setCaption(i);}
 cubes.forEach((c,i)=>resetMain(c,i,true));
+/* le nom sur la face est dessiné dans une image : on le redessine une fois la police chargée */
+if(document.fonts)document.fonts.load('450 230px "Source Serif 4"').then(()=>{if(!entered)cubes.forEach((c,i)=>drawName(c.faces[4],SPH[i].lines));});
 const MAXI=260;const inst=new THREE.InstancedMesh(rbox(2),new THREE.MeshPhysicalMaterial({color:0xffffff,metalness:1,roughness:0.26,envMapIntensity:1.15}),MAXI);inst.castShadow=true;inst.frustumCulled=false;scene.add(inst);
 for(let i=0;i<MAXI;i++)inst.setColorAt(i,balanced(i));inst.instanceColor.needsUpdate=true;
 const dummy=new THREE.Object3D();const ZERO=new THREE.Matrix4().makeScale(0,0,0);function clearInst(){for(let i=0;i<MAXI;i++)inst.setMatrixAt(i,ZERO);inst.instanceMatrix.needsUpdate=true;}clearInst();
