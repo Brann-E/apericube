@@ -40,8 +40,8 @@ function sceneItems(list,label){const out=[];list.forEach((scn,j)=>{out.push({k:
 scn.items.forEach(it=>out.push(Object.assign({},it,{label:it.n+' / 8   ·   '+it.t,scene:scn.key})));});return out;}
 const ONB=[
 {k:'text',label:'Chez nous',title:'Bienvenue',paras:['On va regarder ta façon d\u2019être avec les autres. Pas pour te mettre dans une case, pas pour te juger : juste pour voir comment tu circules quand il y a du monde autour de toi.','Il n\u2019y a pas de bonne réponse. Il n\u2019y a que la tienne. Réponds vite, au premier mouvement.','Ce qui suit va peut-être te bousculer un peu. Te sortir de ta zone de confort.'],coda:'Et c\u2019est ok.',cta:'Commencer'},
-{k:'q',trap:true,label:'1 / 3',s:'Avec les gens, tu es plutôt…',o:['Fidèle à toi-même, toujours','Caméléon, tu t\u2019adaptes','Toi en mieux, les autres te tirent vers le haut','Toi tout court, à prendre ou à laisser'].map(t=>({t,w:{}}))},
-{k:'q',trap:true,label:'2 / 3',s:'Dans un groupe, on peut compter sur toi pour…',o:['Dire les choses franchement','Mettre de l\u2019ambiance','Être là quand il faut','Rester toi-même quoi qu\u2019il arrive'].map(t=>({t,w:{}}))},
+{k:'q',trap:true,label:'1 / 3',s:'Avec les gens, tu es plutôt…',o:['Fidèle à moi-même, toujours','Caméléon, je m\u2019adapte','Moi en mieux, les autres me tirent vers le haut','Moi tout court, à prendre ou à laisser'].map(t=>({t,w:{}}))},
+{k:'q',trap:true,label:'2 / 3',s:'Dans un groupe, on peut compter sur toi pour…',o:['Dire les choses franchement','Mettre de l\u2019ambiance','Être là quand il faut','Rester moi-même quoi qu\u2019il arrive'].map(t=>({t,w:{}}))},
 {k:'q',trap:true,label:'3 / 3',s:'Ce que tes proches diraient de toi, en un mot…',o:['Entier','Fidèle','Présent','Vrai'].map(t=>({t,w:{}}))},
 {k:'text',label:'',title:'C\u2019était ton horoscope.',paras:['Ces trois questions étaient écrites pour que tu te trouves génial, à tous les coups.'],coda:'Maintenant, on regarde ce que tu fais vraiment.',cta:'On y va'}];
 /* couleur des deux cubes : tirée au hasard à chaque visite, parmi des teintes assez soutenues

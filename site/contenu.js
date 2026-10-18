@@ -1042,7 +1042,7 @@ window.CONTENT = {
                   }
                 },
                 {
-                  "t": "Lui lance juste un « ça va toi ? » et je continue",
+                  "t": "Je lui lance juste un « ça va, toi ? » et je continue",
                   "w": {
                     "DON": 0.2
                   }
@@ -3496,4 +3496,3 @@ window.CONTENT = {
       2.778
     ]
   }
-};
