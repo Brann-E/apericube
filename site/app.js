@@ -101,7 +101,11 @@ const pres=document.getElementById('pres'),desc=document.getElementById('desc'),
 let decalVue=0,tqCible=null,descMinuteur=0;/* écrans allongés : la scène d'accueil descend pour équilibrer la composition */
 let entered=false,active=-1,camY=CAMY,timers=[],started=false,t=0,waveT=-1,dice=[];
 function later(fn,ms){timers.push(setTimeout(fn,ms));}
-function size(){const w=wrap.clientWidth,h=wrap.clientHeight;R.setSize(w,h,false);cam.aspect=w/h;const need=3.7;dist=Math.max(5.5,(need/2)/(TAN*cam.aspect));cam.updateProjectionMatrix();}
+/* pendant qu'on écrit, la page est figée : le clavier ne doit ni redimensionner la scène 3D, ni faire bouger la mise en page */
+let clavierOuvert=false;
+document.addEventListener('focusin',e=>{if(e.target.tagName!=='TEXTAREA')return;clavierOuvert=true;wrap.style.setProperty('--hauteur-figee',wrap.clientHeight+'px');wrap.classList.add('fige');});
+document.addEventListener('focusout',e=>{if(e.target.tagName!=='TEXTAREA')return;clavierOuvert=false;wrap.classList.remove('fige');size();});
+function size(){if(clavierOuvert)return;const w=wrap.clientWidth,h=wrap.clientHeight;R.setSize(w,h,false);cam.aspect=w/h;const need=3.7;dist=Math.max(5.5,(need/2)/(TAN*cam.aspect));cam.updateProjectionMatrix();}
 new ResizeObserver(size).observe(wrap);size();
 function halfW(z){return (dist-z)*TAN*cam.aspect;}
 const UP=new THREE.Vector3(0,1,0);
@@ -235,10 +239,12 @@ const zone=el('textarea','modale-zone');zone.id='retour-'+i;zone.maxLength=2000;
 const envoi=el('button','modale-envoyer',libelleEnvoi(i));envoi.type='button';
 zone.addEventListener('input',()=>{commentaires[i]=zone.value;if(!envoi.disabled)envoi.textContent=libelleEnvoi(i);});
 envoi.addEventListener('click',()=>envoyer(i,envoi));fermer.addEventListener('click',fermerModale);m.addEventListener('click',e=>{if(e.target===m)fermerModale();});
-carte.append(fermer,titre,zone,envoi);m.append(carte);wrap.append(m);modaleEl=m;m.getBoundingClientRect();m.classList.add('on');}
+carte.append(fermer,titre,zone,envoi);m.append(carte);wrap.append(m);modaleEl=m;ajusterModale();m.getBoundingClientRect();m.classList.add('on');}
 function fermerModale(){const m=modaleEl;modaleEl=null;if(!m)return;m.classList.remove('on');setTimeout(()=>m.remove(),300);}
 /* clavier du téléphone : la fenêtre remonte au-dessus du clavier */
-if(window.visualViewport){const ajuster=()=>{wrap.style.setProperty('--clavier',Math.max(0,innerHeight-visualViewport.height-visualViewport.offsetTop)+'px');};visualViewport.addEventListener('resize',ajuster);visualViewport.addEventListener('scroll',ajuster);}
+/* la fenêtre se cale sur la partie réellement visible de l'écran, au-dessus du clavier */
+function ajusterModale(){if(!window.visualViewport)return;const v=visualViewport;wrap.style.setProperty('--vv-haut',v.offsetTop+'px');wrap.style.setProperty('--vv-bas',Math.max(0,wrap.clientHeight-v.offsetTop-v.height)+'px');}
+if(window.visualViewport){visualViewport.addEventListener('resize',ajusterModale);visualViewport.addEventListener('scroll',ajusterModale);}
 function donneesEnvoi(i){const r=cubes[i].result,arrondi=o=>Object.fromEntries(Object.entries(o).map(([k,v])=>[k,+v.toFixed(4)]));
 return {version:window.ENVOI.version,session:SESSION,sphere:SPH[i].key,saveur:r.prof.sav,figure:r.prof.fig,code:r.code,teinte:r.teinte.l,delta:+r.delta.toFixed(4),positions:arrondi(r.pos),brut:arrondi(r.raw),reponses:reponsesParScene(i),commentaire:commentaires[i].trim().slice(0,2000)};}
 async function envoyer(i,b){if(envoye[i]||b.disabled)return;b.disabled=true;b.textContent='Envoi…';

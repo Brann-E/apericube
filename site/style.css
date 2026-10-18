@@ -101,7 +101,8 @@ body{font-family:var(--police);font-weight:var(--graisse);font-optical-sizing:au
 /* ---------- fenêtre des retours ---------- */
 .modale{position:absolute;inset:0;z-index:9;background:var(--modale-voile);opacity:0;visibility:hidden;transition:opacity .25s ease,visibility 0s linear .25s}
 .modale.on{opacity:1;visibility:visible;transition:opacity .25s ease}
-.modale-carte{position:absolute;left:12px;right:12px;top:calc(40px + var(--sa-haut));bottom:calc(12px + var(--sa-bas) + var(--clavier,0px));max-width:520px;margin:0 auto;display:flex;flex-direction:column;
+#wrap.fige{bottom:auto;height:var(--hauteur-figee)}
+.modale-carte{position:absolute;left:12px;right:12px;top:calc(40px + var(--sa-haut) + var(--vv-haut,0px));bottom:calc(12px + var(--sa-bas) + var(--vv-bas,0px));max-width:520px;margin:0 auto;display:flex;flex-direction:column;
   padding:var(--esp-5) var(--esp-5) var(--esp-4);background:var(--bg);color:var(--ink);border-radius:20px;box-shadow:var(--modale-ombre);transform:translateY(16px);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
 .modale.on .modale-carte{transform:none}
 .modale-fermer{top:6px;right:6px;color:var(--mut)}
