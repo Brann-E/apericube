@@ -252,8 +252,10 @@ try{const rep=await fetch(window.ENVOI.adresse,{method:'POST',headers:{'Content-
  const j=await rep.json();if(!j.ok)throw new Error(j.erreur||'refusé');envoye[i]=true;b.textContent=TEXTE_MERCI;const z=document.getElementById('retour-'+i);if(z)z.disabled=true;vib(12);fermerModale();
  const c=cubes[i];if(entered&&active===i&&!c.tw){const cur=c.hist[c.hist.length-1].e;forward(i,{idx:cur.idx+1,br:null});}}
 catch(e){b.disabled=false;b.textContent=TEXTE_ECHEC;setTimeout(()=>{if(!b.disabled)b.textContent=libelleEnvoi(i);},2500);}}
-/* partage : « Je suis l'apéricube Poulet grillé, le Chaleureux… » + l'adresse du jeu */
-async function partager(i,b){const p=cubes[i].result.prof,url=location.origin+location.pathname;
+/* partage : « Je suis l'apéricube Poulet grillé, le Chaleureux… » + l'adresse de sa page de résultat (site/r/<saveur>/) */
+// même nom de page que outils/pages-partage.js et outils/cartes-partage.html
+const slugSaveur=t=>t.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/&/g,' ').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+async function partager(i,b){const p=cubes[i].result.prof,url=location.origin+'/r/'+slugSaveur(p.sav)+'/';
 const texte='Je suis l\u2019apéricube '+p.sav+', '+p.fig.charAt(0).toLowerCase()+p.fig.slice(1)+'. Et toi, quel Apéricube es-tu\u00a0?';
 try{if(navigator.share){await navigator.share({title:'Quel Apéricube es-tu\u00a0?',text:texte,url});return;}
  await navigator.clipboard.writeText(texte+' '+url);b.textContent=TEXTE_COPIE;setTimeout(()=>{b.textContent=TEXTE_PARTAGER;},2500);}

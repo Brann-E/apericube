@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Apéricube — images de partage</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300..700&display=swap">
+<style>
+  body{margin:0;padding:24px;font:16px system-ui,sans-serif;background:#eee;color:#222}
+  .grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-top:16px}
+  .grille img{width:100%;display:block;border-radius:6px}
+  button{font:inherit;padding:8px 14px}
+</style>
+</head>
+<body>
+<!-- Fabrique les images d'aperçu de lien (1200 × 630), une par saveur, dans site/partage/.
+     À ouvrir via outils/serveur-cartes.py, qui reçoit et enregistre les images. -->
+<p>Images de partage Apéricube. <button id="tout">Générer les 32</button> <span id="etat"></span></p>
+<div class="grille" id="grille"></div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+<script src="../site/contenu.js"></script>
+<script>
+const L = 1200, H = 630, POLICE = '"Source Serif 4", Georgia, serif';
+const SITE = 'apericube.netlify.app';
+
+// même nom de fichier que celui utilisé par le site pour les liens de partage
+function slug(t) { return t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/&/g, ' ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+
+function rvb(hex) { const n = parseInt(hex.slice(1), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; }
+function melange(a, b, t) { return a.map((v, k) => Math.round(v + (b[k] - v) * t)); }
+function css(c) { return 'rgb(' + c.join(',') + ')'; }
+function luminance(c) { const l = c.map(v => { v /= 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }); return 0.2126 * l[0] + 0.7152 * l[1] + 0.0722 * l[2]; }
+
+// coupe un texte en lignes qui tiennent dans la largeur donnée
+function lignes(x, texte, largeur) {
+  const mots = texte.split(' '), out = []; let l = '';
+  for (const m of mots) { const t = l ? l + ' ' + m : m; if (x.measureText(t).width > largeur && l) { out.push(l); l = m; } else l = t; }
+  if (l) out.push(l); return out;
+}
+
+/* ---------- le cube du jeu, rendu en 3D avec les mêmes réglages que site/app.js ----------
+   (matière métallique, arêtes arrondies, environnement lumineux, ombre portée sur le sol) */
+const TAILLE_RENDU = 720, S = 1.15, RD = 0.045, Q = Math.PI / 2, SOL = -S / 2;
+const rendu = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+rendu.setPixelRatio(1); rendu.setSize(TAILLE_RENDU, TAILLE_RENDU, false); rendu.setClearColor(0x000000, 0);
+rendu.toneMapping = THREE.LinearToneMapping; rendu.toneMappingExposure = 0.92; rendu.outputEncoding = THREE.sRGBEncoding;
+rendu.shadowMap.enabled = true; rendu.shadowMap.type = THREE.PCFSoftShadowMap;
+const scene3d = new THREE.Scene();
+{ // même environnement lumineux que dans le jeu
+  const env = new THREE.Scene(), ciel = new THREE.SphereGeometry(20, 48, 24), cols = [], pos = ciel.attributes.position;
+  const bas = new THREE.Color('#e8dccd'), milieu = new THREE.Color('#8a7566'), haut = new THREE.Color('#4a3d35'), t = new THREE.Color();
+  for (let i = 0; i < pos.count; i++) { const y = pos.getY(i) / 20; if (y < 0) t.copy(milieu).lerp(bas, Math.min(1, -y * 2.5)); else t.copy(milieu).lerp(haut, Math.min(1, y * 1.4)); cols.push(t.r, t.g, t.b); }
+  ciel.setAttribute('color', new THREE.Float32BufferAttribute(cols, 3)); env.add(new THREE.Mesh(ciel, new THREE.MeshBasicMaterial({ side: THREE.BackSide, vertexColors: true })));
+  const boite = (w, h, int, x, y, z, teinte) => { const c = new THREE.Color(teinte || '#fff6ec').multiplyScalar(int); const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: c, side: THREE.DoubleSide })); m.position.set(x, y, z); m.lookAt(0, 0, 0); env.add(m); };
+  boite(14, 7, 2.6, -3, 10, 8); boite(4, 10, 1.8, -12, 2, 3); boite(4, 10, 1.5, 12, 2, -2, '#ffe9d6'); boite(18, 4, 1.1, 0, 4, -15, '#ffe2c8'); boite(12, 4, 1.4, 0, 0, 15);
+  scene3d.environment = new THREE.PMREMGenerator(rendu).fromScene(env, 0.035).texture;
+}
+const lumiere = new THREE.DirectionalLight(0xfff1e2, 1.4); // l'ombre part vers l'arrière-droite, visible depuis la caméra
+lumiere.position.set(-6, 9, 4); lumiere.target.position.set(1.5, 0, -1.5); scene3d.add(lumiere, lumiere.target);
+lumiere.castShadow = true; lumiere.shadow.mapSize.set(2048, 2048); Object.assign(lumiere.shadow.camera, { left: -4, right: 4, top: 4, bottom: -4, near: 1, far: 40 }); lumiere.shadow.camera.updateProjectionMatrix();
+lumiere.shadow.bias = -0.0004; lumiere.shadow.normalBias = 0.025;
+scene3d.add(new THREE.HemisphereLight(0xfff6ee, 0xd8c6b4, 0.3));
+const sol = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.ShadowMaterial({ opacity: 0.26 })); sol.rotation.x = -Math.PI / 2; sol.position.y = SOL; sol.receiveShadow = true; scene3d.add(sol);
+function boiteArrondie(e) { // même géométrie que rbox() dans site/app.js
+  const N = 2 * e + 1, g = new THREE.BoxGeometry(1, 1, 1, N, N, N), p = g.attributes.position, n = g.attributes.normal, h = S / 2 - RD;
+  const map = u => { const k = Math.round((u + 0.5) * N); if (k <= e) return -h - RD * Math.cos((k / e) * Q); const j = N - k; return h + RD * Math.cos((j / e) * Q); };
+  const v = new THREE.Vector3(), c = new THREE.Vector3(), d = new THREE.Vector3();
+  for (let i = 0; i < p.count; i++) { v.set(map(p.getX(i)), map(p.getY(i)), map(p.getZ(i))); c.set(THREE.MathUtils.clamp(v.x, -h, h), THREE.MathUtils.clamp(v.y, -h, h), THREE.MathUtils.clamp(v.z, -h, h)); d.copy(v).sub(c);
+    if (d.lengthSq() < 1e-10) d.set(0, 0, 1); d.normalize(); v.copy(c).addScaledVector(d, RD); p.setXYZ(i, v.x, v.y, v.z); n.setXYZ(i, d.x, d.y, d.z); }
+  g.computeBoundingSphere(); return g;
+}
+function popc(hex) { const c = new THREE.Color(hex), h = {}; c.getHSL(h); c.setHSL(h.h, Math.min(1, h.s * 1.1), Math.min(h.l, 0.56)); return c; } // couleur « ravivée », comme dans le jeu
+const matiere = new THREE.MeshPhysicalMaterial({ color: 0xffffff, metalness: 1, roughness: 0.24, envMapIntensity: 1.2 });
+const cube3d = new THREE.Mesh(boiteArrondie(4), matiere); cube3d.castShadow = true; cube3d.rotation.y = Math.PI / 4 + 0.32; scene3d.add(cube3d);
+const camera3d = new THREE.PerspectiveCamera(36, 1, 0.05, 100); camera3d.position.set(0, 1.7, 5.45); camera3d.lookAt(0.35, -0.15, -0.3);
+function renduCube(hex) { matiere.color.copy(popc(hex)); rendu.render(scene3d, camera3d); return rendu.domElement; }
+
+function carte(p) {
+  const cv = document.createElement('canvas'); cv.width = L; cv.height = H; const x = cv.getContext('2d');
+  const base = rvb(p.col), fond = melange(base, [255, 255, 255], 0.55);
+  const clair = luminance(fond) < 0.18;
+  const encre = clair ? 'rgba(255,255,255,.96)' : 'rgba(18,12,10,.92)', encre2 = clair ? 'rgba(255,255,255,.72)' : 'rgba(18,12,10,.6)', filet = clair ? 'rgba(255,255,255,.35)' : 'rgba(18,12,10,.2)';
+  x.fillStyle = css(fond); x.fillRect(0, 0, L, H);
+  // cadre arrondi, comme sur les écrans du jeu
+  x.strokeStyle = filet; x.lineWidth = 3; x.beginPath(); x.roundRect(24, 24, L - 48, H - 48, 34); x.stroke();
+  x.drawImage(renduCube(p.col), -55, 10, 610, 610);
+  const gauche = 470, largeur = L - gauche - 90;
+  // bloc « Tu es l'apéricube » / saveur / figure : la taille du nom s'adapte pour que le bloc tienne au-dessus du trait,
+  // puis le bloc est centré verticalement dans l'espace disponible (de 60 à 455 px)
+  const SUR = 38, FIG = 50, ZONE_HAUT = 60, ZONE_BAS = 455;
+  let taille = 96, ls, hauteur;
+  for (; taille >= 56; taille -= 4) {
+    x.font = '600 ' + taille + 'px ' + POLICE; ls = lignes(x, p.sav, largeur);
+    hauteur = SUR + 22 + ls.length * taille * 1.08 + 18 + FIG;
+    if (ls.length <= 2 && ls.every(l => x.measureText(l).width <= largeur) && hauteur <= ZONE_BAS - ZONE_HAUT) break;
+  }
+  let y = ZONE_HAUT + (ZONE_BAS - ZONE_HAUT - hauteur) / 2 + SUR;
+  x.textBaseline = 'alphabetic'; x.fillStyle = encre2; x.font = '450 ' + SUR + 'px ' + POLICE; x.fillText('Tu es l’apéricube', gauche, y);
+  y += 22; x.fillStyle = encre; x.font = '600 ' + taille + 'px ' + POLICE; ls.forEach(l => { y += taille * 1.08; x.fillText(l, gauche, y - taille * 0.22); });
+  x.font = '450 ' + FIG + 'px ' + POLICE; x.fillText(p.fig, gauche, y + 18 + FIG * 0.8);
+  x.fillStyle = filet; x.fillRect(gauche, 482, largeur, 2);
+  x.fillStyle = encre; x.font = '600 34px ' + POLICE; x.fillText('Quel Apéricube es-tu ?', gauche, 540);
+  x.fillStyle = encre2; x.font = '450 30px ' + POLICE; x.fillText(SITE, gauche, 582);
+  return cv;
+}
+
+const profils = [...Object.values(CONTENT.profiles.chez_les_autres), ...Object.values(CONTENT.profiles.chez_nous)];
+async function produire(liste) {
+  await document.fonts.load('600 96px "Source Serif 4"'); await document.fonts.load('450 40px "Source Serif 4"');
+  const grille = document.getElementById('grille'), etat = document.getElementById('etat'); grille.replaceChildren(); let n = 0;
+  for (const p of liste) {
+    const cv = carte(p), nom = slug(p.sav) + '.png';
+    const blob = await new Promise(r => cv.toBlob(r, 'image/png'));
+    const rep = await fetch('/enregistrer/' + nom, { method: 'POST', body: blob });
+    if (!rep.ok) throw new Error('enregistrement refusé : ' + nom);
+    const img = new Image(); img.src = URL.createObjectURL(blob); img.title = nom; grille.append(img);
+    etat.textContent = (++n) + ' / ' + liste.length;
+  }
+  return n;
+}
+window.__produire = noms => produire(noms ? profils.filter(p => noms.includes(p.sav)) : profils);
+document.getElementById('tout').addEventListener('click', () => produire(profils));
+</script>
+</body>
+</html>

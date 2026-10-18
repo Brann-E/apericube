@@ -168,6 +168,9 @@ Chaque envoi ajoute une ligne dans une Google Sheet : version du questionnaire, 
 | `site/envoi.js` | l'adresse de la Google Sheet et la **version du questionnaire** |
 | `outils/verifier.js` | le test de conformité (voir plus bas) |
 | `outils/google-sheet.gs` | le script qui reçoit les envois dans la Google Sheet |
+| `site/r/<saveur>/` | les 32 pages de résultat partagé (fabriquées, ne pas modifier à la main) |
+| `site/partage/` | les 32 images d'aperçu, le style et le cube 3D des pages de résultat |
+| `outils/pages-partage.js`, `outils/cartes-partage.html`, `outils/serveur-cartes.py` | les outils qui fabriquent ces pages et ces images |
 | `data.json`, `profils.json`, `engine.py` | les données et le moteur de référence |
 | `SPEC.md`, `methodologie-instrument.md` | la spécification et le cadre méthodologique |
 | `scenes-chez-les-autres.md`, `chez-nous-v3.md`, `les-32-profils.md` | les textes |
@@ -189,6 +192,10 @@ Le test vérifie que les données du site sont identiques à `data.json`, `profi
 **Publier** : chaque push sur `main` est publié par **Netlify**, qui relance d'abord ce test et ne publie `site/` **que s'il passe** (voir [`netlify.toml`](netlify.toml)). GitHub relance aussi le test à chaque push (voir [`.github/workflows/tester.yml`](.github/workflows/tester.yml)), pour que le résultat soit visible sur la page du dépôt.
 
 **Changer les questions ou les poids** : penser à changer `version` dans `site/envoi.js`, pour savoir avec quelle version du questionnaire chaque ligne a été produite.
+
+**Liens de partage** : le bouton « Partager mon résultat » envoie vers `/r/<saveur>/`, une page qui montre la carte et le portrait, avec un bouton « Faire le test ». Si un texte ou une couleur de profil change dans `site/contenu.js`, il faut tout refabriquer :
+- les pages : `node outils/pages-partage.js` ;
+- les images : `py outils/serveur-cartes.py`, puis ouvrir http://localhost:8010/outils/cartes-partage.html et cliquer sur « Générer les 32 ».
 
 ## État et chantiers connus
 
