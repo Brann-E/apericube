@@ -175,6 +175,7 @@ function cacherFace(){faceEl.classList.remove('on');faceAttente=null;if(tqCible)
 const ACCUEIL={chez_les_autres:{titre:'Trois scènes t\u2019attendent',promesse:'Une soirée, un train, une partie : trois moments avec des gens que tu ne connais pas, huit choix dans chacun. Il n\u2019y a pas de bonne réponse, seulement la tienne.'},
  chez_nous:{titre:'Trois scènes avec les tiens',promesse:'Ta bande, tes proches, ceux qui te connaissent par cœur : trois moments, huit choix dans chacun. Fais ce que tu ferais vraiment.'}};
 const ACCUEIL_FIN='Au bout du chemin, ta saveur d\u2019Apéricube.';
+const ACCUEIL_ANONYME='Tes choix sont enregistrés de façon anonyme, pour la recherche : ni nom, ni adresse.';
 const ENTRER_SCENE={soiree:'Pousser la porte',train:'Lever les yeux',partie:'Approcher de la table',apero:'Rejoindre la bande',weekend:'Poser ton sac',demenagement:'Retrousser tes manches'};
 /* « Le poulet grillé : convivial… » → « Convivial… » : la saveur est déjà écrite juste au-dessus */
 function sansRepetition(t){return majuscule(t.replace(/^[^:]+ : /,''));}
@@ -186,7 +187,7 @@ const libelle=sp.premier?'':(sp.scene?SPH[i].name+'   ·   Scène '+sp.numero+' 
 if(sp.premier)faceCorps.append(entete(i));
 if(sp.k==='accueil'){const a=ACCUEIL[SPH[i].key];if(!sp.premier)faceCorps.append(el('h2','f-titre',a.titre));faceCorps.append(el('p','f-recit',a.promesse));
  const liste=el('ol','f-scenes');(i?C.nous:C.autres).forEach((scn,k)=>{const li=el('li');li.append(el('span','f-num',String(k+1)),el('span',null,scn.title));liste.append(li);});
- faceCorps.append(liste,el('p','f-note',ACCUEIL_FIN));acts.push({label:'C\u2019est parti',act:'next'});}
+ faceCorps.append(liste,el('p','f-note',ACCUEIL_FIN),el('p','f-note',ACCUEIL_ANONYME));acts.push({label:'C\u2019est parti',act:'next'});}
 else if(sp.k==='text'){if(sp.scene)faceCorps.append(pips(sp));faceCorps.append(el('h2','f-titre',sp.title));sp.paras.forEach(p=>faceCorps.append(el('p','f-recit',p)));if(sp.coda)faceCorps.append(el('p','f-coda',sp.coda));acts.push({label:ENTRER_SCENE[sp.scene]||sp.cta,act:'next'});}
 else if(sp.k==='q'){faceCorps.append(el('p','f-question',sp.s));const opts=el('div','f-options');sp.o.forEach((o,k)=>opts.append(bouton(o.t,k,sp.sel===k)));faceCorps.append(opts);}
 else if(sp.k==='res1'){const p=sp.r.prof,cube=el('div','f-cube');cube.setAttribute('aria-hidden','true');cube.addEventListener('click',()=>{if(tqS.hop<=0){tqS.hop=1;tqS.vel+=2.2;vib(10);}});
@@ -219,10 +220,9 @@ function finirMorph(){const m=morphEl;morphEl=null;if(m)setTimeout(()=>m.remove(
 function annulerMorph(){if(morphEl){morphEl.remove();morphEl=null;}}
 /* ---------- envoi anonyme des réponses vers la Google Sheet de recherche ---------- */
 const ENVOI_ACTIF=!!(window.ENVOI&&window.ENVOI.adresse);
-const TEXTE_VERS_RETOURS='Envoyer mes résultats pour améliorer le modèle',TEXTE_DEJA='Tes résultats sont envoyés, merci';
+const TEXTE_VERS_RETOURS='Laisser un commentaire',TEXTE_DEJA='Ton commentaire est envoyé, merci';
 const TEXTE_PARTAGER='Partager mon résultat',TEXTE_COPIE='Copié, il n\u2019y a plus qu\u2019à coller';
-const TEXTE_MERCI_ECRAN='Tes résultats sont bien arrivés. Ils vont servir à affiner les scènes, les questions et la façon dont les saveurs sont attribuées.';
-const TEXTE_ENVOYER_SANS='Envoyer sans message';
+const TEXTE_MERCI_ECRAN='Ton commentaire est bien arrivé. Il va servir à affiner les scènes, les questions et la façon dont les saveurs sont attribuées.';
 const TEXTE_ENVOYER='Envoyer',TEXTE_MERCI='Merci, c’est envoyé',TEXTE_ECHEC='L’envoi n’a pas marché, réessayer';
 const TEXTE_RETOUR_TITRE='Si tu as des retours, n\u2019hésite pas une seule seconde.';
 const TEXTE_RETOUR_AIDE='Une scène qui sonne faux, une question pas claire, un résultat qui t\u2019a fait rire ou tiquer\u2026 Tout est utile.';
@@ -231,13 +231,12 @@ const envoye=[false,false],commentaires=['',''];
 function reponsesParScene(i){const c=cubes[i],out={};SPH[i].seq.forEach((it,idx)=>{if(!it.scene||(it.k!=='q'&&it.k!=='tree'))return;const a=c.ans[idx]||{};(out[it.scene]=out[it.scene]||[]).push(a.e1!=null?[a.e1,a.b]:a.o);});return out;}
 /* ---------- fenêtre des retours, posée sur le résultat ---------- */
 let modaleEl=null;
-function libelleEnvoi(i){return commentaires[i].trim()?TEXTE_ENVOYER:TEXTE_ENVOYER_SANS;}
 function ouvrirModale(i){fermerModale();const m=el('div','modale');m.setAttribute('role','dialog');m.setAttribute('aria-modal','true');m.setAttribute('aria-labelledby','modale-titre');
 const carte=el('div','modale-carte'),titre=el('h2','modale-titre',TEXTE_RETOUR_TITRE);titre.id='modale-titre';
 const fermer=el('button','ib modale-fermer');fermer.type='button';fermer.setAttribute('aria-label','Fermer');fermer.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
 const zone=el('textarea','modale-zone');zone.id='retour-'+i;zone.maxLength=2000;zone.placeholder=TEXTE_RETOUR_AIDE;zone.value=commentaires[i];zone.setAttribute('aria-labelledby','modale-titre');
-const envoi=el('button','modale-envoyer',libelleEnvoi(i));envoi.type='button';
-zone.addEventListener('input',()=>{commentaires[i]=zone.value;if(!envoi.disabled)envoi.textContent=libelleEnvoi(i);});
+const envoi=el('button','modale-envoyer',TEXTE_ENVOYER);envoi.type='button';envoi.disabled=!commentaires[i].trim();
+zone.addEventListener('input',()=>{commentaires[i]=zone.value;if(!envoi.dataset.envoi)envoi.disabled=!zone.value.trim();});
 envoi.addEventListener('click',()=>envoyer(i,envoi));fermer.addEventListener('click',fermerModale);m.addEventListener('click',e=>{if(e.target===m)fermerModale();});
 carte.append(fermer,titre,zone,envoi);m.append(carte);wrap.append(m);modaleEl=m;ajusterModale();m.getBoundingClientRect();m.classList.add('on');}
 function fermerModale(){const m=modaleEl;modaleEl=null;if(!m)return;m.classList.remove('on');setTimeout(()=>m.remove(),300);}
@@ -247,11 +246,13 @@ function ajusterModale(){if(!window.visualViewport)return;const v=visualViewport
 if(window.visualViewport){visualViewport.addEventListener('resize',ajusterModale);visualViewport.addEventListener('scroll',ajusterModale);}
 function donneesEnvoi(i){const r=cubes[i].result,arrondi=o=>Object.fromEntries(Object.entries(o).map(([k,v])=>[k,+v.toFixed(4)]));
 return {version:window.ENVOI.version,session:SESSION,sphere:SPH[i].key,saveur:r.prof.sav,figure:r.prof.fig,code:r.code,teinte:r.teinte.l,delta:+r.delta.toFixed(4),positions:arrondi(r.pos),brut:arrondi(r.raw),reponses:reponsesParScene(i),commentaire:commentaires[i].trim().slice(0,2000)};}
-async function envoyer(i,b){if(envoye[i]||b.disabled)return;b.disabled=true;b.textContent='Envoi…';
+async function envoyer(i,b){if(envoye[i]||b.disabled||!commentaires[i].trim())return;b.disabled=true;b.dataset.envoi='1';b.textContent='Envoi…';
 try{const rep=await fetch(window.ENVOI.adresse,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(donneesEnvoi(i))});
  const j=await rep.json();if(!j.ok)throw new Error(j.erreur||'refusé');envoye[i]=true;b.textContent=TEXTE_MERCI;const z=document.getElementById('retour-'+i);if(z)z.disabled=true;vib(12);fermerModale();
  const c=cubes[i];if(entered&&active===i&&!c.tw){const cur=c.hist[c.hist.length-1].e;forward(i,{idx:cur.idx+1,br:null});}}
-catch(e){b.disabled=false;b.textContent=TEXTE_ECHEC;setTimeout(()=>{if(!b.disabled)b.textContent=libelleEnvoi(i);},2500);}}
+catch(e){delete b.dataset.envoi;b.disabled=false;b.textContent=TEXTE_ECHEC;setTimeout(()=>{if(!b.disabled)b.textContent=TEXTE_ENVOYER;},2500);}}
+/* envoi automatique et anonyme du résultat, dès qu'il est calculé ; un commentaire viendra compléter la même ligne */
+async function envoiAuto(i){if(!ENVOI_ACTIF)return;try{await fetch(window.ENVOI.adresse,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(donneesEnvoi(i))});}catch(e){}}
 /* partage : « Je suis l'apéricube Poulet grillé, le Chaleureux… » + l'adresse de sa page de résultat (site/r/<saveur>/) */
 // même nom de page que outils/pages-partage.js et outils/cartes-partage.html
 const slugSaveur=t=>t.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/&/g,' ').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
@@ -271,7 +272,7 @@ function forward(i,e){const c=cubes[i];const dir=DIRS[c.hist.length%DIRS.length]
 function nextEntry(i,cur,choice){const s=SPH[i],c=cubes[i],it=s.seq[cur.idx];
 if(it.k==='tree'&&cur.br==null){c.ans[cur.idx]={e1:choice};return {idx:cur.idx,br:choice};}
 if(it.k==='tree'){c.ans[cur.idx].b=choice;}else if(it.k==='q'){c.ans[cur.idx]={o:choice};}
-const n={idx:cur.idx+1,br:null};if(s.seq[n.idx]&&s.seq[n.idx].k==='res1'){c.result=compute(i);c.done=true;setCaption(i);}return n;}
+const n={idx:cur.idx+1,br:null};if(s.seq[n.idx]&&s.seq[n.idx].k==='res1'){c.result=compute(i);c.done=true;setCaption(i);envoiAuto(i);}return n;}
 function goBack(){const i=active,c=cubes[i];if(c.tw||busy)return;if(c.hist.length<=1){exitEnter();return;}const last=c.hist.pop();const e=c.hist[c.hist.length-1].e;turnTo(i,e,last.dir,-1);}
 function enter(i){entered=true;active=i;const c=cubes[i];c.qT.identity();c.front=4;c.hist=[];vib(20);
 const start=c.done?{idx:SPH[i].seq.findIndex(x=>x.k==='res1'),br:null}:{idx:0,br:null};

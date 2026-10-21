@@ -151,9 +151,9 @@ Le détail du calcul n'est visible qu'en ajoutant `?recherche` à l'adresse du s
 
 ## Les données collectées
 
-À la fin de chaque sphère, le participant peut, s'il le veut, envoyer ses réponses et un commentaire libre. Ils servent à améliorer le questionnaire : les scènes, les questions, et la façon dont les profils sont calculés.
+À la fin de chaque sphère, les réponses sont envoyées automatiquement et anonymement (l'écran d'avant les scènes le signale). Le participant peut ensuite ajouter un commentaire libre, qui complète la même ligne. Ils servent à améliorer le questionnaire : les scènes, les questions, et la façon dont les profils sont calculés.
 
-Chaque envoi ajoute une ligne dans une Google Sheet : version du questionnaire, identifiant de session tiré au hasard (il relie les deux sphères d'une même visite, et n'est jamais sauvegardé), saveur, figure, code, teinte, delta, positions brutes et recentrées, réponses (au format d'`engine.py`, donc recalculables), commentaire.
+Chaque parcours donne une ligne dans une Google Sheet (mise à jour si la personne revient en arrière ou ajoute un commentaire) : version du questionnaire, identifiant de session tiré au hasard (il relie les deux sphères d'une même visite, et n'est jamais sauvegardé), saveur, figure, code, teinte, delta, positions brutes et recentrées, réponses (au format d'`engine.py`, donc recalculables), commentaire.
 
 **Rien n'identifie la personne** : ni nom, ni adresse mail, ni adresse IP n'est enregistré. À noter : la police du site est chargée depuis Google Fonts, ce qui transmet techniquement l'adresse IP du visiteur à Google au chargement de la page.
 
