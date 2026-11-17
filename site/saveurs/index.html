@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f3ede4">
+<title>Les saveurs · Quel Apéricube es-tu ?</title>
+<meta name="description" content="Seize saveurs chez les autres, seize chez nous : les 32 fiches de « Quel Apéricube es-tu ? ».">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Quel Apéricube es-tu ?">
+<meta property="og:title" content="Les saveurs">
+<meta property="og:description" content="Seize saveurs chez les autres, seize chez nous : les 32 fiches de « Quel Apéricube es-tu ? ».">
+<meta property="og:url" content="https://apericube.netlify.app/saveurs/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300..700&display=swap">
+<link rel="stylesheet" href="/partage/page.css">
+<style>:root{--fond:#f3ede4;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-emmental{--fond:#fff3b8;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-echalote-ciboulette{--fond:#ddf1b1;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-cepes{--fond:#f4c58b;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-gouda-cumin{--fond:#ffcd7c;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-poivre-vert{--fond:#c5e2a3;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-bleu{--fond:#89a4ec;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-olive-verte{--fond:#e1f496;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-chorizo{--fond:#ff9b8b;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-chevre{--fond:#ffefc2;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-ail-fines-herbes{--fond:#cef59d;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-noix{--fond:#f1bc83;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-cheddar-tex-mex{--fond:#ff9676;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-jambon{--fond:#ffc5c2;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-bacon-grille{--fond:#fd9d77;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-poivron-piment-jalapeno{--fond:#ddfd7f;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-chorizo-piment-de-cayenne{--fond:#ff8676;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-camembert{--fond:#ffefc2;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-saumon-aneth{--fond:#ffbfa2;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-bleu-noix{--fond:#a1a1d3;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-truffe{--fond:#cba586;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-basilic{--fond:#c1ff8b;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-tomate-piment-basque{--fond:#ff8279;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-pizza{--fond:#ff9876;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-sauce-barbecue{--fond:#ffa47f;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-jambon-cru{--fond:#ff928c;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-3-fromages{--fond:#ffe28f;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-tomate{--fond:#ff8276;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-saint-jacques{--fond:#ffe8c2;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-poulet-grille{--fond:#ffd476;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-oignon-fondant{--fond:#ffe6a8;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-ail-des-ours{--fond:#aef17b;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+.s-hot-challenge{--fond:#e77166;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}</style>
+</head>
+<body>
+<main class="page catalogue">
+<p class="fil">Quel Apéricube es-tu&nbsp;?</p>
+<h1>Les saveurs</h1>
+<p class="intro">Seize saveurs chez les autres, seize chez nous&nbsp;: jamais la même des deux côtés.</p>
+<div class="onglets" role="tablist" aria-label="Sphère"><button type="button" role="tab" id="onglet-chez-les-autres" aria-controls="chez-les-autres">Chez les autres</button><button type="button" role="tab" id="onglet-chez-nous" aria-controls="chez-nous">Chez nous</button></div>
+<section class="sphere" id="chez-les-autres" role="tabpanel" aria-labelledby="onglet-chez-les-autres">
+<h2>Les 16 saveurs chez les autres</h2>
+<p class="sous">avec ceux que tu ne connais pas encore</p>
+<article class="saveur s-emmental" id="emmental">
+<canvas class="cube-mini" data-couleur="#FFEB89" aria-hidden="true"></canvas>
+<h3>Emmental</h3>
+<p class="figure">L'Aise</p>
+<p class="phrase">Le goût que tout le monde connaît, qu'on ne remarque pas, et qui manque dès qu'il n'est pas là.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Tu es arrivé, tu as dit bonjour, tu as trouvé un coin qui te convenait, et tu n'as plus vraiment eu besoin de bouger. Tu n'attends rien de spécial de cette soirée, et c'est précisément pour ça qu'elle se passe bien pour toi. Tu ne cherches ni à briller, ni à aider, ni à provoquer quoi que ce soit. Tu es là, tranquillement, et ta tranquillité ne dérange personne : au contraire, elle fait de la place. On vient souvent s'asseoir à côté de toi sans trop savoir pourquoi, et la raison est simple : à côté de toi, il n'y a rien à prouver. Tu es la preuve vivante qu'on peut traverser une soirée entière sans forcer et en profiter plus que tout le monde.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Au hasard</strong> : tu t'es posé là sans y penser, c'était le premier coin libre. Demain, ailleurs, tu serais peut-être tout autre.</li>
+<li><strong>Par habitude</strong> : c'est ta manière de faire depuis toujours, tu te mets en retrait par pli, sans te poser la question.</li>
+<li><strong>Par choix</strong> : tu as appris que cette tranquillité te va mieux que l'agitation, et tu la préfères en connaissance de cause.</li>
+<li><strong>Par ancrage</strong> : ta paix, c'est une part de toi profonde. On ne t'en déloge pas, et tu n'as aucune envie qu'on essaie.</li>
+</ul>
+<a class="lien" href="/r/emmental/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-echalote-ciboulette" id="echalote-ciboulette">
+<canvas class="cube-mini" data-couleur="#C7E77D" aria-hidden="true"></canvas>
+<h3>Échalote ciboulette</h3>
+<p class="figure">La Réserve</p>
+<p class="phrase">Discrète en apparence, précise en bouche, elle ne se livre qu'à qui fait attention.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Tu ne prends pas beaucoup de place, et tu y tiens. Mais ne t'y trompe pas : derrière ton calme, il y a de l'exigence. Tu aimes que les choses soient faites correctement, tu repères vite ce qui cloche, et tu n'es pas du genre à te jeter sur n'importe quoi. Tu observes, tu jauges, et quand tu t'engages, c'est que tu as décidé que ça valait le coup. Les autres te prennent parfois pour quelqu'un de distant, alors que tu es simplement quelqu'un qui ne se disperse pas. Ta discrétion n'est pas de la timidité, c'est de la sélection.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Au hasard</strong> : ce soir tu étais sur la réserve, mais c'était l'humeur du moment plus qu'une manière d'être.</li>
+<li><strong>Par habitude</strong> : tu gardes tes distances par réflexe, c'est devenu ta façon d'aborder les gens.</li>
+<li><strong>Par choix</strong> : tu as décidé que l'exigence valait mieux que la facilité, et tu l'assumes.</li>
+<li><strong>Par ancrage</strong> : cette rigueur tranquille, c'est une colonne vertébrale. Tu ne transigeras pas dessus.</li>
+</ul>
+<a class="lien" href="/r/echalote-ciboulette/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-cepes" id="cepes">
+<canvas class="cube-mini" data-couleur="#EC9F3D" aria-hidden="true"></canvas>
+<h3>Cèpes</h3>
+<p class="figure">Le Connaisseur</p>
+<p class="phrase">Ça ne se trouve pas partout, ça ne crie pas, et ceux qui savent les cherchent.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Tu ne t'imposes pas, mais tu as un œil, et un vrai. Tu as goûté le truc que personne ne connaissait, repéré la bouteille intéressante, parlé à la personne la plus singulière de la pièce, le tout sans en faire une affaire, juste pour toi. Tu ne collectionnes pas les découvertes pour les raconter : tu les fais parce que le familier t'ennuie un peu et que l'inconnu te nourrit. Tu as cette élégance rare de chercher le nouveau sans avoir besoin qu'on le remarque. Tu repars souvent d'une soirée avec une trouvaille que personne d'autre n'a vue passer.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Au hasard</strong> : ce soir la curiosité t'a pris, mais c'était l'occasion, pas une quête.</li>
+<li><strong>Par habitude</strong> : tu vas vers le neuf par pente naturelle, sans y réfléchir.</li>
+<li><strong>Par choix</strong> : tu cultives cette ouverture parce que tu sais qu'elle te fait du bien.</li>
+<li><strong>Par ancrage</strong> : cette faim d'inédit, c'est le moteur de ton rapport au monde, ancien et tenace.</li>
+</ul>
+<a class="lien" href="/r/cepes/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-gouda-cumin" id="gouda-cumin">
+<canvas class="cube-mini" data-couleur="#FFAB24" aria-hidden="true"></canvas>
+<h3>Gouda cumin</h3>
+<p class="figure">L'Esthète</p>
+<p class="phrase">Familier et surprenant à la fois, pour ceux qui aiment le connu relevé d'une trouvaille.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Tu vas vers l'inconnu, mais l'inconnu qui a de la tenue, pas n'importe quoi. Tu as des critères, et tu les assumes sans te justifier. Tu sais reconnaître ce qui vaut le détour et distinguer ce qui ne le vaut pas, et tu ne vois pas pourquoi tu t'excuserais d'avoir du goût. Tu n'es pas snob pour autant : tu ne hiérarchises pas les gens, tu hiérarchises les choses, ce qui est très différent. Discret mais exigeant, curieux mais sélectif, tu es de ceux qui élèvent le niveau d'une pièce simplement en y étant.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Au hasard</strong> : ton exigence du soir tenait au contexte, elle n'est pas toujours aussi vive.</li>
+<li><strong>Par habitude</strong> : tu tries et tu sélectionnes par automatisme, c'est ta façon d'aborder les choses.</li>
+<li><strong>Par choix</strong> : tu as fait de l'exigence un principe, et tu sais pourquoi.</li>
+<li><strong>Par ancrage</strong> : le goût du beau et du juste, c'est une part de ton identité, non négociable.</li>
+</ul>
+<a class="lien" href="/r/gouda-cumin/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-poivre-vert" id="poivre-vert">
+<canvas class="cube-mini" data-couleur="#9ECE66" aria-hidden="true"></canvas>
+<h3>Poivre vert</h3>
+<p class="figure">L'Étincelle</p>
+<p class="phrase">On n'en met qu'un peu, et pourtant c'est lui qu'on retient.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Tu ne prends pas beaucoup de place en apparence, mais quand tu en prends, ça pique. Tu gardes tes forces, tu observes, et au bon moment tu poses le mot juste, la remarque qui réveille la table. Tu ne cherches pas à durer dans la conversation, seulement à y laisser une trace. On te remarque sans que tu te sois donné du mal, parce que tu as l'art de l'intervention qui compte. Tu es la preuve qu'on n'a pas besoin de parler beaucoup pour marquer les esprits, il suffit de parler bien.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Au hasard</strong> : ce soir tu as lancé une pique bien placée, mais c'était l'inspiration du moment.</li>
+<li><strong>Par habitude</strong> : tu places tes mots par réflexe, c'est ta manière naturelle d'exister dans un groupe.</li>
+<li><strong>Par choix</strong> : tu as compris que tu portais plus en disant peu, et tu le cultives.</li>
+<li><strong>Par ancrage</strong> : cette présence tranchante, c'est profondément toi, et tu n'en changerais pour rien.</li>
+</ul>
+<a class="lien" href="/r/poivre-vert/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-bleu" id="bleu">
+<canvas class="cube-mini" data-couleur="#3A68DF" aria-hidden="true"></canvas>
+<h3>Bleu</h3>
+<p class="figure">Le Clivant</p>
+<p class="phrase">On l'adore ou on le laisse, il n'a jamais cherché à être aimé de tous, et il s'en porte très bien.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Tu as un avis, tu l'as donné, et la table s'est réveillée. Tu ne cherches pas à plaire : tu trouves que c'est vrai, et tu tiens ta position même quand elle dérange. Tu prends de la place, mais pas pour faire du bien à tout le monde, pour défendre ce que tu penses. Deux personnes t'ont trouvé formidable, une troisième est allée prendre l'air. Tu as arrêté depuis longtemps d'essayer de faire l'unanimité, et c'est exactement ce qui te rend intéressant. On ne t'oublie pas après t'avoir rencontré, et c'est tout ce qui compte pour toi.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Au hasard</strong> : ce soir tu as planté le débat, mais c'était l'ambiance qui s'y prêtait.</li>
+<li><strong>Par habitude</strong> : tu prends position par tempérament, sans calculer.</li>
+<li><strong>Par choix</strong> : tu as décidé qu'il valait mieux être clivant que tiède, et tu l'assumes pleinement.</li>
+<li><strong>Par ancrage</strong> : tenir ta position seul contre tous, c'est une colonne vertébrale. On ne te fera pas plier.</li>
+</ul>
+<a class="lien" href="/r/bleu/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-olive-verte" id="olive-verte">
+<canvas class="cube-mini" data-couleur="#CDEC50" aria-hidden="true"></canvas>
+<h3>Olive verte</h3>
+<p class="figure">Le Rapporteur</p>
+<p class="phrase">Franche, un peu à part, elle a du caractère et ne se livre qu'à qui prend le temps.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Tu observes, tu tries, tu retiens. Tu vas vers le nouveau, mais avec méthode : tu demandes ce que c'est avant de te lancer, tu jauges les gens avant de t'ouvrir. Tu ne t'épanches pas, tu prélèves. De cette soirée tu repartiras avec des choses vues, classées, gardées. Tu prends de la place à ta façon, en étant celui qui sait, celui qui a remarqué ce que les autres ont manqué. Tu aimes l'inédit à condition de pouvoir le comprendre, et cette curiosité maîtrisée fait de toi une mémoire vivante des soirées.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Au hasard</strong> : ta curiosité méthodique du soir tenait à la situation.</li>
+<li><strong>Par habitude</strong> : tu jauges avant de t'ouvrir par réflexe installé.</li>
+<li><strong>Par choix</strong> : tu as fait de la prudence curieuse une méthode, et tu sais pourquoi.</li>
+<li><strong>Par ancrage</strong> : observer avant de donner, c'est une manière d'être qui te définit en profondeur.</li>
+</ul>
+<a class="lien" href="/r/olive-verte/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-chorizo" id="chorizo">
+<canvas class="cube-mini" data-couleur="#FF593D" aria-hidden="true"></canvas>
+<h3>Chorizo</h3>
+<p class="figure">Le Trublion</p>
+<p class="phrase">Du caractère, du piquant, une présence qui ne passe jamais inaperçue.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Tu aimes secouer, et tu le fais avec un certain art. Tu prends de la place, tu lances des trucs neufs, tu provoques un peu, mais tu maîtrises ton effet, tu sais jusqu'où aller. Tu ne donnes pas dans le soin : tu donnes du piquant, du mouvement, du désordre choisi. Tu tiens à ce que ta provocation ait de l'allure, jamais gratuite ni vulgaire. Sans toi, les soirées seraient plus lisses et franchement plus ennuyeuses. Tu es celui qui empêche le confort de virer à l'endormissement, et c'est un vrai talent.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Au hasard</strong> : ce soir tu avais envie de secouer, mais ce n'est pas toujours le cas.</li>
+<li><strong>Par habitude</strong> : tu provoques par tempérament, c'est ta pente.</li>
+<li><strong>Par choix</strong> : tu as fait du grain de sel une signature, et tu la cultives.</li>
+<li><strong>Par ancrage</strong> : ce goût de secouer avec style, c'est une part de toi dont tu ne te déferais pas.</li>
+</ul>
+<a class="lien" href="/r/chorizo/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-chevre" id="chevre">
+<canvas class="cube-mini" data-couleur="#FFE599" aria-hidden="true"></canvas>
+<h3>Chèvre</h3>
+<p class="figure">Le Calme</p>
+<p class="phrase">Doux, discret, et bien plus présent qu'il n'en a l'air.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Tu ne fais rien de visible, et pourtant tout le monde va un peu mieux quand tu es dans la pièce. Tu n'as organisé aucune soirée, pris personne en charge, mais tu as vu celui qui n'avait pas de verre, glissé un mot à celle qui semblait perdue, sans que ça se remarque. Tu donnes en te faisant petit. Ta générosité ne fait pas de bruit : elle s'occupe des bords, là où personne ne regarde, là où ça compte le plus. Tu es la chaleur discrète d'un groupe, celle qu'on ne voit pas mais qu'on sentirait tout de suite partir.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Au hasard</strong> : ce soir tu as pris soin des gens un peu par les circonstances.</li>
+<li><strong>Par habitude</strong> : tu veilles sur les autres sans y penser, c'est devenu naturel.</li>
+<li><strong>Par choix</strong> : tu as décidé que prendre soin, discrètement, c'était ce qui te ressemblait.</li>
+<li><strong>Par ancrage</strong> : ce soin invisible, c'est le fond de qui tu es. Tu le ferais même épuisé.</li>
+</ul>
+<a class="lien" href="/r/chevre/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-ail-fines-herbes" id="ail-fines-herbes">
+<canvas class="cube-mini" data-couleur="#ADEF5B" aria-hidden="true"></canvas>
+<h3>Ail &amp; fines herbes</h3>
+<p class="figure">Le Liant</p>
+<p class="phrase">Le goût qui lie tout le reste, qu'on ne sert jamais seul et sans lequel rien n'a le même liant.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Tu es arrivé avec ce qu'il fallait, et tu avais raison, il manquait quelque chose. Tu as trouvé les verres, ouvert la fenêtre avant qu'on ait chaud, veillé à ce que ça tourne rond, sans jamais te mettre en avant. Tu donnes, mais tu donnes en organisant : pour toi, prendre soin des gens, c'est faire en sorte que rien ne cloche. Personne ne t'a remercié, parce que personne n'a rien remarqué, et c'est exactement ce que tu voulais. Tu es l'huile dans les rouages, celui grâce à qui une soirée se passe bien sans qu'on sache pourquoi.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Au hasard</strong> : ton sens de l'organisation du soir tenait au besoin du moment.</li>
+<li><strong>Par habitude</strong> : tu arranges les choses par réflexe, tu ne sais pas rester les bras croisés.</li>
+<li><strong>Par choix</strong> : tu as compris que ton soin passait par l'organisation, et tu l'assumes.</li>
+<li><strong>Par ancrage</strong> : prendre soin en faisant tourner les choses, c'est ta façon d'aimer, chevillée au corps.</li>
+</ul>
+<a class="lien" href="/r/ail-fines-herbes/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-noix" id="noix">
+<canvas class="cube-mini" data-couleur="#E88F30" aria-hidden="true"></canvas>
+<h3>Noix</h3>
+<p class="figure">L'Hôte discret</p>
+<p class="phrase">Elle se marie à tout, relie les saveurs entre elles, et ne cherche jamais le premier rôle.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Tu vas vers ce que tu ne connais pas, et tu y emmènes les autres sans en avoir l'air. Tu as parlé à l'inconnu du fond, tu lui as présenté quelqu'un, tu as ouvert une porte pour un autre, toujours en te tenant en retrait, sans réclamer le mérite. Tu donnes en reliant, en faisant circuler les gens et les choses nouvelles. Ta générosité, c'est d'élargir le cercle sans jamais te mettre au centre. Tu es celui qui fait que des gens qui ne se seraient jamais parlé finissent la soirée ensemble, et ça, c'est un cadeau rare.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Au hasard</strong> : ce soir tu as relié les gens un peu par hasard des rencontres.</li>
+<li><strong>Par habitude</strong> : tu ouvres des portes aux autres par pente naturelle.</li>
+<li><strong>Par choix</strong> : tu as fait du lien et de l'ouverture une manière d'être, et tu la cultives.</li>
+<li><strong>Par ancrage</strong> : relier, ouvrir, faire circuler, c'est profondément ta façon d'être au monde.</li>
+</ul>
+<a class="lien" href="/r/noix/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-cheddar-tex-mex" id="cheddar-tex-mex">
+<canvas class="cube-mini" data-couleur="#FF501A" aria-hidden="true"></canvas>
+<h3>Cheddar Tex Mex</h3>
+<p class="figure">Le Guide</p>
+<p class="phrase">Généreux et dépaysant, il emmène la table ailleurs sans jamais la lâcher.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>À un moment de la soirée, tout le monde s'est retrouvé à faire un truc que personne n'avait prévu, et en cherchant bien, c'était toi. Tu embarques les gens vers du nouveau, y compris ceux qui n'avaient rien demandé, et tu t'assures qu'ils suivent, qu'ils ne se perdent pas en route. Tu donnes en ouvrant des horizons : ta générosité, c'est de faire vivre aux autres ce qu'ils n'auraient pas osé seuls. Tu organises l'aventure au lieu de la subir. Certains rentrent plus tard qu'ils ne l'auraient voulu, et aucun ne le regrette.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Au hasard</strong> : ce soir tu as entraîné les autres un peu par l'élan du moment.</li>
+<li><strong>Par habitude</strong> : tu prends la tête des explorations par réflexe, c'est ta pente.</li>
+<li><strong>Par choix</strong> : tu as vu que sans toi rien ne bouge, et tu as choisi d'être celui qui lance.</li>
+<li><strong>Par ancrage</strong> : faire découvrir, entraîner sans abandonner personne, c'est une vocation profonde.</li>
+</ul>
+<a class="lien" href="/r/cheddar-tex-mex/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-jambon" id="jambon">
+<canvas class="cube-mini" data-couleur="#FF9F99" aria-hidden="true"></canvas>
+<h3>Jambon</h3>
+<p class="figure">Le Bon Vivant</p>
+<p class="phrase">La valeur sûre, généreuse, celle qui met tout le monde d'accord et remplit la table.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Tu remplis la pièce et tu en fais profiter tout le monde. Tu ressers les verres, tu relances celui qui décroche, tu embarques les timides dans la conversation, le tout en tenant le centre, parce que tu aimes ça et que ça te vient sans effort. Tu donnes en occupant : ta générosité, c'est ta présence même, chaleureuse et débordante. Les soirées où tu es là sont plus pleines, plus bruyantes, plus vivantes. Tu es la preuve qu'on peut prendre toute la place et que personne ne t'en veuille, parce que cette place, tu la remplis pour les autres autant que pour toi.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Au hasard</strong> : ce soir tu as pris le centre un peu porté par l'ambiance.</li>
+<li><strong>Par habitude</strong> : tu occupes et tu animes par tempérament, sans y penser.</li>
+<li><strong>Par choix</strong> : tu as compris que ta chaleur faisait du bien, et tu la donnes volontiers.</li>
+<li><strong>Par ancrage</strong> : cette générosité expansive, c'est le cœur de qui tu es. Tu donnes en existant.</li>
+</ul>
+<a class="lien" href="/r/jambon/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-bacon-grille" id="bacon-grille">
+<canvas class="cube-mini" data-couleur="#FC5B1D" aria-hidden="true"></canvas>
+<h3>Bacon grillé</h3>
+<p class="figure">Le Meneur</p>
+<p class="phrase">Franc, nourrissant, celui qui donne le ton d'une soirée où on est vraiment ensemble.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Tu prends les choses en main et tu emmènes le groupe. Tu as vu ce qui manquait, tu as proposé, organisé, distribué les rôles, et les gens ont suivi, parce que tu donnes de l'énergie en même temps que tu diriges. Ta générosité et ton autorité sont la même chose : tu t'occupes de tout le monde en tenant la barre. On te confie volontiers les rênes parce que tu ne les lâches pas et que, avec toi, ça avance. Tu es celui qui transforme un groupe indécis en une soirée réussie, et tu le fais sans même y réfléchir.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Au hasard</strong> : ce soir tu as pris les commandes parce qu'il fallait bien quelqu'un.</li>
+<li><strong>Par habitude</strong> : tu mènes par réflexe, tu ne sais pas rester spectateur.</li>
+<li><strong>Par choix</strong> : tu as décidé que cadrer le groupe le faisait tenir, et tu l'assumes.</li>
+<li><strong>Par ancrage</strong> : mener pour que tout le monde aille bien, c'est ta façon de donner, chevillée au corps.</li>
+</ul>
+<a class="lien" href="/r/bacon-grille/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-poivron-piment-jalapeno" id="poivron-piment-jalapeno">
+<canvas class="cube-mini" data-couleur="#C7FB2A" aria-hidden="true"></canvas>
+<h3>Poivron piment jalapeño</h3>
+<p class="figure">L'Aventurier</p>
+<p class="phrase">Ça réveille, ça pique, ça ne laisse jamais la soirée s'endormir.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Tu ne supportes pas qu'une soirée reste où elle a commencé. Tu prends de la place, tu proposes de sortir, de tenter, d'aller voir ailleurs, et tu y vas, que les autres suivent ou non. Tu entraînes sans forcer : ton énergie est contagieuse et ta curiosité sans fond. Tu donnes du mouvement, de l'imprévu, des histoires à raconter. C'est de tes soirées qu'on reparle des années après, celles où on a fini quelque part qu'on n'avait pas prévu. Tu es la preuve qu'une soirée peut être une petite aventure, à condition qu'il y ait quelqu'un comme toi pour la lancer.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Au hasard</strong> : ce soir l'envie d'ailleurs t'a pris, mais ce n'est pas toujours aussi fort.</li>
+<li><strong>Par habitude</strong> : tu cherches le mouvement par tempérament, c'est ta pente.</li>
+<li><strong>Par choix</strong> : tu cultives ce goût de l'imprévu parce qu'il te fait vivre.</li>
+<li><strong>Par ancrage</strong> : ce besoin d'horizon et de nouveau, c'est le moteur de ta vie entière.</li>
+</ul>
+<a class="lien" href="/r/poivron-piment-jalapeno/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-chorizo-piment-de-cayenne" id="chorizo-piment-de-cayenne">
+<canvas class="cube-mini" data-couleur="#FF361A" aria-hidden="true"></canvas>
+<h3>Chorizo piment de Cayenne</h3>
+<p class="figure">L'Incendie</p>
+<p class="phrase">Le plus intense de tous, le défi de la gamme, celui qui laisse une trace durable.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Tu es le moteur, et tu chauffes fort. Tu prends toute la place, tu ouvres tout, tu bouscules, tu emmènes, et tu donnes une énergie colossale à qui te suit. Ta générosité est brûlante et un peu envahissante : tu veux que ça bouge, que ça vive, que personne ne reste au bord du truc. Tu cadres ce feu, tu sais où tu vas, mais ceux qui restent près de toi finissent parfois aussi épuisés qu'émerveillés. Une soirée avec toi, on s'en souvient longtemps. Tu es un tempérament entier, de ceux qui ne connaissent pas les demi-mesures, et c'est à la fois ta force et ton intensité qu'on n'oublie pas.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Au hasard</strong> : même toi, parfois, ce feu te prend sans prévenir, porté par un soir d'exception.</li>
+<li><strong>Par habitude</strong> : tu brûles à fond par tempérament, c'est ta façon d'être depuis toujours.</li>
+<li><strong>Par choix</strong> : tu as décidé d'assumer ton intensité plutôt que de la brider, et tu la donnes pleinement.</li>
+<li><strong>Par ancrage</strong> : ce feu que tu donnes aux autres, c'est ta nature même, indéfectible et sans retour en arrière.</li>
+</ul>
+<a class="lien" href="/r/chorizo-piment-de-cayenne/">Voir la carte</a>
+</details>
+</article>
+</section>
+<section class="sphere" id="chez-nous" role="tabpanel" aria-labelledby="onglet-chez-nous">
+<h2>Les 16 saveurs chez nous</h2>
+<p class="sous">avec ceux qui te connaissent par cœur</p>
+<article class="saveur s-camembert" id="camembert">
+<canvas class="cube-mini" data-couleur="#FFE499" aria-hidden="true"></canvas>
+<h3>Camembert</h3>
+<p class="figure">Le Pilier</p>
+<p class="phrase">La valeur fondamentale, celle qui rassemble sans effort et qu'on a toujours dans le frigo.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Avec tes gens, tu n'as rien à prouver, et tu ne cherches pas à le faire. Tu es là, fidèle au poste, présent sans être envahissant. Tu ne portes pas la soirée à bout de bras et tu n'en fais pas des caisses : tu es le socle tranquille sur lequel la bande se repose sans même s'en rendre compte. Ta valeur ne se voit pas dans ce que tu fais, elle se voit dans ce que tu es, une présence stable au milieu des gens que tu aimes. On sait qu'avec toi, ce sera toujours simple, et dans un groupe, cette simplicité-là vaut de l'or.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Très conforme</strong> : ta place dans la bande, tu la connais par cœur et tu l'habites pleinement. C'est ton foyer.</li>
+<li><strong>Plutôt conforme</strong> : tu te sens bien dans tes repères, avec tes gens, et tu t'y tiens volontiers.</li>
+<li><strong>Plutôt libre</strong> : tu as ta place mais tu n'y es pas enfermé, tu gardes un pied dehors.</li>
+<li><strong>Très libre</strong> : même avec ta bande, tu restes un électron, présent mais jamais tout à fait rangé.</li>
+</ul>
+<a class="lien" href="/r/camembert/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-saumon-aneth" id="saumon-aneth">
+<canvas class="cube-mini" data-couleur="#FF9564" aria-hidden="true"></canvas>
+<h3>Saumon aneth</h3>
+<p class="figure">Le Fidèle discret</p>
+<p class="phrase">Raffiné, discret, un classique qui ne se démode pas et qu'on sert aux occasions qui comptent.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Dans ton groupe, tu es celui sur qui on peut compter pour que les choses soient faites bien. Tu ne prends pas la lumière, mais tu as tes exigences, et tes proches le savent : avec toi, pas d'à-peu-près. Tu tiens à certaines façons de faire, à certains rituels, et tu veilles discrètement à ce qu'ils soient respectés. Ta fidélité n'est pas bruyante, elle est fiable. Tu es la mémoire des bonnes manières du groupe, celui qui se souvient de comment on fait les choses chez nous, et qui y tient.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Très conforme</strong> : les codes du groupe, c'est toi qui les gardes, et tu y tiens profondément.</li>
+<li><strong>Plutôt conforme</strong> : tu aimes les repères partagés et tu veilles à ce qu'ils tiennent.</li>
+<li><strong>Plutôt libre</strong> : tu as tes exigences propres, qui ne sont pas toujours celles du groupe.</li>
+<li><strong>Très libre</strong> : tu gardes tes critères à toi, même quand ils te mettent un peu à part.</li>
+</ul>
+<a class="lien" href="/r/saumon-aneth/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-bleu-noix" id="bleu-noix">
+<canvas class="cube-mini" data-couleur="#6363B5" aria-hidden="true"></canvas>
+<h3>Bleu &amp; noix</h3>
+<p class="figure">Le Curieux fidèle</p>
+<p class="phrase">Une association qui surprend sans dépayser, du caractère dans une valeur sûre.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Avec tes proches, tu aimes ce qui bouge, ce qui change, ce qu'on n'a pas encore fait. Tu ne t'imposes pas, mais tu es souvent celui qui glisse « et si on essayait autre chose ? ». Tu apportes du neuf dans la bande sans casser ce qui existe, tu renouvelles les rituels de l'intérieur. Discret mais curieux, tu empêches le groupe de s'encroûter sans jamais le brusquer. Tu es celui qui fait que vos habitudes ne deviennent jamais tout à fait des routines.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Très conforme</strong> : tu renouvelles de l'intérieur, toujours dans le respect de ce qui vous lie.</li>
+<li><strong>Plutôt conforme</strong> : tu aimes le neuf mais tu restes attaché à ton groupe.</li>
+<li><strong>Plutôt libre</strong> : ta curiosité te porte souvent au-delà des habitudes de la bande.</li>
+<li><strong>Très libre</strong> : tu vas chercher ailleurs ce que le groupe ne t'apporte pas, sans t'en cacher.</li>
+</ul>
+<a class="lien" href="/r/bleu-noix/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-truffe" id="truffe">
+<canvas class="cube-mini" data-couleur="#A96936" aria-hidden="true"></canvas>
+<h3>Truffe</h3>
+<p class="figure">L'Exigeant</p>
+<p class="phrase">Rare, raffinée, un luxe discret qu'on ne partage qu'avec ceux qui savent l'apprécier.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Avec tes gens, tu as du goût et tu l'assumes. Tu aimes découvrir, mais le beau, le bon, le qui-vaut-le-coup, et tu n'as pas peur de pousser le groupe vers le haut. Tu es celui qui propose l'endroit qu'on ne connaît pas, le truc un peu plus raffiné, et qui tient à ce que ce soit bien fait. Discret mais sélectif, tu élèves le niveau de la bande sans la snober. Tes proches savent qu'avec toi, on ne fait pas les choses à moitié, et c'est pour ça qu'on te suit.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Très conforme</strong> : ton exigence, tu la mets au service du groupe, pour qu'on vive mieux ensemble.</li>
+<li><strong>Plutôt conforme</strong> : tu pousses vers le haut tout en restant attaché à ta bande.</li>
+<li><strong>Plutôt libre</strong> : tes critères te portent parfois là où le groupe ne te suit pas.</li>
+<li><strong>Très libre</strong> : tu gardes tes exigences, quitte à les vivre en dehors du cercle.</li>
+</ul>
+<a class="lien" href="/r/truffe/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-basilic" id="basilic">
+<canvas class="cube-mini" data-couleur="#97FF3D" aria-hidden="true"></canvas>
+<h3>Basilic</h3>
+<p class="figure">Le Grain de sel</p>
+<p class="phrase">Une herbe qui change tout, fraîche et vive, qu'on reconnaît entre mille.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Avec tes proches, tu as ta façon bien à toi de te faire entendre. Tu ne portes pas le groupe, mais tu l'assaisonnes : une remarque, une vanne, un avis tranché au bon moment, et la soirée reprend du relief. Tu prends ta place sans la voler, et tes gens comptent sur toi pour ce piquant-là, celui qui empêche les retrouvailles de ronronner. Tu es la touche qui réveille, celui dont on dit « ah, ça c'est bien toi » avec un sourire.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Très conforme</strong> : ton grain de sel, tu le réserves à tes gens, c'est une intimité.</li>
+<li><strong>Plutôt conforme</strong> : tu t'affirmes dans le groupe tout en te sentant des leurs.</li>
+<li><strong>Plutôt libre</strong> : ton franc-parler te distingue souvent du reste de la bande.</li>
+<li><strong>Très libre</strong> : tu dis ce que tu penses où que tu sois, sans te couler dans aucun moule.</li>
+</ul>
+<a class="lien" href="/r/basilic/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-tomate-piment-basque" id="tomate-piment-basque">
+<canvas class="cube-mini" data-couleur="#FF2E20" aria-hidden="true"></canvas>
+<h3>Tomate piment basque</h3>
+<p class="figure">Le Caractère</p>
+<p class="phrase">Du soleil et du feu, un caractère affirmé qui ne laisse personne indifférent.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Avec tes gens, tu as un avis et tu le tiens, même quand ça chauffe. Tu prends de la place, tu ne lâches pas facilement, et tu préfères une bonne discussion franche à un consensus mou. Tu ne cherches pas le conflit, mais tu ne le fuis pas : pour toi, une vraie bande, c'est aussi des gens qui peuvent ne pas être d'accord et s'aimer quand même. Tes proches savent à quoi s'en tenir avec toi, et cette franchise-là, même quand elle pique, ils la respectent.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Très conforme</strong> : tu tiens tes positions, mais toujours dans le cadre de ce qui vous unit.</li>
+<li><strong>Plutôt conforme</strong> : tu t'affirmes franchement tout en restant soudé au groupe.</li>
+<li><strong>Plutôt libre</strong> : ton caractère te met souvent à contre-courant de la bande.</li>
+<li><strong>Très libre</strong> : tu ne plies devant aucun groupe, tes convictions passent avant l'appartenance.</li>
+</ul>
+<a class="lien" href="/r/tomate-piment-basque/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-pizza" id="pizza">
+<canvas class="cube-mini" data-couleur="#FF541A" aria-hidden="true"></canvas>
+<h3>Pizza</h3>
+<p class="figure">L'Électron</p>
+<p class="phrase">Populaire, généreuse, celle qui plaît à tout le monde et rassemble les envies les plus diverses.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Avec tes proches, tu es celui qui ramène des idées d'ailleurs. Tu bouges, tu papillonnes, tu connais du monde partout, et tu fais entrer dans la bande des souffles nouveaux. Tu prends de la place par ton énergie et ta curiosité, pas par le soin. Tu n'es pas du genre à t'enfermer dans un seul cercle : tu as plusieurs vies, plusieurs groupes, et tu les fais parfois se rencontrer. Tes proches aiment ça chez toi, cette façon d'élargir leur monde sans qu'ils aient à bouger.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Très conforme</strong> : tes découvertes, tu les ramènes toujours à ta bande, ton port d'attache.</li>
+<li><strong>Plutôt conforme</strong> : tu papillonnes mais tu reviens, le groupe reste ta base.</li>
+<li><strong>Plutôt libre</strong> : tu vis entre plusieurs cercles, sans en privilégier vraiment un.</li>
+<li><strong>Très libre</strong> : tu es partout et nulle part, aucun groupe ne te contient tout entier.</li>
+</ul>
+<a class="lien" href="/r/pizza/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-sauce-barbecue" id="sauce-barbecue">
+<canvas class="cube-mini" data-couleur="#FF6829" aria-hidden="true"></canvas>
+<h3>Sauce barbecue</h3>
+<p class="figure">Le Frondeur</p>
+<p class="phrase">Généreuse et corsée, elle relève tout ce qu'elle touche et ne fait jamais dans la demi-mesure.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Avec tes gens, tu secoues et tu assumes. Tu prends de la place, tu lances des idées neuves, tu bouscules les habitudes de la bande, et tu le fais avec panache. Tu ne te contentes pas de suivre le mouvement, tu le crées, quitte à déranger un peu. Tes proches savent que tu es celui qui empêche le groupe de tourner en rond, celui qui propose le truc fou qu'on n'aurait jamais tenté sans toi. Tu as du caractère et tu le mets au service de l'aventure commune.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Très conforme</strong> : tu bouscules la bande mais tu l'aimes profondément, c'est ta tribu.</li>
+<li><strong>Plutôt conforme</strong> : tu secoues de l'intérieur, attaché à ton groupe malgré tout.</li>
+<li><strong>Plutôt libre</strong> : ton goût de la fronde te porte souvent hors des sentiers du groupe.</li>
+<li><strong>Très libre</strong> : tu ne te ranges sous aucune bannière, pas même celle de tes amis.</li>
+</ul>
+<a class="lien" href="/r/sauce-barbecue/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-jambon-cru" id="jambon-cru">
+<canvas class="cube-mini" data-couleur="#FF4940" aria-hidden="true"></canvas>
+<h3>Jambon cru</h3>
+<p class="figure">Le Cœur</p>
+<p class="phrase">Authentique et généreux, un goût de vrai qui se bonifie avec le temps, comme les amitiés.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Avec tes proches, tu es celui qui prend soin sans qu'on le demande. Tu vois celui qui ne va pas fort, tu portes attention aux petits détails, tu es là dans les moments qui comptent sans jamais te mettre en avant. Ta générosité est discrète mais profonde : tu donnes du temps, de l'écoute, de la présence. Tes gens savent qu'en cas de coup dur, tu seras là, sans faire d'histoires. Tu es le cœur tranquille de la bande, celui dont on mesure la valeur surtout quand on en a besoin.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Très conforme</strong> : tes gens, c'est ton monde, tu prends soin d'eux comme d'une famille.</li>
+<li><strong>Plutôt conforme</strong> : tu donnes beaucoup à ta bande, qui est ton ancrage.</li>
+<li><strong>Plutôt libre</strong> : tu prends soin des gens au-delà de ton cercle, sans frontière.</li>
+<li><strong>Très libre</strong> : ton attention va à qui en a besoin, quel que soit le groupe.</li>
+</ul>
+<a class="lien" href="/r/jambon-cru/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-3-fromages" id="3-fromages">
+<canvas class="cube-mini" data-couleur="#FFCE44" aria-hidden="true"></canvas>
+<h3>3 fromages</h3>
+<p class="figure">Le Ciment</p>
+<p class="phrase">Une alliance équilibrée qui marie les caractères, la recette qui met tout le monde d'accord.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Avec tes proches, tu es celui qui fait tenir l'ensemble. Tu donnes, mais tu donnes en organisant : tu prévois, tu anticipes, tu veilles à ce que rien ne manque et que tout le monde soit bien. Tu n'as pas besoin d'être au centre, ton plaisir c'est que ça tourne rond. Tes gens se reposent sur toi pour les détails qui font qu'une soirée, un week-end, un projet commun se passent sans accroc. Tu es le ciment discret du groupe, celui sans qui les choses se feraient moins bien, ou pas du tout.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Très conforme</strong> : faire tenir le groupe, c'est ta mission, ta place et ta fierté.</li>
+<li><strong>Plutôt conforme</strong> : tu organises pour ta bande, à laquelle tu tiens fort.</li>
+<li><strong>Plutôt libre</strong> : tu mets de l'ordre partout où tu passes, pas seulement chez les tiens.</li>
+<li><strong>Très libre</strong> : tu aides à faire tenir les choses sans t'attacher à un cercle en particulier.</li>
+</ul>
+<a class="lien" href="/r/3-fromages/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-tomate" id="tomate">
+<canvas class="cube-mini" data-couleur="#FF2F1A" aria-hidden="true"></canvas>
+<h3>Tomate</h3>
+<p class="figure">Le Passeur</p>
+<p class="phrase">Franche et solaire, le goût de l'évidence partagée, celui qui plaît à tous et relie les tablées.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Avec tes proches, tu donnes en ouvrant des portes. Tu présentes les gens, tu fais découvrir, tu relies des mondes qui ne se seraient pas rencontrés. Tu ne prends pas la lumière, mais tu es celui grâce à qui la bande s'agrandit, se renouvelle, rencontre du neuf. Ta générosité, c'est de faire circuler, de connecter, d'élargir le cercle sans le diluer. Tes gens comptent sur toi pour amener du sang neuf et des idées fraîches, et tu le fais avec une discrétion qui force le respect.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Très conforme</strong> : tu fais grandir ta bande en lui amenant du monde, fidèlement.</li>
+<li><strong>Plutôt conforme</strong> : tu ouvres le cercle tout en y restant bien ancré.</li>
+<li><strong>Plutôt libre</strong> : tu relies plusieurs groupes, à cheval entre les mondes.</li>
+<li><strong>Très libre</strong> : tu es un pont entre des cercles, sans vraiment appartenir à aucun.</li>
+</ul>
+<a class="lien" href="/r/tomate/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-saint-jacques" id="saint-jacques">
+<canvas class="cube-mini" data-couleur="#FFD999" aria-hidden="true"></canvas>
+<h3>Saint-Jacques</h3>
+<p class="figure">Le Grand Cœur</p>
+<p class="phrase">Raffinée et généreuse, le haut de gamme du partage, réservé à ceux qu'on aime vraiment.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Avec tes proches, tu donnes beaucoup, et tu donnes bien. Tu es généreux et exigeant à la fois : tu veux que les gens que tu aimes vivent de belles choses, et tu te donnes du mal pour ça. Tu organises les beaux moments, tu proposes les aventures, tu fais en sorte que vos retrouvailles aient de la tenue. Discret sur ton effort, tu portes une grande partie de ce qui fait la richesse de la bande. Tes gens ont de la chance de t'avoir, et au fond, ils le savent.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Très conforme</strong> : tout ce que tu donnes, c'est pour tes gens, ton monde, ta tribu.</li>
+<li><strong>Plutôt conforme</strong> : ta générosité exigeante nourrit la bande à laquelle tu tiens.</li>
+<li><strong>Plutôt libre</strong> : tu offres de belles choses au-delà de ton cercle proche.</li>
+<li><strong>Très libre</strong> : ta générosité ne connaît pas les frontières des groupes.</li>
+</ul>
+<a class="lien" href="/r/saint-jacques/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-poulet-grille" id="poulet-grille">
+<canvas class="cube-mini" data-couleur="#FFB71A" aria-hidden="true"></canvas>
+<h3>Poulet grillé</h3>
+<p class="figure">Le Chaleureux</p>
+<p class="phrase">Convivial et rassasiant, le plat qui réunit, simple et généreux, qu'on partage sans chichis.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Avec tes proches, tu remplis l'espace de ta chaleur. Tu es le boute-en-train, celui qui relance, qui ressert, qui veille à ce que personne ne reste dans son coin. Tu prends de la place et tu la remplis pour les autres : ta présence est un cadeau que tu fais au groupe. Tes gens savent que quand tu es là, ce sera chaleureux, vivant, généreux. Tu es l'âme des retrouvailles, celui qui fait que les soirées entre vous ont toujours ce supplément de vie.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Très conforme</strong> : ta chaleur, tu la déploies pour tes gens, c'est ta famille choisie.</li>
+<li><strong>Plutôt conforme</strong> : tu animes la bande avec générosité, bien ancré parmi les tiens.</li>
+<li><strong>Plutôt libre</strong> : ta chaleur rayonne au-delà de ton cercle, partout où tu passes.</li>
+<li><strong>Très libre</strong> : tu réchauffes tous les groupes que tu croises, sans en élire un seul.</li>
+</ul>
+<a class="lien" href="/r/poulet-grille/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-oignon-fondant" id="oignon-fondant">
+<canvas class="cube-mini" data-couleur="#FFD56E" aria-hidden="true"></canvas>
+<h3>Oignon fondant</h3>
+<p class="figure">Le Capitaine</p>
+<p class="phrase">Une base généreuse qui donne du corps à tout, la fondation sur laquelle le reste repose.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Avec tes proches, tu prends la barre et tu emmènes tout le monde. Tu donnes de l'énergie, tu organises, tu décides quand il faut décider, et la bande te suit parce qu'avec toi, ça avance et ça se passe bien. Ton autorité est généreuse : tu diriges pour que le groupe vive de bons moments, pas pour le pouvoir. Tes gens te confient volontiers les rênes des projets communs, parce qu'ils savent que tu les mèneras à bon port. Tu es le capitaine naturel de la tribu.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Très conforme</strong> : tu mènes ta bande parce que c'est ta tribu, et tu la portes haut.</li>
+<li><strong>Plutôt conforme</strong> : tu prends les rênes du groupe auquel tu tiens profondément.</li>
+<li><strong>Plutôt libre</strong> : tu prends naturellement la tête, dans ta bande comme ailleurs.</li>
+<li><strong>Très libre</strong> : tu mènes partout où tu passes, sans te lier à un seul équipage.</li>
+</ul>
+<a class="lien" href="/r/oignon-fondant/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-ail-des-ours" id="ail-des-ours">
+<canvas class="cube-mini" data-couleur="#78E823" aria-hidden="true"></canvas>
+<h3>Ail des ours</h3>
+<p class="figure">L'Explorateur commun</p>
+<p class="phrase">Sauvage et généreux, un goût de grand air et de liberté, celui des découvertes partagées.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Avec tes proches, tu es le moteur des aventures. Tu donnes, tu occupes l'espace, et tu entraînes toute la bande vers du nouveau, des endroits, des expériences, des trucs qu'on n'aurait jamais faits sans toi. Ton énergie est généreuse et contagieuse : tu veux que tes gens vivent, découvrent, se souviennent. Tu es celui qui propose le voyage, l'escapade, le défi collectif, et qui s'assure que personne ne reste sur le bord. Grâce à toi, la bande a des histoires à raconter.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Très conforme</strong> : tes aventures, tu les vis avec tes gens, c'est ça qui leur donne du sens.</li>
+<li><strong>Plutôt conforme</strong> : tu entraînes ta bande vers le neuf, fidèle à ta tribu.</li>
+<li><strong>Plutôt libre</strong> : ton goût de l'exploration te porte dans plusieurs cercles à la fois.</li>
+<li><strong>Très libre</strong> : tu explores avec qui veut te suivre, sans attendre que ce soit toujours les mêmes.</li>
+</ul>
+<a class="lien" href="/r/ail-des-ours/">Voir la carte</a>
+</details>
+</article>
+<article class="saveur s-hot-challenge" id="hot-challenge">
+<canvas class="cube-mini" data-couleur="#D71300" aria-hidden="true"></canvas>
+<h3>Hot Challenge</h3>
+<p class="figure">Le Volcan</p>
+<p class="phrase">L'extrême de la gamme, le défi ultime, une intensité qui se vit pleinement et ne s'oublie jamais.</p>
+<details>
+<summary>Lire la fiche</summary>
+<p>Avec tes proches, tu es l'intensité faite personne. Tu donnes tout, tu prends toute la place, tu ouvres tout, tu mènes tout : la bande vit à ton rythme quand tu es là, et ton rythme est trépidant. Ta générosité est volcanique, parfois épuisante, mais tes gens ne t'échangeraient contre personne, parce que tu mets dans vos moments communs une énergie que nul autre n'apporte. Tu es le cœur battant de la tribu, celui qui chauffe tout le monde et qui laisse, à chaque retrouvaille, un souvenir impossible à oublier. Avec toi, c'est toujours trop, et c'est exactement ce qu'on aime.</p>
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+<li><strong>Très conforme</strong> : toute ton énergie va à tes gens, ils sont ton univers entier.</li>
+<li><strong>Plutôt conforme</strong> : ton feu nourrit la bande à laquelle tu es viscéralement attaché.</li>
+<li><strong>Plutôt libre</strong> : ton intensité déborde ton cercle et enflamme tout ce que tu croises.</li>
+<li><strong>Très libre</strong> : tu brûles pour tous et pour personne en particulier, insaisissable et total.</li>
+</ul>
+<a class="lien" href="/r/hot-challenge/">Voir la carte</a>
+</details>
+</article>
+</section>
+<section class="appel">
+<h2>Et toi, quel Apéricube es‑tu&nbsp;?</h2>
+<a class="bouton" href="/">Faire le test</a>
+</section>
+</main>
+<script src="/partage/onglets.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+<script src="/partage/cube.js"></script>
+</body>
+</html>

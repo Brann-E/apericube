@@ -1,5 +1,6 @@
-// Fabrique les 32 pages de partage (site/r/<saveur>/index.html) à partir de site/contenu.js.
-// Chaque page : l'aperçu pour les messageries (titre, description, image) et ce qu'on voit en cliquant.
+// Fabrique les 32 pages de partage (site/r/<saveur>/index.html) et la page des 32 saveurs
+// (site/saveurs/index.html) à partir de site/contenu.js.
+// Chaque page de partage : l'aperçu pour les messageries (titre, description, image) et ce qu'on voit en cliquant.
 // Usage : node outils/pages-partage.js
 const fs = require('fs'), path = require('path');
 const RACINE = path.resolve(__dirname, '..');
@@ -17,9 +18,13 @@ const melange = (a, b, t) => a.map((v, k) => Math.round(v + (b[k] - v) * t));
 const hexa = c => '#' + c.map(v => v.toString(16).padStart(2, '0')).join('');
 const luminance = c => { const l = c.map(v => { v /= 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }); return 0.2126 * l[0] + 0.7152 * l[1] + 0.0722 * l[2]; };
 
+function couleurs(p) {
+  const fond = melange(rvb(p.col), [255, 255, 255], 0.4), clair = luminance(fond) < 0.18;
+  return { fond: hexa(fond), encre: clair ? 'rgba(255,255,255,.96)' : 'rgba(18,12,10,.92)', encre2: clair ? 'rgba(255,255,255,.72)' : 'rgba(18,12,10,.6)', filet: clair ? 'rgba(255,255,255,.35)' : 'rgba(18,12,10,.2)' };
+}
+
 function page(p, sphere) {
-  const nom = slug(p.sav), fond = melange(rvb(p.col), [255, 255, 255], 0.4), clair = luminance(fond) < 0.18;
-  const encre = clair ? 'rgba(255,255,255,.96)' : 'rgba(18,12,10,.92)', encre2 = clair ? 'rgba(255,255,255,.72)' : 'rgba(18,12,10,.6)', filet = clair ? 'rgba(255,255,255,.35)' : 'rgba(18,12,10,.2)';
+  const nom = slug(p.sav), { fond, encre, encre2, filet } = couleurs(p);
   const titre = `Je suis l’apéricube ${p.sav}, ${p.fig.charAt(0).toLowerCase() + p.fig.slice(1)}`;
   const description = 'Et toi, quel Apéricube es-tu ? Trois scènes de vie, quelques minutes, et ta saveur au bout.';
   return `<!DOCTYPE html>
@@ -27,7 +32,7 @@ function page(p, sphere) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="${hexa(fond)}">
+<meta name="theme-color" content="${fond}">
 <title>${echapper(titre)}</title>
 <meta name="description" content="${echapper(description)}">
 <meta property="og:type" content="website">
@@ -44,14 +49,14 @@ function page(p, sphere) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300..700&display=swap">
 <link rel="stylesheet" href="/partage/page.css">
-<style>:root{--fond:${hexa(fond)};--encre:${encre};--encre2:${encre2};--filet:${filet}}</style>
+<style>:root{--fond:${fond};--encre:${encre};--encre2:${encre2};--filet:${filet}}</style>
 </head>
 <body>
 <main class="page">
 <p class="fil">${echapper(sphere)}   ·   Résultat partagé</p>
 <div class="carte">
 <canvas class="cube" data-couleur="${p.col}" aria-hidden="true"></canvas>
-<p class="surtitre">Je suis l’apéricube</p>
+<p class="surtitre">Tu es l’apéricube</p>
 <h1>${echapper(p.sav)}</h1>
 <p class="figure">${echapper(p.fig)}</p>
 <p class="phrase">${echapper(sansRepetition(p.sline || ''))}</p>
@@ -71,9 +76,77 @@ ${p.paras.map(x => '<p>' + echapper(x) + '</p>').join('\n')}
 `;
 }
 
+const SPHERES = [['chez_les_autres', 'Chez les autres', 'avec ceux que tu ne connais pas encore'], ['chez_nous', 'Chez nous', 'avec ceux qui te connaissent par cœur']];
+
+// page des saveurs (site/saveurs/) : toutes les fiches, telles que le jeu les écrit (sans positions chiffrées :
+// règle de non-diagnostic), en deux onglets de 16 : « Chez les autres » et « Chez nous ».
+// Le bouton du résultat l'ouvre sur l'onglet de sa sphère avec #<saveur>, qui met en avant celle de la personne.
+function catalogue() {
+  const fiche = p => { const nom = slug(p.sav); return `<article class="saveur s-${nom}" id="${nom}">
+<canvas class="cube-mini" data-couleur="${p.col}" aria-hidden="true"></canvas>
+<h3>${echapper(p.sav)}</h3>
+<p class="figure">${echapper(p.fig)}</p>
+<p class="phrase">${echapper(sansRepetition(p.sline || ''))}</p>
+<details>
+<summary>Lire la fiche</summary>
+${p.paras.map(x => '<p>' + echapper(x) + '</p>').join('\n')}
+<h4>Les quatre nuances</h4>
+<ul class="nuances">
+${p.teintes.map(t => '<li><strong>' + echapper(t.l) + '</strong> : ' + echapper(t.x) + '</li>').join('\n')}
+</ul>
+<a class="lien" href="/r/${nom}/">Voir la carte</a>
+</details>
+</article>`; };
+  const tous = SPHERES.flatMap(([cle]) => Object.values(C.profiles[cle]));
+  const style = tous.map(p => { const c = couleurs(p); return `.s-${slug(p.sav)}{--fond:${c.fond};--encre:${c.encre};--encre2:${c.encre2};--filet:${c.filet}}`; }).join('\n');
+  const description = 'Seize saveurs chez les autres, seize chez nous : les 32 fiches de « Quel Apéricube es-tu ? ».';
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f3ede4">
+<title>Les saveurs · Quel Apéricube es-tu ?</title>
+<meta name="description" content="${echapper(description)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Quel Apéricube es-tu ?">
+<meta property="og:title" content="Les saveurs">
+<meta property="og:description" content="${echapper(description)}">
+<meta property="og:url" content="${SITE}/saveurs/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300..700&display=swap">
+<link rel="stylesheet" href="/partage/page.css">
+<style>:root{--fond:#f3ede4;--encre:rgba(18,12,10,.92);--encre2:rgba(18,12,10,.6);--filet:rgba(18,12,10,.2)}
+${style}</style>
+</head>
+<body>
+<main class="page catalogue">
+<p class="fil">Quel Apéricube es-tu&nbsp;?</p>
+<h1>Les saveurs</h1>
+<p class="intro">Seize saveurs chez les autres, seize chez nous&nbsp;: jamais la même des deux côtés.</p>
+<div class="onglets" role="tablist" aria-label="Sphère">${SPHERES.map(([cle, nom]) => `<button type="button" role="tab" id="onglet-${slug(nom)}" aria-controls="${slug(nom)}">${nom}</button>`).join('')}</div>
+${SPHERES.map(([cle, nom, sous]) => `<section class="sphere" id="${slug(nom)}" role="tabpanel" aria-labelledby="onglet-${slug(nom)}">
+<h2>Les 16 saveurs ${nom.toLowerCase()}</h2>
+<p class="sous">${sous}</p>
+${Object.values(C.profiles[cle]).map(fiche).join('\n')}
+</section>`).join('\n')}
+<section class="appel">
+<h2>Et toi, quel Apéricube es‑tu&nbsp;?</h2>
+<a class="bouton" href="/">Faire le test</a>
+</section>
+</main>
+<script src="/partage/onglets.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+<script src="/partage/cube.js"></script>
+</body>
+</html>
+`;
+}
+
 const seule = process.argv[2]; // option : une seule saveur, pour essayer
 let n = 0;
-for (const [cle, sphere] of [['chez_les_autres', 'Chez les autres'], ['chez_nous', 'Chez nous']]) {
+for (const [cle, sphere] of SPHERES) {
   for (const p of Object.values(C.profiles[cle])) {
     if (seule && p.sav !== seule) continue;
     const dossier = path.join(RACINE, 'site', 'r', slug(p.sav));
@@ -83,3 +156,8 @@ for (const [cle, sphere] of [['chez_les_autres', 'Chez les autres'], ['chez_nous
   }
 }
 console.log(n + ' page(s) de partage écrite(s) dans site/r/');
+if (!seule) {
+  fs.mkdirSync(path.join(RACINE, 'site', 'saveurs'), { recursive: true });
+  fs.writeFileSync(path.join(RACINE, 'site', 'saveurs', 'index.html'), catalogue());
+  console.log('page des saveurs écrite dans site/saveurs/');
+}

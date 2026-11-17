@@ -33,3 +33,33 @@ h1{margin:0;font-size:var(--t-saveur);font-weight:var(--graisse);line-height:1.1
 .appel h2{margin:0;font-size:var(--t-titre);font-weight:var(--graisse);line-height:1.2}
 .bouton{display:block;margin-top:var(--esp-4);padding:var(--esp-4);text-align:center;text-decoration:none;font-size:var(--t-texte);font-weight:600;color:var(--fond);background:var(--encre);border-radius:14px}
 .bouton:focus-visible{outline:3px solid var(--encre2);outline-offset:3px}
+/* page des 32 saveurs (site/saveurs/) : une carte par saveur, dans sa couleur */
+.intro{margin:var(--esp-3) 0 0;font-size:var(--t-texte);line-height:1.5;color:var(--encre2)}
+/* les deux onglets : l'actif est plein, l'autre seulement cerné */
+.onglets{display:flex;gap:var(--esp-3);margin-top:var(--esp-5)}
+.onglets [role="tab"]{flex:1;min-height:48px;padding:var(--esp-3);font:inherit;font-size:var(--t-fil);color:var(--encre);background:none;border:1.5px solid var(--filet);border-radius:14px;cursor:pointer}
+.onglets [role="tab"][aria-selected="true"]{color:var(--fond);background:var(--encre);border-color:var(--encre);font-weight:600}
+.onglets [role="tab"]:focus-visible{outline:3px solid var(--encre2);outline-offset:3px}
+.sphere{margin-top:var(--esp-6)}
+.sphere h2{margin:0;font-size:var(--t-titre);font-weight:var(--graisse);line-height:1.2}
+.sous{margin:var(--esp-2) 0 0;font-size:var(--t-fil);color:var(--encre2)}
+/* cube à gauche, nom et figure à droite ; la phrase et la fiche prennent toute la largeur */
+.saveur{display:grid;grid-template-columns:88px 1fr;column-gap:var(--esp-4);margin-top:var(--esp-4);padding:var(--esp-4) var(--esp-5) var(--esp-5);color:var(--encre);background:var(--fond);border-radius:22px;scroll-margin-top:var(--esp-5)}
+.cube-mini{grid-row:span 2;align-self:center;display:block;width:88px;height:88px}
+.saveur h3{align-self:end;margin:0;font-size:var(--t-titre);font-weight:var(--graisse);line-height:1.15}
+.saveur .figure{align-self:start;margin-top:var(--esp-2)}
+.saveur .phrase,.saveur details{grid-column:1/-1}
+.saveur .phrase{font-size:var(--t-fil);line-height:1.45;color:var(--encre2)}
+.saveur details{margin-top:var(--esp-4);padding-top:var(--esp-3);text-align:left;border-top:1px solid var(--filet)}
+.saveur summary{text-align:center;font-size:var(--t-fil);color:var(--encre2);cursor:pointer;list-style:none}
+.saveur summary::-webkit-details-marker{display:none}
+.saveur summary::after{content:' +'}
+.saveur details[open] summary::after{content:' −'}
+.saveur details p{margin:var(--esp-3) 0 0;font-size:var(--t-texte);line-height:1.55}
+.saveur h4{margin:var(--esp-5) 0 0;font-size:var(--t-fil);font-weight:600}
+.nuances{margin:var(--esp-2) 0 0;padding:0;list-style:none}
+.nuances li{margin-top:var(--esp-2);font-size:var(--t-fil);line-height:1.45}
+.lien{display:block;margin-top:var(--esp-5);text-align:center;font-size:var(--t-fil);color:var(--encre)}
+/* la saveur de la personne, quand elle arrive depuis son résultat (/saveurs/#sa-saveur) */
+.saveur:target{box-shadow:0 0 0 3px var(--encre)}
+.saveur:target::before{content:'Ta saveur';grid-column:1/-1;display:block;margin-bottom:var(--esp-2);font-size:var(--t-fil);color:var(--encre2)}

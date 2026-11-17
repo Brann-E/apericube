@@ -75,6 +75,8 @@ function drawName(f,lines){const x=f.ctx;x.clearRect(0,0,TS,TS);x.textAlign='cen
 lines.forEach((l,j)=>{x.fillStyle='rgba(20,8,4,0.3)';x.fillText(l,640,ys[j]+4);x.fillStyle='rgba(255,255,255,0.97)';x.fillText(l,640,ys[j]);});f.rects=[];f.tex.needsUpdate=true;}
 function drawClear(f){f.ctx.clearRect(0,0,TS,TS);f.rects=[];f.tex.needsUpdate=true;}
 const labels=[document.getElementById('l0'),document.getElementById('l1')];
+/* une fois les deux cubes dévoilés, en bas de l'écran : le lien vers la page des saveurs (nouvel onglet, pour ne pas perdre la partie) */
+const lienSaveurs=el('a','lien-saveurs','Voir les saveurs');lienSaveurs.href='/saveurs/';lienSaveurs.target='_blank';lienSaveurs.rel='noopener';lienSaveurs.tabIndex=-1;wrap.append(lienSaveurs);
 function orient(c,fi,up){const f=c.faces[fi];const n=f.n.clone();const u=up.clone().sub(n.clone().multiplyScalar(up.dot(n))).normalize();const x=u.clone().cross(n);f.dec.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(x,u,n));f.dec.position.copy(n).multiplyScalar(S/2+0.003);}
 const mainGeo=rbox(4);
 const cubes=SPH.map((s,i)=>{const mat=metal(s.c.clone());const m=new THREE.Mesh(mainGeo,mat);m.castShadow=true;m.visible=false;
@@ -195,8 +197,8 @@ else if(sp.k==='res1'){const p=sp.r.prof,cube=el('div','f-cube');cube.setAttribu
  const nuance=el('div','f-bloc');nuance.append(el('h3','f-section','Ta nuance'),el('p','f-nuance-nom',sp.r.teinte.l),el('p','f-nuance',majuscule(sp.r.teinte.x)));
  const portrait=el('div','f-bloc');portrait.append(el('h3','f-section','Ton portrait'));p.paras.forEach(x=>portrait.append(el('p','f-portrait',x)));faceCorps.append(nuance,portrait);
  if(ENVOI_ACTIF)acts.push(envoye[i]?{label:TEXTE_DEJA,act:'aucun',disabled:true}:{label:TEXTE_VERS_RETOURS,act:'modale'});
- acts.push({label:TEXTE_PARTAGER,act:'partager'},{label:'Revenir aux cubes',act:'exit'});if(RECHERCHE)acts.push({label:'Voir le calcul',act:'calc'});}
-else if(sp.k==='merci'){faceCorps.append(el('h2','f-titre','Merci\u00a0!'),el('p','f-recit',TEXTE_MERCI_ECRAN));acts.push({label:TEXTE_PARTAGER,act:'partager'},{label:'Revenir aux cubes',act:'exit'});}
+ acts.push({label:TEXTE_PARTAGER,act:'partager'},{label:TEXTE_SAVEURS[i],act:'saveurs'},{label:'Revenir aux cubes',act:'exit'});if(RECHERCHE)acts.push({label:'Voir le calcul',act:'calc'});}
+else if(sp.k==='merci'){faceCorps.append(el('h2','f-titre','Merci\u00a0!'),el('p','f-recit',TEXTE_MERCI_ECRAN));acts.push({label:TEXTE_PARTAGER,act:'partager'},{label:TEXTE_SAVEURS[i],act:'saveurs'},{label:'Revenir aux cubes',act:'exit'});}
 /* sur le résultat, les boutons suivent le texte : tout défile d'un seul tenant */
 const cibleActions=sp.k==='res1'?el('div','f-actions-fin'):faceActions;if(sp.k==='res1')faceCorps.append(cibleActions);
 acts.forEach(a=>{const b=bouton(a.label,a.act,false);if(a.disabled)b.disabled=true;cibleActions.append(b);});}
@@ -221,6 +223,7 @@ function annulerMorph(){if(morphEl){morphEl.remove();morphEl=null;}}
 /* ---------- envoi anonyme des réponses vers la Google Sheet de recherche ---------- */
 const ENVOI_ACTIF=!!(window.ENVOI&&window.ENVOI.adresse);
 const TEXTE_VERS_RETOURS='Laisser un commentaire',TEXTE_DEJA='Ton commentaire est envoyé, merci';
+const TEXTE_SAVEURS=['Découvrir les 16 saveurs chez les autres','Découvrir les 16 saveurs chez nous'];
 const TEXTE_PARTAGER='Partager mon résultat',TEXTE_COPIE='Copié, il n\u2019y a plus qu\u2019à coller';
 const TEXTE_MERCI_ECRAN='Ton commentaire est bien arrivé. Il va servir à affiner les scènes, les questions et la façon dont les saveurs sont attribuées.';
 const TEXTE_ENVOYER='Envoyer',TEXTE_MERCI='Merci, c’est envoyé',TEXTE_ECHEC='L’envoi n’a pas marché, réessayer';
@@ -262,7 +265,7 @@ try{if(navigator.share){await navigator.share({title:'Quel Apéricube es-tu\u00a
  await navigator.clipboard.writeText(texte+' '+url);b.textContent=TEXTE_COPIE;setTimeout(()=>{b.textContent=TEXTE_PARTAGER;},2500);}
 catch(e){if(e&&e.name==='AbortError')return;b.textContent='Partage impossible sur cet appareil';setTimeout(()=>{b.textContent=TEXTE_PARTAGER;},2500);}}
 function choisir(act,b){const i=active;if(i<0)return;const c=cubes[i];if(c.tw||busy||!faceEl.classList.contains('on'))return;const cur=c.hist[c.hist.length-1].e;
-if(act==='exit'){exitEnter();return;}if(act==='calc'){showCalc(i);return;}if(act==='envoyer'){envoyer(i,b);return;}if(act==='partager'){partager(i,b);return;}if(act==='modale'){ouvrirModale(i);return;}
+if(act==='exit'){exitEnter();return;}if(act==='calc'){showCalc(i);return;}if(act==='envoyer'){envoyer(i,b);return;}if(act==='partager'){partager(i,b);return;}if(act==='saveurs'){window.open('/saveurs/#'+slugSaveur(cubes[i].result.prof.sav),'_blank','noopener');return;}if(act==='modale'){ouvrirModale(i);return;}
 if(act==='next'){forward(i,{idx:cur.idx+1,br:null});return;}
 busy=true;faceEl.querySelectorAll('.f-choix').forEach(x=>x.classList.toggle('sel',x===b));c.vel+=0.6;vib(8);const n=nextEntry(i,cur,act);setTimeout(()=>{busy=false;forward(i,n);},380);}
 function turnTo(i,e,dir,sign){const c=cubes[i];const to=rotFor(dir,sign).multiply(c.qT.clone());const inv=to.clone().invert();const lf=new THREE.Vector3(0,0,1).applyQuaternion(inv);const lu=new THREE.Vector3(0,1,0).applyQuaternion(inv);
@@ -348,6 +351,7 @@ const allSet=cubes.every(c=>c.settled),nrev=cubes.filter(c=>c.revealed).length,n
 const want=ndone===2?D4:ndone===1?D3:nrev===0?D0:(nrev===1?D1:D2);if(desc.dataset.cible!==want){desc.dataset.cible=want;if(!desc.dataset.txt){desc.dataset.txt=want;desc.textContent=want;}
  else{desc.classList.add('fondu');clearTimeout(descMinuteur);descMinuteur=setTimeout(()=>{desc.dataset.txt=desc.dataset.cible;desc.textContent=desc.dataset.cible;desc.classList.remove('fondu');},400);}}
 desc.style.opacity=(started&&allSet&&!entered)?1:0;
+{const on=started&&allSet&&!entered&&nrev===2;lienSaveurs.classList.toggle('on',on);lienSaveurs.tabIndex=on?0:-1;}
 prev.style.opacity=entered?1:0;prev.style.pointerEvents=entered?'auto':'none';
 const light=entered&&active>=0&&palette(active,cubes[active].spk)===LIGHT;const icol=entered?(light?'rgba(255,255,255,.75)':'rgba(18,12,10,.6)'):'#a89a8d';prev.style.color=icol;
 if(faceAttente&&entered&&active===faceAttente.i&&!cubes[active].tw)afficherFace();

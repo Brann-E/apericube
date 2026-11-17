@@ -5,6 +5,9 @@
   --ombre-cadre:0 0 0 1px rgba(47,40,35,.07),0 24px 70px rgba(47,40,35,.14);
   /* format téléphone : largeur maximale de l'appli, centrée au-delà */
   --app-max:480px;
+  /* sur ordinateur : l'app tient dans un cadre de téléphone, centré, sans prendre tout l'écran */
+  /* la marge haute et basse fond sur les fenêtres basses : sous 760 px de cadre, l'app reprend toute la hauteur, comme aujourd'hui */
+  --app-max-h:880px;--app-rayon:28px;--app-marge:clamp(0px,calc((100vh - 760px) / 2),var(--esp-6));
   /* police : chargée par le site pour disposer de toutes les graisses (le système n'a que 400 et 700) */
   --police:"Source Serif 4","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;--graisse:450;
   /* marges et espacements */
@@ -35,6 +38,10 @@ body{font-family:var(--police);font-weight:var(--graisse);font-optical-sizing:au
 /* l'appli : plein écran sur téléphone, colonne au format téléphone au-delà */
 #wrap{position:fixed;inset:0;margin:0 auto;max-width:var(--app-max);overflow:hidden;overflow:clip;background:var(--bg)}
 @media (min-width:520px){#wrap{box-shadow:var(--ombre-cadre)}}
+/* grand écran : largeur et hauteur bornées, cadre arrondi centré dans la fenêtre */
+@media (min-width:600px) and (min-height:600px){
+  #wrap{inset:0;margin:auto;width:min(100%,var(--app-max));height:min(calc(100% - 2 * var(--app-marge)),var(--app-max-h));border-radius:var(--app-rayon)}
+}
 #c{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
 #pres{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;justify-content:center;padding:calc(40px + var(--sa-haut)) var(--marge) calc(12vh + var(--sa-bas));transition:opacity .7s;pointer-events:none}
 #qm{width:64px;height:80px;margin:0 0 14px -6px;pointer-events:auto;cursor:pointer;flex:none}
@@ -52,6 +59,11 @@ body{font-family:var(--police);font-weight:var(--graisse);font-optical-sizing:au
 #prev{bottom:calc(10px + var(--sa-bas));left:50%;transform:translateX(-50%);z-index:6;opacity:0;pointer-events:none}
 .cap{position:absolute;transform:translate(-50%,8px);text-align:center;font-size:var(--t-cap);color:var(--ink-cap);pointer-events:none;opacity:0;transition:opacity .9s,transform .9s;width:min(190px,46%);line-height:1.4}
 .cap-saveur{font-size:var(--t-cap-saveur);color:var(--ink)}
+/* « Voir les saveurs », calé en bas de l'écran une fois les deux cubes dévoilés : un lien souligné, qui se creuse au survol */
+.lien-saveurs{position:absolute;left:50%;bottom:calc(var(--esp-6) + var(--sa-bas));transform:translate(-50%,8px);padding:var(--esp-2) var(--esp-3);font-size:var(--t-cap);color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .9s,transform .9s,text-underline-offset .2s,text-decoration-thickness .2s}
+.lien-saveurs.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.lien-saveurs:hover{text-decoration-thickness:2px;text-underline-offset:6px}
+.lien-saveurs:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 
 /* ---------- écrans de lecture (scènes, questions, résultats) ---------- */
 #face{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;
@@ -102,6 +114,8 @@ body{font-family:var(--police);font-weight:var(--graisse);font-optical-sizing:au
 .modale{position:absolute;inset:0;z-index:9;background:var(--modale-voile);opacity:0;visibility:hidden;transition:opacity .25s ease,visibility 0s linear .25s}
 .modale.on{opacity:1;visibility:visible;transition:opacity .25s ease}
 #wrap.fige{bottom:auto;height:var(--hauteur-figee)}
+/* grand écran : la zone de commentaire ne fait pas sauter le cadre en haut de la fenêtre */
+@media (min-width:600px) and (min-height:600px){#wrap.fige{bottom:0}}
 .modale-carte{position:absolute;left:12px;right:12px;top:calc(40px + var(--sa-haut) + var(--vv-haut,0px));bottom:calc(12px + var(--sa-bas) + var(--vv-bas,0px));max-width:520px;margin:0 auto;display:flex;flex-direction:column;
   padding:var(--esp-5) var(--esp-5) var(--esp-4);background:var(--bg);color:var(--ink);border-radius:20px;box-shadow:var(--modale-ombre);transform:translateY(16px);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
 .modale.on .modale-carte{transform:none}
